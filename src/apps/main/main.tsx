@@ -20,13 +20,10 @@ const getCurrentPath = () => {
   }
 
   const pathname = normalizePath(window.location.pathname);
-  const parts = pathname.split("/").filter(Boolean);
-  const communityIdx = parts.indexOf("community");
-  if (communityIdx !== -1) {
-    const subPath = parts.slice(communityIdx + 1);
-    if (subPath.length > 0 && subPath[0].length > 0) {
-      return "/" + subPath[0];
-    }
+  const basePrefix = "/codingskuy";
+  if (pathname.startsWith(basePrefix)) {
+    const rest = pathname.slice(basePrefix.length);
+    return normalizePath(rest) || "/";
   }
   return "/";
 };

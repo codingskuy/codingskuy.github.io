@@ -4,7 +4,7 @@ import starlight from "@astrojs/starlight";
 
 export default defineConfig({
   site: "https://codingskuy.github.io",
-  base: "/community/articles",
+  base: "/codingskuy/articles",
   trailingSlash: "always",
   outDir: "./dist",
   integrations: [

@@ -26,7 +26,7 @@ export default defineConfig({
   trailingSlash: "never",
   output: "static",
   site: SITE_URL || "https://codingskuy.github.io",
-  base: "/community/codingstuff",
+  base: "/codingskuy/codingstuff",
   image: {
     service: { entrypoint: "astro/assets/services/noop" },
   },
