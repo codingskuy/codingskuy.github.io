@@ -19,13 +19,7 @@ const getCurrentPath = () => {
     return normalizePath(hashValue);
   }
 
-  const pathname = normalizePath(window.location.pathname);
-  const basePrefix = "/codingskuy";
-  if (pathname.startsWith(basePrefix)) {
-    const rest = pathname.slice(basePrefix.length);
-    return normalizePath(rest) || "/";
-  }
-  return "/";
+  return normalizePath(window.location.pathname);
 };
 
 function Root() {
