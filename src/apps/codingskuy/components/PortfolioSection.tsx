@@ -7,80 +7,83 @@ interface PortfolioSectionProps {
   darkMode: boolean;
 }
 
-const categories = ["All", "Mobile App", "Backend", "AI", "SaaS", "Open Source"];
+const DEV = typeof window !== "undefined" && window.location.hostname === "localhost";
+const CODINGSTUFF_BASE = DEV ? "http://localhost:4321/codingstuff" : "/codingstuff";
+
+const categories = ["All", "Mobile App", "Backend", "AI", "Web", "Open Source"];
 
 const projects = [
   {
     id: 1,
-    title: "FlutterFlow Pro",
-    desc: "Advanced Flutter state management toolkit with BLoC pattern generators, code scaffolding, and real-time preview.",
+    title: "AdukYa",
+    desc: "Resep masak digital dari member — fitur OCR bahan, timer built-in, dan mode gelap untuk dapur malam.",
     category: "Mobile App",
-    tech: ["Flutter", "Dart", "BLoC", "Hive"],
-    impact: "2K+ downloads/week",
-    stars: 847,
+    tech: ["Flutter", "Dart", "Firebase"],
+    impact: "3K+ downloads/month",
+    stars: 342,
     image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=360&fit=crop&auto=format",
     color: "#3d8bff",
     label: "Mobile App",
   },
   {
     id: 2,
-    title: "APIFlow Backend",
-    desc: "Production-ready FastAPI boilerplate with auth, RBAC, caching, async queues, and comprehensive test suite.",
+    title: "SkuyMart API",
+    desc: "Backend e-commerce buatan member — siap pakai dengan cart, payment gateway, dan dashboard realtime.",
     category: "Backend",
     tech: ["Python", "FastAPI", "PostgreSQL", "Redis"],
-    impact: "Used by 150+ devs",
-    stars: 523,
+    impact: "Used by 45+ toko",
+    stars: 231,
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=360&fit=crop&auto=format",
     color: "#00d4ff",
     label: "Backend",
   },
   {
     id: 3,
-    title: "CodeBuddy AI",
-    desc: "AI-powered code review assistant that integrates with GitHub PRs, providing instant feedback and suggestions.",
+    title: "SkuyBot",
+    desc: "Chatbot customer service otomatis dari contributor — integrasi WhatsApp, Telegram, dan web chat.",
     category: "AI",
-    tech: ["Claude API", "Python", "LangChain", "GitHub"],
-    impact: "500+ repos connected",
-    stars: 1234,
+    tech: ["Claude API", "Python", "LangChain", "WhatsApp"],
+    impact: "15+ bisnis terhubung",
+    stars: 567,
     image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&h=360&fit=crop&auto=format",
     color: "#8b5cf6",
     label: "AI",
   },
   {
     id: 4,
-    title: "DevDash SaaS",
-    desc: "Developer productivity dashboard — track GitHub activity, monitor CI/CD pipelines, manage deployment status.",
-    category: "SaaS",
-    tech: ["Flutter Web", "Supabase", "GitHub API", "Vercel"],
-    impact: "300 active teams",
-    stars: 312,
+    title: "SkuyBoard",
+    desc: "Dashboard kolaborasi project untuk komunitas — task tracking, diskusi, dan portofolio member.",
+    category: "Web",
+    tech: ["Flutter Web", "Supabase", "GitHub API"],
+    impact: "350+ active users",
+    stars: 412,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=360&fit=crop&auto=format",
     color: "#ff6b35",
-    label: "SaaS",
+    label: "Web",
   },
   {
     id: 5,
-    title: "SkuyMCP",
-    desc: "Open source MCP server collection for connecting AI agents to popular dev tools — Jira, Linear, Slack, GitHub.",
+    title: "SkuyKit CLI",
+    desc: "CLI tools untuk scaffolding project Flutter, FastAPI, dan Next.js — karya member yang rajin ngoding.",
     category: "Open Source",
-    tech: ["TypeScript", "MCP Protocol", "Claude", "Docker"],
-    impact: "Top 10 MCP repos",
-    stars: 2100,
+    tech: ["TypeScript", "Node.js", "Go", "Docker"],
+    impact: "1.8K+ downloads",
+    stars: 890,
     image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=600&h=360&fit=crop&auto=format",
     color: "#ffd700",
     label: "Open Source",
   },
   {
     id: 6,
-    title: "Learning OS",
-    desc: "Gamified coding learning platform for Indonesian developers — interactive exercises, video series, progress tracking.",
-    category: "SaaS",
+    title: "SkuyLearn",
+    desc: "Platform micro-learning interaktif buatan member — quiz, progress tracking, dan leaderboard komunitas.",
+    category: "Web",
     tech: ["Flutter", "Firebase", "Python", "FFmpeg"],
-    impact: "5K+ learners",
+    impact: "2.5K+ learners",
     stars: 189,
     image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&h=360&fit=crop&auto=format",
     color: "#00d4ff",
-    label: "SaaS",
+    label: "Web",
   },
 ];
 
@@ -229,22 +232,24 @@ export function PortfolioSection({ darkMode }: PortfolioSectionProps) {
           </AnimatePresence>
         </div>
 
-        {/* View all button */}
+        {/* CTA to codingstuff */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="text-center mt-10"
         >
-          <button
-            className="px-8 py-3 rounded-2xl font-semibold text-sm border transition-all hover:scale-105"
+          <a
+            href={CODINGSTUFF_BASE}
+            target="_self"
+            className="px-8 py-3 rounded-2xl font-semibold text-sm border transition-all hover:scale-105 inline-flex items-center gap-2"
             style={{
               borderColor: darkMode ? "rgba(61,139,255,0.3)" : "rgba(0,85,255,0.2)",
               color: darkMode ? "#3d8bff" : "#0055ff",
             }}
           >
-            View All Projects →
-          </button>
+            {t.portfolio.cta} →
+          </a>
         </motion.div>
       </div>
     </section>

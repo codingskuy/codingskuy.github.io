@@ -53,8 +53,8 @@ type ActivityPayload = {
 
 const FALLBACK_DATA: ActivityPayload = {
   generatedAt: "2026-04-07T03:00:00.000Z",
-  owner: "roiskhoiron",
-  discussionRepo: "roiskhoiron/.github",
+  owner: "Coding-Skuy",
+  discussionRepo: "Coding-Skuy/.github",
   project: {
     number: 9,
     title: "Public Activity Board",
@@ -171,7 +171,7 @@ const STAGE_META: Record<StatusKey, {
 };
 
 const GITHUB_GRAPHQL_ENDPOINT = "https://api.github.com/graphql";
-const GITHUB_OWNER = "roiskhoiron";
+const GITHUB_OWNER = "Coding-Skuy";
 const GITHUB_DISCUSSION_REPO = ".github";
 const GITHUB_PROJECT_NUMBER = 9;
 const GITHUB_READ_TOKEN = import.meta.env.VITE_GITHUB_READ_TOKEN as string | undefined;
@@ -213,7 +213,7 @@ const copy: Record<Language, {
     liveFlow: "Alur Aktivitas Belajar",
     title: "Perjalanan Belajar Hari Ini",
     description:
-      "Saya membuka perjalanan belajar teknologi saya ke publik — agar kamu bisa melihat proses nyata, progres, dan dampak dari setiap langkah yang saya ambil.",
+      "Kami membuka perjalanan belajar komunitas ke publik — agar kamu bisa melihat proses nyata, progres, dan dampak dari setiap langkah yang kami ambil bersama.",
     sync: "Sinkronisasi",
     viewProject: "Lihat Progres",
     joinDiscussion: "Mulai Diskusi",
@@ -244,9 +244,9 @@ const copy: Record<Language, {
       unknown: "Unmapped",
     },
     liveFlow: "Learning Activity Flow",
-    title: "Today's Learning Journey",
+    title: "Today's Growing Activity",
     description:
-      "I open my learning journey as a developer to the public — so you can see the real process, progress, and impact of every step I take.",
+      "We open our community activity to the public — so you can see the real process, progress, and impact of every step we take together.",
     sync: "Sync",
     viewProject: "View Progress",
     joinDiscussion: "Start Discussion",
@@ -278,7 +278,7 @@ const copy: Record<Language, {
     },
     liveFlow: "学习活动流",
     title: "今日学习旅程",
-    description: "我公开自己的技术学习旅程，让大家通过真实的过程、进度和影响了解我的每一步成长。",
+    description: "我们公开社区的技术学习旅程，让大家通过真实的过程、进度和影响了解每一步的成长。",
     sync: "同步",
     viewProject: "查看进度",
     joinDiscussion: "发起讨论",
@@ -310,7 +310,7 @@ const copy: Record<Language, {
     },
     liveFlow: "学習アクティビティフロー",
     title: "今日の学習の旅",
-    description: "開発者としての学習の旅を公開し、実際のプロセス、進捗、影響を誰でも見られるようにしています。",
+    description: "コミュニティの学習の旅を公開し、実際のプロセス、進捗、影響を誰でも見られるようにしています。",
     sync: "同期",
     viewProject: "進捗を見る",
     joinDiscussion: "ディスカッションを開始",
@@ -856,7 +856,7 @@ export function ActivityTransparencySection({ darkMode }: { darkMode: boolean })
                 {text.viewProject} <ExternalLink className="w-3.5 h-3.5" />
               </a>
               <a
-                href={`https://github.com/${data.discussionRepo}/discussions`}
+                href="https://github.com/orgs/Coding-Skuy/discussions"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg bg-teal-600 hover:bg-teal-500 px-3 py-1.5 text-xs text-white transition-colors"

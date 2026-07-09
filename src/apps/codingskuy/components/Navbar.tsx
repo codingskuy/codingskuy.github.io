@@ -65,7 +65,7 @@ export function Navbar({ darkMode, toggleDark }: NavbarProps) {
                   CodingSkuy!
                 </span>
                 <span className="text-xs font-semibold leading-tight" style={{ color: darkMode ? "#e8f0ff" : "#0d1117" }}>
-                  Rois Khoiron
+                  Driven Engineering
                 </span>
               </div>
           </a>

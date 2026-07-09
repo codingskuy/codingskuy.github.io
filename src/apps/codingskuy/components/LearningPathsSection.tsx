@@ -7,6 +7,7 @@ interface LearningPathsSectionProps {
 }
 
 const DEV = typeof window !== "undefined" && window.location.hostname === "localhost";
+const CODINGSTUFF_BASE = DEV ? "http://localhost:4321/codingstuff" : "/codingstuff";
 const ARTICLES_BASE = DEV ? "http://localhost:4322/articles" : "https://roiskhoiron.github.io/articles";
 
 const getArticleLink = (id: string) => {
@@ -220,6 +221,22 @@ export function LearningPathsSection({ darkMode = false }: LearningPathsSectionP
             </motion.div>
           ))}
         </div>
+
+        {/* CTA to codingstuff */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <a
+            href={CODINGSTUFF_BASE}
+            target="_self"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-base bg-gradient-to-r from-[#ff6b35] to-[#ffd700] text-white shadow-xl shadow-[#ff6b35]/25 hover:shadow-[#ff6b35]/40 hover:scale-105 transition-all duration-200"
+          >
+            {t.learning.cta} <ArrowRight size={18} />
+          </a>
+        </motion.div>
       </div>
     </section>
   );

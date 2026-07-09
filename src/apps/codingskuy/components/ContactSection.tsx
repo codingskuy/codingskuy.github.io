@@ -126,7 +126,7 @@ export function ContactSection({ darkMode }: ContactSectionProps) {
                   <CheckCircle2 size={48} className="text-[#22c55e]" />
                   <h3 className="text-xl font-bold" style={{ color: textMain }}>Pesan Terkirim! 🎉</h3>
                   <p className="text-sm" style={{ color: textMuted }}>
-                    Terima kasih! Saya akan membalas dalam 24-48 jam.
+                    Terima kasih! Kami akan membalas dalam 24-48 jam.
                   </p>
                 </motion.div>
               ) : (

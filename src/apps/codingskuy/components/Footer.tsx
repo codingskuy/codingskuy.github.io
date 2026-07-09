@@ -22,11 +22,11 @@ export function Footer({ darkMode }: FooterProps) {
   const textMain = darkMode ? "#e8f0ff" : "#0d1117";
 
   const footerLinks: Record<string, { label: string; href: string }[]> = {
-    [t.footer.personal]: [
-      { label: t.footer.aboutMe, href: "#about" },
+    [t.footer.explore]: [
+      { label: t.footer.about, href: "#about" },
       { label: t.footer.portfolio, href: "#portfolio" },
-      { label: t.footer.experience, href: "#experience" },
-      { label: t.footer.contact, href: "#contact" },
+      { label: t.footer.learningPaths, href: "#learning" },
+      { label: t.footer.community_, href: "#community" },
     ],
     [t.footer.codingskuy]: [
       { label: t.footer.articles, href: "#media" },
@@ -86,7 +86,7 @@ export function Footer({ darkMode }: FooterProps) {
               </div>
               <div>
                 <p className="font-bold text-sm leading-tight" style={{ color: "#3d8bff" }}>CodingSkuy!</p>
-                <p className="text-xs font-semibold leading-tight" style={{ color: textMain }}>by Rois Khoiron</p>
+                <p className="text-xs font-semibold leading-tight" style={{ color: textMuted }}>Driven Engineering</p>
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-6" style={{ color: textMuted }}>

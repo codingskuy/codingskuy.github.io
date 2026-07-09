@@ -8,13 +8,11 @@ import { HeroSection } from "./components/HeroSection";
 import { ShowcaseSection } from "./components/ShowcaseSection";
 import { AboutSection } from "./components/AboutSection";
 import { MetricsSection } from "./components/MetricsSection";
-import { ExpertiseSection } from "./components/ExpertiseSection";
 import { PortfolioSection } from "./components/PortfolioSection";
 import { MediaHubSection } from "./components/MediaHubSection";
 import { LearningPathsSection } from "./components/LearningPathsSection";
 import { AILabSection } from "./components/AILabSection";
 import { OpenSourceSection } from "./components/OpenSourceSection";
-import { ExperienceSection } from "./components/ExperienceSection";
 import { ContentLibrarySection } from "./components/ContentLibrarySection";
 import { CommunitySection } from "./components/CommunitySection";
 import { NewsletterSection } from "./components/NewsletterSection";
@@ -58,10 +56,10 @@ export default function App() {
       <main>
         <HeroSection darkMode={darkMode} />
         <AboutSection darkMode={darkMode} />
-        <ActivityTransparencySection darkMode={darkMode}/>
-        <LearningPathsSection darkMode={darkMode} />
         <ShowcaseSection darkMode={darkMode} />
         <MetricsSection darkMode={darkMode} />
+        <ActivityTransparencySection darkMode={darkMode}/>
+        <LearningPathsSection darkMode={darkMode} />
         <PhilosophySection darkMode={darkMode}/>
         <PortfolioSection darkMode={darkMode} />
         <MediaHubSection darkMode={darkMode} />

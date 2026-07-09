@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { Play, Film } from "lucide-react";
 import showcaseVideo from "@/assets/codingskuy_banner_background_video.mp4";
 import { useT } from "@/hooks/useT";
+import { useRef, useEffect } from "react";
 
 interface ShowcaseSectionProps {
   darkMode: boolean;
@@ -9,8 +10,28 @@ interface ShowcaseSectionProps {
 
 export function ShowcaseSection({ darkMode }: ShowcaseSectionProps) {
   const t = useT();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const textMuted = darkMode ? "#7c8db5" : "#64748b";
   const textMain = darkMode ? "#e8f0ff" : "#0d1117";
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="showcase" className="py-24 relative overflow-hidden">
@@ -47,13 +68,14 @@ export function ShowcaseSection({ darkMode }: ShowcaseSectionProps) {
             {t.showcase.desc}
           </p>
         </motion.div>
+      </div>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
-          className="relative rounded-3xl overflow-hidden"
+          className="relative rounded-3xl overflow-hidden w-4/5 mx-auto"
           style={{
             background: darkMode ? "#0d1629" : "#ffffff",
             border: `1px solid ${darkMode ? "rgba(61,139,255,0.2)" : "rgba(0,85,255,0.12)"}`,
@@ -63,17 +85,16 @@ export function ShowcaseSection({ darkMode }: ShowcaseSectionProps) {
           }}
         >
           <video
-            autoPlay
-            muted
+            ref={videoRef}
             loop
             playsInline
             controls
+            preload="auto"
             className="w-full aspect-video object-cover"
           >
             <source src={showcaseVideo} type="video/mp4" />
           </video>
         </motion.div>
-      </div>
     </section>
   );
 }

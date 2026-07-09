@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { MapPin, Mail, Smartphone, Server, Brain, PenTool, Users } from "lucide-react";
+import { MapPin, Mail, Smartphone, Server, Brain, PenTool, Users, Code } from "lucide-react";
 import { useT } from "@/hooks/useT";
 import mascotSvg from "@/assets/13-journey-transformation.jpeg";
 
@@ -7,12 +7,13 @@ interface AboutSectionProps {
   darkMode: boolean;
 }
 
-const highlights: { icon: any; color: string; key: "mobileDev" | "backend" | "aiExploration" | "techWriting" | "community" }[] = [
+const highlights: { icon: any; color: string; key: "mobileDev" | "backend" | "aiExploration" | "techWriting" | "community" | "softwareEng" }[] = [
   { icon: Smartphone, color: "#3d8bff", key: "mobileDev" },
   { icon: Server, color: "#00d4ff", key: "backend" },
   { icon: Brain, color: "#8b5cf6", key: "aiExploration" },
   { icon: PenTool, color: "#ff6b35", key: "techWriting" },
   { icon: Users, color: "#ffd700", key: "community" },
+  { icon: Code, color: "#10b981", key: "softwareEng" },
 ];
 
 export function AboutSection({ darkMode }: AboutSectionProps) {
@@ -59,16 +60,12 @@ export function AboutSection({ darkMode }: AboutSectionProps) {
               <div className="aspect-[4/3] relative overflow-hidden">
                 <img
                   src={mascotSvg}
-                  alt="Rois Khoiron — Software Engineer"
+                  alt="CodingSkuy Community"
                   className="w-full h-full object-cover"
                 />
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#060b18]/80 via-transparent to-transparent" />
-                {/* Name overlay */}
-                <div className="absolute bottom-4 left-4">
-                  <p className="text-white font-bold text-xl">Rois Khoiron</p>
-                  <p className="text-[#00d4ff] text-sm font-medium">{t.about.role}</p>
-                </div>
+
               </div>
 
               {/* Info chips */}
@@ -76,11 +73,8 @@ export function AboutSection({ darkMode }: AboutSectionProps) {
                 <span className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full" style={{ background: darkMode ? "#131e38" : "#e8edff", color: textMuted }}>
                   <MapPin size={11} /> {t.about.location}
                 </span>
-                <span className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full" style={{ background: darkMode ? "#131e38" : "#e8edff", color: textMuted }}>
-                  <Mail size={11} /> {t.about.email}
-                </span>
                 <span className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full" style={{ background: "rgba(0,212,255,0.1)", color: "#00d4ff", border: "1px solid rgba(0,212,255,0.2)" }}>
-                  {t.about.status}
+                  🚀 Open for Contributors
                 </span>
               </div>
             </div>
@@ -139,7 +133,6 @@ export function AboutSection({ darkMode }: AboutSectionProps) {
               <p className="text-sm italic leading-relaxed" style={{ color: textMuted }}>
                 {t.about.quote}
               </p>
-              <p className="text-xs font-semibold mt-3" style={{ color: "#3d8bff" }}>— {t.about.founder}</p>
             </div>
           </motion.div>
         </div>

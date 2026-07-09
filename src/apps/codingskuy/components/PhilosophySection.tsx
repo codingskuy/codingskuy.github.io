@@ -7,25 +7,25 @@ const copy: Record<Language, { tag: string; titleTop: string; titleBottom: strin
     tag: "Filosofi Belajar",
     titleTop: "Prinsip yang",
     titleBottom: "Mengarahkan Setiap Pembelajaran",
-    description: "Pendekatan belajar yang saya terapkan di setiap langkah — dari memahami konsep dasar hingga membangun proyek nyata.",
+    description: "Pendekatan belajar yang kami terapkan di setiap langkah — dari memahami konsep dasar hingga membangun proyek nyata bersama.",
   },
   en: {
     tag: "Learning Philosophy",
     titleTop: "Principles That",
     titleBottom: "Guide Every Learning",
-    description: "The learning approach I apply at every step — from understanding core concepts to building real projects.",
+    description: "The learning approach we apply at every step — from understanding core concepts to building real projects together.",
   },
   zh: {
     tag: "学习理念",
     titleTop: "指导每次学习的",
     titleBottom: "核心原则",
-    description: "我从理解基础概念到构建真实项目的每一步都遵循的学习方法。",
+    description: "我们从理解基础概念到构建真实项目，每一步都遵循的学习方法。",
   },
   ja: {
     tag: "学習理念",
     titleTop: "すべての学習を導く",
     titleBottom: "原則",
-    description: "基本概念の理解から実際のプロジェクト構築まで、あらゆる段階で適用する学習アプローチです。",
+    description: "基本概念の理解から実際のプロジェクト構築まで、あらゆる段階でコミュニティが適用する学習アプローチです。",
   },
 };
 
@@ -43,7 +43,7 @@ const pillarData: Record<Language, Pillar[]> = {
       icon: GitBranch,
       color: "blue",
       title: "Belajar Sistematis",
-      description: "Saya memandang belajar seperti merancang sistem — setiap konsep saling terhubung dan dibangun di atas fondasi yang kokoh.",
+      description: "Kami memandang belajar seperti merancang sistem — setiap konsep saling terhubung dan dibangun di atas fondasi yang kokoh.",
       principles: ["Belajar Bertahap", "Pemahaman Fondasi", "Latihan Konsisten", "Proyek Nyata"],
     },
     {
@@ -73,7 +73,7 @@ const pillarData: Record<Language, Pillar[]> = {
       icon: GitBranch,
       color: "blue",
       title: "Systematic Learning",
-      description: "I approach learning like designing a system — each concept connects and builds on a solid foundation.",
+      description: "We approach learning like designing a system — each concept connects and builds on a solid foundation.",
       principles: ["Step-by-Step", "Foundation First", "Consistent Practice", "Real Projects"],
     },
     {

@@ -24,9 +24,9 @@ export type Translations = {
     quote: string; quoteAuthor: string;
   };
   metrics: { title: string; heading: string; items: { value: string; label: string }[] };
-  learning: { title: string; heading: string; desc: string; items: { title: string; desc: string }[] };
+  learning: { title: string; heading: string; desc: string; cta: string; items: { title: string; desc: string }[] };
   showcase: { title: string; heading: string; desc: string; items: { title: string; desc: string; tech: string[] }[] };
-  portfolio: { title: string; heading: string; projects: { name: string; desc: string }[] };
+  portfolio: { title: string; heading: string; cta: string; projects: { name: string; desc: string }[] };
   mediaHub: { title: string; heading: string; desc: string };
   contentLibrary: { title: string; heading: string; desc: string };
   aiLab: { title: string; heading: string; desc: string; items: { title: string; desc: string }[] };
@@ -34,8 +34,8 @@ export type Translations = {
   openSource: { title: string; heading: string; desc: string; items: { name: string; desc: string }[] };
   newsletter: { title: string; heading: string; desc: string; placeholder: string; button: string };
   footer: {
-    brand: string; tagline: string; personal: string; codingskuy: string;
-    research: string; aboutMe: string; portfolio: string; experience: string;
+    brand: string; tagline: string; explore: string; codingskuy: string;
+    research: string; about: string; portfolio: string;
     contact: string; articles: string; tutorials: string; learningPaths: string;
     community_: string; aiLab_: string; openSource: string; githubProjects: string;
     newsletter_: string; copyright: string; madeWith: string; privacy: string;
@@ -47,33 +47,34 @@ export const translations: Record<Language, Translations> = {
   id: {
     nav: {
       about: "Tentang", learning: "Pembelajaran", projects: "Proyek",
-      media: "Media", ailab: "AI Lab", community: "Komunitas", activity: "Aktivitas", philosophy: "Filosofi", hireMe: "Hubungi Saya",
+      media: "Media", ailab: "AI Lab", community: "Komunitas", activity: "Aktivitas", philosophy: "Filosofi",       hireMe: "Gabung Komunitas",
     },
     hero: {
       badge: "CodingSkuy!", titleMain: "CodingSkuy!", titleSub: "Jurnal Pembelajaran & Repositori Engineering",
-      desc: "Sebuah platform terbuka dan playground gratis untuk mendokumentasikan proses belajar, menulis tutorial teknis, dan membagikan keputusan arsitektur software engineering oleh Rois Khoiron.",
+      desc: "Sebuah platform terbuka dan playground gratis dari komunitas untuk mendokumentasikan proses belajar, menulis tutorial teknis, dan membagikan keputusan arsitektur software engineering.",
       ctaStart: "Jelajahi Jurnal", ctaExplore: "Gabung Komunitas",
       joinCommunity: "Gabung Komunitas", follow: "Ikuti:", scroll: "gulir",
     },
     about: {
       title: "Tentang CodingSkuy",
       subtitle: "Mengapa Ini Ada",
-      role: "Software Engineer & Creator",
+      role: "",
       location: "Jakarta, Indonesia",
-      email: "rois.khoiron@gmail.com",
-      status: "✅ Open to Work",
-      story1: "CodingSkuy! bukanlah bisnis atau startup komersial. Ini adalah jurnal pembelajaran terbuka yang diinisiasi oleh Rois Khoiron untuk mendokumentasikan eksplorasi teknisnya, menulis catatan arsitektur, dan membagikan ilmu pemrograman kepada sesama developer secara gratis.",
+      email: "",
+      status: "",
+      story1: "CodingSkuy! bukanlah bisnis atau startup komersial. Ini adalah jurnal pembelajaran terbuka dari komunitas untuk berbagi praktik engineering — mencakup tata kelola, pengambilan keputusan, mitigasi risiko, arsitektur, dan eksplorasi teknis — kepada sesama developer secara gratis.",
       story2: "Tujuan utama kami adalah mempermudah proses belajar engineering dengan menyajikan dokumentasi yang praktis, berbasis proyek nyata, dan mudah dipahami oleh developer di Indonesia.",
-      founder: "Rois Khoiron, Maker",
+      founder: "",
       highlights: {
-        mobileDev: { label: "Mobile Dev", desc: "Android Native & Flutter" },
-        backend: { label: "Backend", desc: "REST API & System Design" },
-        aiExploration: { label: "Teknologi Baru", desc: "On-device ML & LLM" },
-        techWriting: { label: "Dokumentasi", desc: "Jurnal & catatan engineering" },
+        mobileDev: { label: "Desain Produk", desc: "UI/UX & Design Thinking" },
+        backend: { label: "QA Engineering", desc: "Testing & Quality Assurance" },
+        aiExploration: { label: "Manajerial", desc: "Kepemimpinan & Strategi" },
+        techWriting: { label: "Dokumentasi", desc: "Technical Writing & Pengetahuan" },
         community: { label: "Komunitas", desc: "Belajar & berbagi bersama" },
+        softwareEng: { label: "Software Engineering", desc: "Arsitektur & Best Practices" },
       },
-      quote: "\"CodingSkuy didirikan sebagai ruang berbagi catatan dan jurnal belajar saya. Saya percaya bahwa cara terbaik untuk belajar adalah dengan membangun sesuatu dan membagikan proses pembuatannya.\"",
-      quoteAuthor: "Rois Khoiron, Maker",
+      quote: "\"CodingSkuy adalah ruang bagi member hebat yang peduli dengan pertumbuhan bersama — bukan sekadar individu. Budaya gotong royong dan kolaborasi yang kami bangun membuat setiap anggota terbiasa dengan kualitas kerja tim, sehingga lebih mudah beradaptasi saat bekerja di proyek nyata di organisasi mana pun.\"",
+      quoteAuthor: "",
     },
     metrics: {
       title: "Dampak & Jangkauan",
@@ -86,9 +87,10 @@ export const translations: Record<Language, Translations> = {
       ],
     },
     learning: {
-      title: "Jalur Belajar",
-      heading: "Jalur Belajar",
-      desc: "Kurikulum terstruktur dari expert. Belajar dengan roadmap yang jelas dan terukur.",
+      title: "Kursus Gratis",
+      heading: "Belajar dari Karya Member Aktif",
+      desc: "Kursus dan tutorial gratis karya member komunitas yang suka berbagi. Belajar, berkembang, dan berkontribusi bersama kami.",
+      cta: "Jelajahi Semua Kursus Gratis",
       items: [
         { title: "Mobile Development", desc: "Flutter, Kotlin, SwiftUI." },
         { title: "Backend & API", desc: "FastAPI, PostgreSQL, Firebase." },
@@ -106,8 +108,9 @@ export const translations: Record<Language, Translations> = {
       ],
     },
     portfolio: {
-      title: "Portofolio",
-      heading: "Portofolio Pilihan",
+      title: "Karya Member",
+      heading: "Karya Unggulan Member",
+      cta: "Lihat Semua Karya Member",
       projects: [
         { name: "ChefGenie", desc: "Aplikasi dapur cerdas dengan AI." },
         { name: "CodingSkuy Platform", desc: "Platform belajar dan media teknologi." },
@@ -119,14 +122,14 @@ export const translations: Record<Language, Translations> = {
       desc: "Artikel, tutorial, dan video tentang teknologi terkini dari CodingSkuy.",
     },
     contentLibrary: {
-      title: "Content Library",
-      heading: "Perpustakaan Konten",
-      desc: "Koleksi materi belajar, source code, dan referensi developer.",
+      title: "Karya Member",
+      heading: "Kontribusi Member Aktif",
+      desc: "Koleksi artikel, tutorial, dan source code karya member CodingSkuy yang suka berbagi ilmu.",
     },
     aiLab: {
-      title: "AI Lab",
-      heading: "Experiments & Research",
-      desc: "Eksperimen dan riset AI untuk aplikasi nyata.",
+      title: "Lab AI",
+      heading: "Eksperimen Member",
+      desc: "Hasil eksperimen dan riset AI dari member — mulai dari LLM, RAG, hingga AI agents production.",
       items: [
         { title: "LLM Playground", desc: "Eksperimen dengan berbagai Large Language Model." },
         { title: "AI Vision", desc: "Computer vision untuk deteksi objek dan OCR." },
@@ -137,8 +140,8 @@ export const translations: Record<Language, Translations> = {
     },
     openSource: {
       title: "Open Source",
-      heading: "Projects for Developers",
-      desc: "Proyek yang dibuka untuk kontribusi publik.",
+      heading: "Proyek Open Source Member",
+      desc: "Proyek open source yang dibuat dan dikelola oleh member CodingSkuy.",
       items: [
         { name: "lean-ctx", desc: "Context engineering tools untuk AI agent." },
         { name: "MCP Servers", desc: "Model Context Protocol implementations." },
@@ -149,46 +152,47 @@ export const translations: Record<Language, Translations> = {
     },
     footer: {
       brand: "CodingSkuy!", tagline: "Learning Technology Should Be Fun.",
-      personal: "Personal", codingskuy: "CodingSkuy", research: "Riset & OS",
-      aboutMe: "Tentang Saya", portfolio: "Portfolio", experience: "Pengalaman",
+      explore: "Jelajahi", codingskuy: "CodingSkuy", research: "Riset & OS",
+      about: "Tentang", portfolio: "Portfolio",
       contact: "Kontak", articles: "Artikel", tutorials: "Tutorial",
       learningPaths: "Jalur Belajar", community_: "Komunitas",
       aiLab_: "AI Lab", openSource: "Open Source", githubProjects: "Proyek GitHub",
       newsletter_: "Newsletter",
-      copyright: "CodingSkuy! by Rois Khoiron",
+      copyright: "CodingSkuy! oleh Komunitas",
       madeWith: "Dibuat dengan", privacy: "Privasi", terms: "Ketentuan", sitemap: "Peta Situs",
     },
   },
   en: {
     nav: {
       about: "About", learning: "Learning", projects: "Projects",
-      media: "Media", ailab: "AI Lab", community: "Community", activity: "Activity", philosophy: "Philosophy", hireMe: "Hire Me",
+      media: "Media", ailab: "AI Lab", community: "Community", activity: "Activity", philosophy: "Philosophy",       hireMe: "Join Community",
     },
     hero: {
       badge: "CodingSkuy!", titleMain: "CodingSkuy!", titleSub: "Learning Journal & Engineering Repository",
-      desc: "An open platform and free playground created by Rois Khoiron to document learning processes, write technical tutorials, and share software engineering architecture decisions.",
+      desc: "An open platform and free playground from the community to document learning processes, write technical tutorials, and share software engineering architecture decisions.",
       ctaStart: "Explore Journal", ctaExplore: "Join Community",
       joinCommunity: "Join Community", follow: "Follow:", scroll: "scroll",
     },
     about: {
       title: "About CodingSkuy",
       subtitle: "Why It Exists",
-      role: "Software Engineer & Creator",
+      role: "",
       location: "Jakarta, Indonesia",
-      email: "rois.khoiron@gmail.com",
-      status: "✅ Open to Work",
-      story1: "CodingSkuy! is not a commercial business or startup. It is an open learning journal initiated by Rois Khoiron to document his technical explorations, write architectural notes, and share programming knowledge with other developers for free.",
+      email: "",
+      status: "",
+      story1: "CodingSkuy! is not a commercial business or startup. It is an open learning journal initiated by the community for sharing engineering practices — covering governance, decision-making, risk mitigation, architecture, and technical exploration — with other developers for free.",
       story2: "Our core mission is to simplify the engineering learning process by providing practical, project-based documentation that is easy for Indonesian developers to understand.",
-      founder: "Rois Khoiron, Maker",
+      founder: "",
       highlights: {
-        mobileDev: { label: "Mobile Dev", desc: "Android Native & Flutter" },
-        backend: { label: "Backend", desc: "REST API & System Design" },
-        aiExploration: { label: "Emerging Tech", desc: "On-device ML & LLMs" },
-        techWriting: { label: "Documentation", desc: "Journals & engineering notes" },
+        mobileDev: { label: "Product Design", desc: "UI/UX & Design Thinking" },
+        backend: { label: "QA Engineering", desc: "Testing & Quality Assurance" },
+        aiExploration: { label: "Managerial", desc: "Leadership & Strategy" },
+        techWriting: { label: "Documentation", desc: "Technical Writing & Knowledge" },
         community: { label: "Community", desc: "Learning & sharing together" },
+        softwareEng: { label: "Software Engineering", desc: "Architecture & Best Practices" },
       },
-      quote: "\"CodingSkuy was founded as a space to share my notes and learning journal. I believe the best way to learn is to build something and share the process.\"",
-      quoteAuthor: "Rois Khoiron, Maker",
+      quote: "\"CodingSkuy is a space for great members who care about growing together — not just individuals. The gotong royong culture and collaboration we build prepares every member with real team-work quality, making it easier to adapt when working on real projects in any organization.\"",
+      quoteAuthor: "",
     },
     metrics: {
       title: "Impact & Reach",
@@ -201,9 +205,10 @@ export const translations: Record<Language, Translations> = {
       ],
     },
     learning: {
-      title: "Learning Paths",
-      heading: "Learning Paths",
-      desc: "Structured curriculum from experts. Learn with clear, measurable roadmaps.",
+      title: "Free Courses",
+      heading: "Learn from Active Members' Works",
+      desc: "Free courses and tutorials crafted by community members who love sharing. Learn, grow, and contribute together.",
+      cta: "Explore All Free Courses",
       items: [
         { title: "Mobile Development", desc: "Flutter, Kotlin, SwiftUI." },
         { title: "Backend & API", desc: "FastAPI, PostgreSQL, Firebase." },
@@ -221,8 +226,9 @@ export const translations: Record<Language, Translations> = {
       ],
     },
     portfolio: {
-      title: "Portfolio",
-      heading: "Featured Portfolio",
+      title: "Member Works",
+      heading: "Featured Member Works",
+      cta: "View All Member Works",
       projects: [
         { name: "ChefGenie", desc: "Smart kitchen app with AI." },
         { name: "CodingSkuy Platform", desc: "Learning platform and tech media." },
@@ -234,14 +240,14 @@ export const translations: Record<Language, Translations> = {
       desc: "Articles, tutorials, and videos on latest tech from CodingSkuy.",
     },
     contentLibrary: {
-      title: "Content Library",
-      heading: "Content Library",
-      desc: "Collection of learning materials, source code, and developer references.",
+      title: "Member Content",
+      heading: "Active Members' Contributions",
+      desc: "A collection of articles, tutorials, and source code from CodingSkuy members who love sharing knowledge.",
     },
     aiLab: {
       title: "AI Lab",
-      heading: "Experiments & Research",
-      desc: "AI experiments and research for real-world applications.",
+      heading: "Member Experiments",
+      desc: "AI experiments and research results from members — from LLMs, RAG, to production AI agents.",
       items: [
         { title: "LLM Playground", desc: "Experiments with various Large Language Models." },
         { title: "AI Vision", desc: "Computer vision for object detection and OCR." },
@@ -252,8 +258,8 @@ export const translations: Record<Language, Translations> = {
     },
     openSource: {
       title: "Open Source",
-      heading: "Projects for Developers",
-      desc: "Projects open for public contribution.",
+      heading: "Members' Open Source Projects",
+      desc: "Open source projects built and maintained by CodingSkuy members.",
       items: [
         { name: "lean-ctx", desc: "Context engineering tools for AI agents." },
         { name: "MCP Servers", desc: "Model Context Protocol implementations." },
@@ -264,46 +270,47 @@ export const translations: Record<Language, Translations> = {
     },
     footer: {
       brand: "CodingSkuy!", tagline: "Learning Technology Should Be Fun.",
-      personal: "Personal", codingskuy: "CodingSkuy", research: "Research & OS",
-      aboutMe: "About Me", portfolio: "Portfolio", experience: "Experience",
+      explore: "Explore", codingskuy: "CodingSkuy", research: "Research & OS",
+      about: "About", portfolio: "Portfolio",
       contact: "Contact", articles: "Articles", tutorials: "Tutorials",
       learningPaths: "Learning Paths", community_: "Community",
       aiLab_: "AI Lab", openSource: "Open Source", githubProjects: "GitHub Projects",
       newsletter_: "Newsletter",
-      copyright: "CodingSkuy! by Rois Khoiron",
+      copyright: "CodingSkuy! by the Community",
       madeWith: "Made with", privacy: "Privacy", terms: "Terms", sitemap: "Sitemap",
     },
   },
   zh: {
     nav: {
       about: "关于", learning: "学习", projects: "项目",
-      media: "媒体", ailab: "AI实验室", community: "社区", activity: "动态", philosophy: "理念", hireMe: "联系我",
+      media: "媒体", ailab: "AI实验室", community: "社区", activity: "动态", philosophy: "理念",       hireMe: "加入社区",
     },
     hero: {
       badge: "CodingSkuy!", titleMain: "CodingSkuy!", titleSub: "学习日志与工程技术仓库",
-      desc: "一个由 Rois Khoiron 创建的开放平台与免费游乐场，旨在记录学习过程、编写技术教程并分享软件工程架构决策。",
+      desc: "一个由社区创建的开放平台与免费游乐场，旨在记录学习过程、编写技术教程并分享软件工程架构决策。",
       ctaStart: "探索日志", ctaExplore: "加入社区",
       joinCommunity: "加入社区", follow: "关注:", scroll: "滚动",
     },
     about: {
       title: "关于CodingSkuy",
       subtitle: "为什么存在",
-      role: "软件工程师与创作者",
+      role: "",
       location: "雅加达，印度尼西亚",
-      email: "rois.khoiron@gmail.com",
-      status: "✅ 开放机会",
-      story1: "CodingSkuy! 不是商业项目或创业公司。它是 Rois Khoiron 发起的一个开放学习日志，用于记录技术探索、撰写架构笔记并向其他开发者免费分享编程知识。",
+      email: "",
+      status: "",
+      story1: "CodingSkuy! 不是商业项目或创业公司。它是一个由社区发起的开放平台，用于分享工程实践——涵盖治理、决策、风险缓解、架构和技术探索——并向其他开发者免费提供。",
       story2: "我们的核心使命是通过提供易于印尼开发者理解的、基于项目的实用文档来简化工程学习过程。",
-      founder: "Rois Khoiron, 创作者",
+      founder: "",
       highlights: {
-        mobileDev: { label: "移动开发", desc: "Android 原生与 Flutter" },
-        backend: { label: "后端", desc: "REST API 与系统设计" },
-        aiExploration: { label: "新兴技术", desc: "端侧 ML 与 LLM" },
-        techWriting: { label: "技术文档", desc: "日志与工程笔记" },
+        mobileDev: { label: "产品设计", desc: "UI/UX 与设计思维" },
+        backend: { label: "QA 工程", desc: "测试与质量保证" },
+        aiExploration: { label: "管理", desc: "领导力与战略" },
+        techWriting: { label: "文档", desc: "技术写作与知识管理" },
         community: { label: "社区", desc: "共同学习与分享" },
+        softwareEng: { label: "软件工程", desc: "架构与最佳实践" },
       },
-      quote: "\"创建 CodingSkuy 是为了分享我的笔记和学习日志。我相信最好的学习方式就是动手构建一些东西并分享过程。\"",
-      quoteAuthor: "Rois Khoiron, 创作者",
+      quote: "\"CodingSkuy 是一个为关心共同成长的优秀成员而设的空间——不仅仅是个人。我们建立的互助合作文化让每位成员具备真正的团队协作能力，在任何组织的真实项目中都能快速适应。\"",
+      quoteAuthor: "",
     },
     metrics: {
       title: "影响与覆盖",
@@ -316,9 +323,10 @@ export const translations: Record<Language, Translations> = {
       ],
     },
     learning: {
-      title: "学习路径",
-      heading: "学习路径",
-      desc: "专家设计的结构化课程。以清晰、可衡量的路线图学习。",
+      title: "免费课程",
+      heading: "向活跃成员的作品学习",
+      desc: "由热爱分享的社区成员制作的免费课程和教程。一起学习、成长和贡献。",
+      cta: "探索所有免费课程",
       items: [
         { title: "移动开发", desc: "Flutter, Kotlin, SwiftUI." },
         { title: "后端与API", desc: "FastAPI, PostgreSQL, Firebase." },
@@ -336,8 +344,9 @@ export const translations: Record<Language, Translations> = {
       ],
     },
     portfolio: {
-      title: "作品集",
-      heading: "精选作品集",
+      title: "成员作品",
+      heading: "精选成员作品",
+      cta: "查看所有成员作品",
       projects: [
         { name: "ChefGenie", desc: "智能厨房AI应用。" },
         { name: "CodingSkuy平台", desc: "学习平台和技术媒体。" },
@@ -349,14 +358,14 @@ export const translations: Record<Language, Translations> = {
       desc: "来自CodingSkuy的最新技术文章、教程和视频。",
     },
     contentLibrary: {
-      title: "内容库",
-      heading: "内容库",
-      desc: "学习材料、源代码和开发者参考的集合。",
+      title: "成员内容",
+      heading: "活跃成员的贡献",
+      desc: "来自热爱分享的CodingSkuy成员的文章、教程和源代码合集。",
     },
     aiLab: {
       title: "AI实验室",
-      heading: "实验与研究",
-      desc: "面向实际应用的AI实验和研究。",
+      heading: "成员实验",
+      desc: "来自成员的AI实验和研究成果——从LLM、RAG到生产级AI智能体。",
       items: [
         { title: "LLM游乐场", desc: "各种大型语言模型的实验。" },
         { title: "AI视觉", desc: "用于物体检测和OCR的计算机视觉。" },
@@ -367,8 +376,8 @@ export const translations: Record<Language, Translations> = {
     },
     openSource: {
       title: "开源",
-      heading: "面向开发者的项目",
-      desc: "向公众开放贡献的项目。",
+      heading: "成员的开源项目",
+      desc: "由CodingSkuy成员构建和维护的开源项目。",
       items: [
         { name: "lean-ctx", desc: "AI智能体的上下文工程工具。" },
         { name: "MCP服务器", desc: "模型上下文协议实现。" },
@@ -379,46 +388,47 @@ export const translations: Record<Language, Translations> = {
     },
     footer: {
       brand: "CodingSkuy!", tagline: "学习技术应该很有趣。",
-      personal: "个人", codingskuy: "CodingSkuy", research: "研究与开源",
-      aboutMe: "关于我", portfolio: "作品集", experience: "经验",
+      explore: "探索", codingskuy: "CodingSkuy", research: "研究与开源",
+      about: "关于", portfolio: "作品集",
       contact: "联系", articles: "文章", tutorials: "教程",
       learningPaths: "学习路径", community_: "社区",
       aiLab_: "AI实验室", openSource: "开源", githubProjects: "GitHub项目",
       newsletter_: "通讯",
-      copyright: "CodingSkuy! by Rois Khoiron",
+      copyright: "CodingSkuy! 由社区共建",
       madeWith: "用心制作", privacy: "隐私", terms: "条款", sitemap: "网站地图",
     },
   },
   ja: {
     nav: {
       about: "概要", learning: "学習", projects: "プロジェクト",
-      media: "メディア", ailab: "AIラボ", community: "コミュニティ", activity: "アクティビティ", philosophy: "哲学", hireMe: "お問い合わせ",
+      media: "メディア", ailab: "AIラボ", community: "コミュニティ", activity: "アクティビティ", philosophy: "哲学",       hireMe: "コミュニティに参加",
     },
     hero: {
       badge: "CodingSkuy!", titleMain: "CodingSkuy!", titleSub: "学習ジャーナル & エンジニアリングリポジトリ",
-      desc: "Rois Khoiron によって作成された、学習プロセスのドキュメント化、技術チュートリアルの執筆、ソフトウェアエンジニアリングアーキテクチャの意思決定を共有するためのオープンプラットフォームおよび無料のプレイグラウンド。",
+      desc: "コミュニティによって作られた、学習プロセスのドキュメント化、技術チュートリアルの執筆、ソフトウェアエンジニアリングアーキテクチャの意思決定を共有するためのオープンプラットフォームおよび無料のプレイグラウンド。",
       ctaStart: "ジャーナルを探索", ctaExplore: "コミュニティに参加",
       joinCommunity: "コミュニティに参加", follow: "フォロー:", scroll: "スクロール",
     },
     about: {
       title: "CodingSkuyについて",
       subtitle: "存在理由",
-      role: "ソフトウェアエンジニア & クリエイター",
+      role: "",
       location: "ジャカルタ、インドネシア",
-      email: "rois.khoiron@gmail.com",
-      status: "✅ 募集中",
-      story1: "CodingSkuy! は商業プロジェクトやスタートアップではありません。Rois Khoiron が技術探索を記録し、アーキテクチャノートを執筆し、他の開発者とプログラミング知識を無料で共有するために開始したオープンな学習ジャーナルです。",
+      email: "",
+      status: "",
+      story1: "CodingSkuy! は商業プロジェクトやスタートアップではありません。コミュニティによって始められたオープンな学習ジャーナルで、エンジニアリング実践を共有するためのプラットフォームです — ガバナンス、意思決定、リスク軽減、アーキテクチャ、技術探求をカバーし、他の開発者と無料で共有します。",
       story2: "私たちの核心ミッションは、インドネシアの開発者が理解しやすい実践的かつプロジェクトベースのドキュメントを提供することで、エンジニアリングの学習プロセスを簡素化することです。",
-      founder: "Rois Khoiron, クリエイター",
+      founder: "",
       highlights: {
-        mobileDev: { label: "モバイル開発", desc: "Android ネイティブ & Flutter" },
-        backend: { label: "バックエンド", desc: "REST API & システム設計" },
-        aiExploration: { label: "新興技術", desc: "オンデバイス ML & LLMs" },
-        techWriting: { label: "技術ドキュメント", desc: "ジャーナル & 工程ノート" },
+        mobileDev: { label: "プロダクトデザイン", desc: "UI/UX & デザイン思考" },
+        backend: { label: "QAエンジニアリング", desc: "テスト & 品質保証" },
+        aiExploration: { label: "マネジリアル", desc: "リーダーシップ & 戦略" },
+        techWriting: { label: "ドキュメンテーション", desc: "テクニカルライティング & 知識" },
         community: { label: "コミュニティ", desc: "共に学び、共有する" },
+        softwareEng: { label: "ソフトウェアエンジニアリング", desc: "アーキテクチャ & ベストプラクティス" },
       },
-      quote: "\"CodingSkuy は私のメモや学習ジャーナルを共有するスペースとして設立されました。学ぶための最良の方法は、何かを構築し、そのプロセスを共有することだと信じています。\"",
-      quoteAuthor: "Rois Khoiron, クリエイター",
+      quote: "\"CodingSkuy は共に成長することを大切にする素晴らしいメンバーのための空間です — 個人だけではありません。私たちが築く相互扶助と協力の文化は、すべてのメンバーに真のチームワーク力を養い、どの組織の実践的なプロジェクトでも適応しやすくします。\"",
+      quoteAuthor: "",
     },
     metrics: {
       title: "影響とリーチ",
@@ -431,9 +441,10 @@ export const translations: Record<Language, Translations> = {
       ],
     },
     learning: {
-      title: "学習パス",
-      heading: "学習パス",
-      desc: "専門家による構造化カリキュラム。明確で測定可能なロードマップで学習。",
+      title: "無料コース",
+      heading: "アクティブメンバーの作品から学ぶ",
+      desc: "共有を愛するコミュニティメンバーが作った無料のコースとチュートリアル。一緒に学び、成長し、貢献しましょう。",
+      cta: "すべての無料コースを見る",
       items: [
         { title: "モバイル開発", desc: "Flutter, Kotlin, SwiftUI." },
         { title: "バックエンド・API", desc: "FastAPI, PostgreSQL, Firebase." },
@@ -451,8 +462,9 @@ export const translations: Record<Language, Translations> = {
       ],
     },
     portfolio: {
-      title: "ポートフォリオ",
-      heading: "厳選ポートフォリオ",
+      title: "メンバー作品",
+      heading: "厳選メンバー作品",
+      cta: "すべてのメンバー作品を見る",
       projects: [
         { name: "ChefGenie", desc: "AIスマートキッチンアプリ。" },
         { name: "CodingSkuyプラットフォーム", desc: "学習プラットフォーム＆テックメディア。" },
@@ -464,14 +476,14 @@ export const translations: Record<Language, Translations> = {
       desc: "CodingSkuyからの最新技術記事、チュートリアル、動画。",
     },
     contentLibrary: {
-      title: "コンテンツライブラリ",
-      heading: "コンテンツライブラリ",
-      desc: "学習教材、ソースコード、開発者向けリファレンスのコレクション。",
+      title: "メンバーコンテンツ",
+      heading: "アクティブメンバーの貢献",
+      desc: "知識共有を愛するCodingSkuyメンバーによる記事、チュートリアル、ソースコードのコレクション。",
     },
     aiLab: {
       title: "AIラボ",
-      heading: "実験と研究",
-      desc: "実世界のアプリケーション向けAI実験と研究。",
+      heading: "メンバー実験",
+      desc: "メンバーによるAI実験と研究結果 — LLM、RAGから本番AIエージェントまで。",
       items: [
         { title: "LLMプレイグラウンド", desc: "様々な大規模言語モデルの実験。" },
         { title: "AIビジョン", desc: "物体検出とOCRのためのコンピュータビジョン。" },
@@ -482,8 +494,8 @@ export const translations: Record<Language, Translations> = {
     },
     openSource: {
       title: "オープンソース",
-      heading: "開発者のためのプロジェクト",
-      desc: "一般の貢献に公開されているプロジェクト。",
+      heading: "メンバーのオープンソースプロジェクト",
+      desc: "CodingSkuyメンバーによって構築・管理されているオープンソースプロジェクト。",
       items: [
         { name: "lean-ctx", desc: "AIエージェント向けコンテキストエンジニアリングツール。" },
         { name: "MCPサーバー", desc: "Model Context Protocolの実装。" },
@@ -494,13 +506,13 @@ export const translations: Record<Language, Translations> = {
     },
     footer: {
       brand: "CodingSkuy!", tagline: "Learning Technology Should Be Fun.",
-      personal: "パーソナル", codingskuy: "CodingSkuy", research: "研究・OS",
-      aboutMe: "私について", portfolio: "ポートフォリオ", experience: "経験",
+      explore: "探索", codingskuy: "CodingSkuy", research: "研究・OS",
+      about: "概要", portfolio: "ポートフォリオ",
       contact: "お問い合わせ", articles: "記事", tutorials: "チュートリアル",
       learningPaths: "学習パス", community_: "コミュニティ",
       aiLab_: "AIラボ", openSource: "オープンソース", githubProjects: "GitHubプロジェクト",
       newsletter_: "ニュースレター",
-      copyright: "CodingSkuy! by Rois Khoiron",
+      copyright: "CodingSkuy! コミュニティより",
       madeWith: "によって作られました", privacy: "プライバシー", terms: "利用規約", sitemap: "サイトマップ",
     },
   },

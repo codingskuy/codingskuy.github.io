@@ -6,7 +6,7 @@ interface MetricsSectionProps {
 }
 
 const metrics = [
-  { value: "5+", label: "Years Experience", desc: "Building real products", color: "#3d8bff", icon: "🚀" },
+  { value: "5+", label: "Years Active", desc: "Building together since 2021", color: "#3d8bff", icon: "🚀" },
   { value: "20+", label: "Mobile Apps", desc: "Shipped to production", color: "#00d4ff", icon: "📱" },
   { value: "150+", label: "Articles", desc: "Published & read by thousands", color: "#8b5cf6", icon: "✍️" },
   { value: "80+", label: "Videos", desc: "YouTube tutorials", color: "#ff6b35", icon: "🎬" },

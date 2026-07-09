@@ -112,7 +112,7 @@ export function OpenSourceSection({ darkMode }: OpenSourceSectionProps) {
             </h2>
           </div>
           <a
-            href="https://github.com/rois-khoiron"
+            href="https://github.com/Coding-Skuy"
             className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-semibold border transition-all hover:scale-105"
             style={{
               borderColor: darkMode ? "rgba(0,212,255,0.3)" : "rgba(0,212,255,0.2)",

@@ -3,12 +3,19 @@ import { ArrowRight, Star, Zap, Github, Youtube, Linkedin } from "lucide-react";
 import { DoodleBolt, DoodleBracket, DoodleCode, DoodleSpark, DoodleRocket } from "./CodingSkuyMascot";
 import mascotSvg from "@/assets/hero-skuy.jpeg";
 import { useT } from "@/hooks/useT";
+import { ScrollingTags } from "./ScrollingTags";
 
 interface HeroSectionProps { 
   darkMode: boolean;
 }
 
-const techPills = ["Flutter", "Dart", "Kotlin", "Python", "FastAPI", "PostgreSQL", "LLM", "MCP"];
+const techPills = [
+  "Flutter", "Dart", "Kotlin", "Python", "FastAPI", "PostgreSQL", "LLM", "MCP",
+  "TypeScript", "React", "Next.js", "Go", "Rust", "Docker", "Kubernetes",
+  "GraphQL", "Redis", "Kafka", "Terraform", "AWS", "GCP", "Tailwind CSS",
+  "Prisma", "Supabase", "Firebase", "React Native", "Swift", "Vue.js",
+  "NestJS", "Svelte", "SQLite", "MongoDB", "Nginx", "GitHub Actions",
+];
 
 export function HeroSection({ darkMode }: HeroSectionProps) {
   const t = useT();
@@ -88,7 +95,7 @@ export function HeroSection({ darkMode }: HeroSectionProps) {
                 <Star size={12} fill="currentColor" /> CodingSkuy!
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#8b5cf6]/10 text-[#a78bfa] border border-[#8b5cf6]/20">
-                by Rois Khoiron
+                Open Community
               </span>
             </div>
 
@@ -146,7 +153,7 @@ export function HeroSection({ darkMode }: HeroSectionProps) {
               {[
                 { icon: Github, href: "https://github.com/codingskuy", label: "GitHub" },
                 { icon: Youtube, href: "https://youtube.com/@codingskuy", label: "YouTube" },
-                { icon: Linkedin, href: "https://linkedin.com/in/roiskhoiron", label: "LinkedIn" },
+                { icon: Linkedin, href: "https://www.linkedin.com/groups/17187002/", label: "LinkedIn" },
               ].map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
@@ -161,22 +168,6 @@ export function HeroSection({ darkMode }: HeroSectionProps) {
               ))}
             </div>
 
-            {/* Tech stack pills */}
-            <div className="flex flex-wrap gap-2 pt-2">
-              {techPills.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-2.5 py-1 rounded-lg text-xs font-mono font-medium border"
-                  style={{
-                    background: darkMode ? "rgba(61,139,255,0.06)" : "rgba(0,85,255,0.04)",
-                    borderColor: darkMode ? "rgba(61,139,255,0.2)" : "rgba(0,85,255,0.12)",
-                    color: darkMode ? "#7c8db5" : "#64748b",
-                  }}
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
           </motion.div>
 
           {/* Right — mascot visual */}
@@ -277,6 +268,11 @@ export function HeroSection({ darkMode }: HeroSectionProps) {
               </motion.div>
             </div>
           </motion.div>
+        </div>
+
+        {/* Scrolling tags */}
+        <div className="mt-8 -mx-4 sm:-mx-6 lg:-mx-8">
+          <ScrollingTags tags={techPills} darkMode={darkMode} />
         </div>
 
         {/* Scroll indicator */}
