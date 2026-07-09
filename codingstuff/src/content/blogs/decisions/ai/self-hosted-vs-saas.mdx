@@ -1,6 +1,6 @@
 ---
 title: "Self Hosted vs SaaS"
-description: "&quot;Self hosted vs SaaS — dari pengalaman hosting AI sendiri — CodingSkuy&quot;"
+description: "&quot;Self hosted vs SaaS — dari pengalaman hosting AI sendiri — CodingStuff&quot;"
 pubDate: "2026-07-07"
 author: "Rois"
 tags: ["decisions", "ai", "self-hosted-vs-saas"]
@@ -11,7 +11,7 @@ tags: ["decisions", "ai", "self-hosted-vs-saas"]
 
 > *"SaaS itu bayar bulanan. Self-hosted itu bayar server, listrik, dan malam-malam begadang karena maintenance."*
 
-CodingSkuy pake beberapa SaaS: Vercel untuk hosting, Supabase untuk database, OpenAI untuk AI. Cepet launch, fokus ke produk. Tapi pertanyaan mulai muncul: kapan waktunya self-host?
+CodingStuff pake beberapa SaaS: Vercel untuk hosting, Supabase untuk database, OpenAI untuk AI. Cepet launch, fokus ke produk. Tapi pertanyaan mulai muncul: kapan waktunya self-host?
 
 **SaaS (Software as a Service):**
 Aku pake SaaS untuk hal-hal yang bukan core business:
@@ -25,9 +25,9 @@ Kekurangan yang mulai terasa:
 - Kontrol terbatas — ada fitur yang tidak bisa dikustomisasi
 
 **Self-hosted:**
-Satu komponen yang aku self-host: RAG pipeline. Kenapa? Karena data artikel CodingSkuy — meskipun publik — aku lebih nyaman kontrol sendiri. Juga karena rate limit OpenAI terlalu ketat untuk jumlah query yang kuperlukan.
+Satu komponen yang aku self-host: RAG pipeline. Kenapa? Karena data artikel CodingStuff — meskipun publik — aku lebih nyaman kontrol sendiri. Juga karena rate limit OpenAI terlalu ketat untuk jumlah query yang kuperlukan.
 
-Aku setup pgvector di VPS 1GB. Untuk skala CodingSkuy saat ini, masih cukup. Tapi kalau user naik 10x, aku harus scale — yang berarti biaya server naik, maintenance naik.
+Aku setup pgvector di VPS 1GB. Untuk skala CodingStuff saat ini, masih cukup. Tapi kalau user naik 10x, aku harus scale — yang berarti biaya server naik, maintenance naik.
 
 **Kapan pilih SaaS:**
 - Non-core business (auth, email, hosting)

@@ -1,6 +1,6 @@
 ---
 title: "Explainability"
-description: "&quot;Membuat keputusan AI bisa dijelaskan — dari pengalaman tidak bisa jawab &#39;kenapa modelku bilang ini&#39; — CodingSkuy&quot;"
+description: "&quot;Membuat keputusan AI bisa dijelaskan — dari pengalaman tidak bisa jawab &#39;kenapa modelku bilang ini&#39; — CodingStuff&quot;"
 pubDate: "2026-07-07"
 author: "Rois"
 tags: ["governance", "ai", "explainability"]
@@ -21,7 +21,7 @@ Sejak itu aku sadar: **akurasi tinggi tidak berguna kalau kamu tidak bisa menjel
 
 ### Kisah Kedua: Debugging Tanpa Explainability
 
-Model produksi CodingSkuy mulai salah kasih rekomendasi. Pengguna komplain: "Kenapa saya dikasih rekomendasi Flutter? Saya backend developer."
+Model produksi CodingStuff mulai salah kasih rekomendasi. Pengguna komplain: "Kenapa saya dikasih rekomendasi Flutter? Saya backend developer."
 
 Aku coba debug. Tapi modelnya kompleks — neural network dengan ribuan parameter. Aku tidak tahu fitur mana yang paling berpengaruh.
 
@@ -42,7 +42,7 @@ Untuk kasus ini, pilihan tergantung konteks:
 - Untuk rekomendasi artikel (risiko rendah) — model kompleks OK
 - Untuk screening CV (risiko tinggi) — model sederhana lebih aman
 
-Di CodingSkuy, aku pake pendekatan hybrid:
+Di CodingStuff, aku pake pendekatan hybrid:
 - Rekomendasi konten: model kompleks. Explainability-nya: "Karena kamu suka X"
 - Moderasi konten: rule-based + model sederhana. Setiap keputusan bisa dijelaskan
 

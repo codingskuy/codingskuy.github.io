@@ -45,10 +45,10 @@ export interface SlideTheme {
   overlayColor: string;
 }
 
-export const SITE_TITLE = "CodingSkuy!";
+export const SITE_TITLE = "CodingStuff!";
 export const SITE_DESCRIPTION = "Learning Journal & Engineering Repository — An open platform and free playground created by Rois Khoiron to document learning processes, write technical tutorials, and share software engineering architecture decisions.";
 
-export const PROD_URL = "https://roiskhoiron.github.io/codingstuff";
+export const PROD_URL = "https://codingskuy.github.io";
 
 export const isProdEnv = () => {
   if (import.meta.env?.PROD || import.meta.env?.MODE === "production") {
@@ -113,7 +113,7 @@ export const MENU_ITEMS: MenuItem[] = [
     label: "GitHub",
     href: "https://github.com/Coding-Skuy",
     title: "GitHub",
-    description: "Explore open-source projects by CodingSkuy.",
+    description: "Explore open-source projects by CodingStuff.",
   },
 ];
 

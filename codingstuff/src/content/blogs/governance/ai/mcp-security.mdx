@@ -1,6 +1,6 @@
 ---
 title: "MCP Security"
-description: "&quot;Keamanan MCP — dari pengalaman koneksi AI ke tools eksternal — CodingSkuy&quot;"
+description: "&quot;Keamanan MCP — dari pengalaman koneksi AI ke tools eksternal — CodingStuff&quot;"
 pubDate: "2026-07-07"
 author: "Rois"
 tags: ["governance", "ai", "mcp-security"]
@@ -11,7 +11,7 @@ tags: ["governance", "ai", "mcp-security"]
 
 > *"MCP bikin agent bisa pake tools apa aja. Keren — tapi setiap tools baru adalah potensi celah keamanan baru. Kayak buka pintu rumah — makin banyak pintu, makin banyak yang perlu dikunci."*
 
-Waktu pertama kali setup MCP (Model Context Protocol) untuk agent CodingSkuy, aku excited. Agent bisa search artikel, baca konten, generate ringkasan — semuanya lewat tools yang terintegrasi.
+Waktu pertama kali setup MCP (Model Context Protocol) untuk agent CodingStuff, aku excited. Agent bisa search artikel, baca konten, generate ringkasan — semuanya lewat tools yang terintegrasi.
 
 Tapi semakin banyak tools yang aku tambah, semakin sadar aku: **setiap tools adalah permukaan serangan baru.**
 
@@ -50,7 +50,7 @@ Setiap tools wajib diautentikasi. Token atau API key. Jangan biarkan tools tanpa
 Komunikasi antara agent dan tools harus HTTPS/TLS. Data dalam perjalanan bisa dicegat.
 
 **3. Tool whitelist**
-Agent cuma bisa akses tools tertentu. Bukan bebas panggil tools di internet. Di CodingSkuy, tools MCP terbatas pada: search index artikel, baca artikel tertentu, generate ringkasan. Tidak ada akses ke database user, environment variables, atau delete.
+Agent cuma bisa akses tools tertentu. Bukan bebas panggil tools di internet. Di CodingStuff, tools MCP terbatas pada: search index artikel, baca artikel tertentu, generate ringkasan. Tidak ada akses ke database user, environment variables, atau delete.
 
 **4. Audit logging**
 Setiap panggilan tools tercatat. Agent mana, tools apa, parameter apa, hasil apa. Kalau ada insiden — bisa di-trace.

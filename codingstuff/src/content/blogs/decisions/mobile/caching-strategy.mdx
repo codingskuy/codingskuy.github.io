@@ -1,6 +1,6 @@
 ---
 title: "Caching Strategy"
-description: "&quot;Caching strategy — dari pengalaman bikin aplikasi offline-first — CodingSkuy&quot;"
+description: "&quot;Caching strategy — dari pengalaman bikin aplikasi offline-first — CodingStuff&quot;"
 pubDate: "2026-07-07"
 author: "Rois"
 tags: ["decisions", "mobile", "caching-strategy"]
@@ -17,7 +17,7 @@ Pelajarannya: cache bukan fitur opsional — untuk mobile, itu kebutuhan.
 
 **Strategi cache yang kupakai:**
 
-1. **Cache-first, network-update** — tampilkan cache dulu, update dari network di background. User lihat data instan, kemudian data segar muncul. Ini yang kupakai untuk daftar artikel CodingSkuy.
+1. **Cache-first, network-update** — tampilkan cache dulu, update dari network di background. User lihat data instan, kemudian data segar muncul. Ini yang kupakai untuk daftar artikel CodingStuff.
 
 2. **Network-first, cache-fallback** — coba ambil dari network. Kalau gagal (offline atau timeout), pake cache. Untuk data yang harus real-time seperti status pesanan.
 
@@ -30,7 +30,7 @@ Pelajarannya: cache bukan fitur opsional — untuk mobile, itu kebutuhan.
 - **HTTP cache** — cache response API. Pakai dio_cache_interceptor. Untuk API yang jarang berubah.
 
 **Yang kupelajari:**
-Cache strategy harus disesuaikan dengan tipe data. Data artikel CodingSkuy jarang berubah → cache-first. Data komentar real-time → network-first. Kombinasi strategi untuk tiap jenis data.
+Cache strategy harus disesuaikan dengan tipe data. Data artikel CodingStuff jarang berubah → cache-first. Data komentar real-time → network-first. Kombinasi strategi untuk tiap jenis data.
 
 > *"Cache strategy yang baik bikin aplikasi terasa cepat meski koneksi lambat. Cache strategy yang jelek bikin user lihat data basi."*
 

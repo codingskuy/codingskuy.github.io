@@ -1,6 +1,6 @@
 ---
 title: "MCP vs REST API"
-description: "&quot;MCP vs REST API — dari pengalaman integrasi AI dengan tools — CodingSkuy&quot;"
+description: "&quot;MCP vs REST API — dari pengalaman integrasi AI dengan tools — CodingStuff&quot;"
 pubDate: "2026-07-07"
 author: "Rois"
 tags: ["decisions", "ai", "mcp-vs-rest"]
@@ -12,7 +12,7 @@ tags: ["decisions", "ai", "mcp-vs-rest"]
 > *"REST itu standar industri untuk komunikasi service. Tapi untuk AI, REST punya masalah: agent harus dijelasin manual."*
 
 **REST API:**
-Standar HTTP — endpoint, method, JSON. Semua developer paham. Aku pake REST untuk API CodingSkuy. Developer mana pun yang mau integrasi tinggal baca dokumentasi.
+Standar HTTP — endpoint, method, JSON. Semua developer paham. Aku pake REST untuk API CodingStuff. Developer mana pun yang mau integrasi tinggal baca dokumentasi.
 
 Tapi untuk AI agent, REST punya masalah:
 - Agent harus dikasih tau: endpoint apa yang tersedia, parameter apa, format response gimana
@@ -40,7 +40,7 @@ Dengan MCP, agent bisa:
 | Untuk siapa | Service-to-service | AI-to-service |
 
 **Yang kulakukan:**
-CodingSkuy API tetap REST. Tapi untuk AI agent yang perlu akses data CodingSkuy, aku siapkan MCP layer di atas REST API yang sudah ada. Jadi agent bisa discover tools secara otomatis tanpa harus dijelaskan di prompt.
+CodingStuff API tetap REST. Tapi untuk AI agent yang perlu akses data CodingStuff, aku siapkan MCP layer di atas REST API yang sudah ada. Jadi agent bisa discover tools secara otomatis tanpa harus dijelaskan di prompt.
 
 > *"REST untuk API tradisional. MCP untuk expose tools ke AI agent. Keduanya bisa hidup berdampingan."*
 

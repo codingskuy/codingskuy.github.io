@@ -1,6 +1,6 @@
 ---
 title: "Hallucination Risk"
-description: "&quot;Halusinasi AI — dari pengalaman LLM bikin kutipan yang tidak ada — CodingSkuy&quot;"
+description: "&quot;Halusinasi AI — dari pengalaman LLM bikin kutipan yang tidak ada — CodingStuff&quot;"
 pubDate: "2026-07-07"
 author: "Rois"
 tags: ["governance", "ai", "hallucination-risk"]
@@ -26,7 +26,7 @@ Banyak orang bingung antara hallucination dan data leakage. Padahal beda:
 - **Hallucination:** Model mengarang informasi yang tidak ada. Outputnya terdengar meyakinkan tapi salah.
 - **Leakage:** Model mengulang data nyata dari training set — termasuk data pribadi.
 
-Di CodingSkuy, aku hadapi hallucination waktu AI generate ringkasan artikel. Model nambahin detail yang tidak ada di artikel asli:
+Di CodingStuff, aku hadapi hallucination waktu AI generate ringkasan artikel. Model nambahin detail yang tidak ada di artikel asli:
 - "Penulis menyebutkan bahwa Flutter 4.0 dirilis Januari 2025" — padahal artikel tidak menyebut itu
 - "Menurut wawancara dengan engineer Google..." — padahal tidak ada wawancara
 
@@ -51,7 +51,7 @@ Hallucination tidak selalu jelas. Kadang outputnya 90% benar, 10% salah. Dan 10%
 ### Mitigasi
 
 **1. Grounding — hubungkan ke sumber nyata**
-Yang paling efektif: RAG (Retrieval-Augmented Generation). Jangan biarkan AI menjawab dari parameter model saja. Ambil dokumen relevan sebagai konteks. Di CodingSkuy, setiap jawaban AI didasarkan pada artikel CodingSkuy yang sudah di-index.
+Yang paling efektif: RAG (Retrieval-Augmented Generation). Jangan biarkan AI menjawab dari parameter model saja. Ambil dokumen relevan sebagai konteks. Di CodingStuff, setiap jawaban AI didasarkan pada artikel CodingStuff yang sudah di-index.
 
 **2. Prompt yang jelas**
 Beri instruksi eksplisit: "Jika tidak tahu, katakan tidak tahu. Jangan mengarang." Tidak menjamin 100%, tapi mengurangi drastis.

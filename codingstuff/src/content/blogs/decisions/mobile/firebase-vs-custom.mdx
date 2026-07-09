@@ -1,6 +1,6 @@
 ---
 title: "Firebase vs Custom Backend"
-description: "&quot;Firebase vs custom backend — dari pengalaman build backend sendiri — CodingSkuy&quot;"
+description: "&quot;Firebase vs custom backend — dari pengalaman build backend sendiri — CodingStuff&quot;"
 pubDate: "2026-07-07"
 author: "Rois"
 tags: ["decisions", "mobile", "firebase-vs-custom"]
@@ -11,7 +11,7 @@ tags: ["decisions", "mobile", "firebase-vs-custom"]
 
 > *"Aku habiskan 2 bulan bikin backend sendiri. Firebase bisa selesai dalam 2 hari."*
 
-Waktu mulai CodingSkuy apps, aku dihadapkan pada pilihan: Firebase atau bikin backend sendiri.
+Waktu mulai CodingStuff apps, aku dihadapkan pada pilihan: Firebase atau bikin backend sendiri.
 
 Awalnya aku condong ke custom backend. Alasan: kontrol penuh, tidak tergantung vendor, bisa custom sesuka hati. Tapi setelah 2 minggu, aku baru setup authentication, database schema, dan API dasar. Belum fitur lainnya.
 
@@ -35,7 +35,7 @@ Hemat waktu berbulan-bulan. Aku bisa fokus ke fitur aplikasi, bukan urusan serve
 - Budget untuk scaling nanti
 
 **Masalah yang mulai terasa:**
-Setelah beberapa bulan, free tier mulai mendekati batas. Authentication 50k monthly active users — untuk skala CodingSkuy masih cukup. Tapi Cloud Functions dan Firestore mulai mendekati paid tier.
+Setelah beberapa bulan, free tier mulai mendekati batas. Authentication 50k monthly active users — untuk skala CodingStuff masih cukup. Tapi Cloud Functions dan Firestore mulai mendekati paid tier.
 
 Pelajaran: Firebase memang murah di awal — tapi bisa mahal kalau skalanya naik. Perlu monitor usage secara rutin.
 

@@ -1,6 +1,6 @@
 ---
 title: "Vector Database vs Traditional Search"
-description: "&quot;Vector database vs traditional search — dari pengalaman cari artikel — CodingSkuy&quot;"
+description: "&quot;Vector database vs traditional search — dari pengalaman cari artikel — CodingStuff&quot;"
 pubDate: "2026-07-07"
 author: "Rois"
 tags: ["decisions", "ai", "vector-vs-search"]
@@ -11,7 +11,7 @@ tags: ["decisions", "ai", "vector-vs-search"]
 
 > *"Keyword search itu cari kata. Vector search itu cari makna."*
 
-Di CodingSkuy, user bisa cari artikel. Awalnya pake pencarian keyword biasa — PostgreSQL `ILIKE '%query%'`. Sederhana, cepat untuk skala kecil.
+Di CodingStuff, user bisa cari artikel. Awalnya pake pencarian keyword biasa — PostgreSQL `ILIKE '%query%'`. Sederhana, cepat untuk skala kecil.
 
 Tapi ada problem: user cari "cara kelola state aplikasi" — tidak ketemu artikel "Riverpod vs BLoC" karena tidak ada kata "kelola" atau "state aplikasi" di judul. Padahal isinya relevan.
 
@@ -23,7 +23,7 @@ Tapi user sering cari dengan kata yang berbeda dari yang ada di artikel. Bahasa 
 
 **Vector Database (pgvector):**
 
-Sekarang setiap artikel CodingSkuy punya vector embedding. Pas user cari "cara kelola state aplikasi" → query diubah ke vector → cari artikel dengan vector terdekat → ketemu artikel Riverpod, BLoC, Provider.
+Sekarang setiap artikel CodingStuff punya vector embedding. Pas user cari "cara kelola state aplikasi" → query diubah ke vector → cari artikel dengan vector terdekat → ketemu artikel Riverpod, BLoC, Provider.
 
 Gak perlu exact match. Yang dicari maknanya, bukan katanya.
 

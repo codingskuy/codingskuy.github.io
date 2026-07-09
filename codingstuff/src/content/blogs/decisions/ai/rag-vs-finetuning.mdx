@@ -1,6 +1,6 @@
 ---
 title: "RAG vs Fine Tuning"
-description: "&quot;RAG vs fine tuning — dari pengalaman bikin AI yang paham konteks — CodingSkuy&quot;"
+description: "&quot;RAG vs fine tuning — dari pengalaman bikin AI yang paham konteks — CodingStuff&quot;"
 pubDate: "2026-07-07"
 author: "Rois"
 tags: ["decisions", "ai", "rag-vs-finetuning"]
@@ -11,7 +11,7 @@ tags: ["decisions", "ai", "rag-vs-finetuning"]
 
 > *"Dulu aku kira fine-tuning jawaban semua masalah. Ternyata RAG lebih sering jawabannya."*
 
-Waktu mau bikin AI yang paham semua artikel CodingSkuy, aku pikir harus fine-tune model. Latih ulang dengan dataset artikel. Biar modelnya hafal semua konten.
+Waktu mau bikin AI yang paham semua artikel CodingStuff, aku pikir harus fine-tune model. Latih ulang dengan dataset artikel. Biar modelnya hafal semua konten.
 
 Tapi setelah riset, aku sadar: fine-tuning itu mahal, butuh data banyak, dan setiap artikel baru berarti training ulang.
 
@@ -19,7 +19,7 @@ Tapi setelah riset, aku sadar: fine-tuning itu mahal, butuh data banyak, dan set
 
 Pendekatan yang kupakai sekarang:
 
-1. Semua artikel CodingSkuy dipecah jadi chunks (potongan)
+1. Semua artikel CodingStuff dipecah jadi chunks (potongan)
 2. Tiap chunk diubah jadi vector embedding
 3. Disimpan di vector database (pgvector)
 4. Pas user tanya, sistem cari chunk yang relevan
@@ -31,7 +31,7 @@ Keuntungan: artikel baru tinggal nambah ke database. Tidak perlu training ulang.
 
 Fine tuning tetap berguna — tapi untuk konteks yang berbeda.
 
-Misal: aku mau model yang bisa nulis dengan gaya khas CodingSkuy — bahasa Indonesia yang santai tapi informatif. Fine tuning dengan contoh-contoh artikel bisa bikin model paham gaya penulisan.
+Misal: aku mau model yang bisa nulis dengan gaya khas CodingStuff — bahasa Indonesia yang santai tapi informatif. Fine tuning dengan contoh-contoh artikel bisa bikin model paham gaya penulisan.
 
 Tapi untuk knowledge (fakta, konsep, tutorial) — RAG lebih efektif.
 
