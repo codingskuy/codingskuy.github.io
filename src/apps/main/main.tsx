@@ -1,7 +1,6 @@
 
 import { createRoot } from "react-dom/client";
 import { useEffect, useState } from "react";
-import App from "./App.tsx";
 import { ChefGenieLandingPage } from "@/apps/chefgenie/pages";
 import { CodingSkuyLandingPage } from "@/apps/codingskuy/pages";
 import { ThemeProvider } from "@/contexts/ThemeContext";
@@ -46,10 +45,6 @@ function Root() {
         </ThemeProvider>
       </LanguageProvider>
     );
-  }
-
-  if (currentPath === "/portfolio") {
-    return <App />;
   }
 
   return (
