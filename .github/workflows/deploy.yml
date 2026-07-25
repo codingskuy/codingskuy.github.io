@@ -81,27 +81,29 @@ jobs:
           ls -la build/codingstuff/
 
       - name: Install codingschool dependencies
-        run: npm install 2>&1
-        working-directory: codingschool
+        run: cd codingschool && npm install 2>&1
 
       - name: Build codingschool (Vite static for GitHub Pages)
-        run: BASE_PATH=/codingschool npx vite build --outDir dist 2>&1
-        working-directory: codingschool
+        run: cd codingschool && BASE_PATH=/codingschool npm run build 2>&1
 
       - name: Debug codingschool output
-        run: ls -la dist/ 2>&1 || echo "dist/ not found"
+        run: |
+          echo "PWD: $(pwd)"
+          find . -maxdepth 1 -name "build" -o -name "dist" 2>&1
+          ls -la codingschool/ 2>&1
+          find codingschool -maxdepth 2 -name "*.html" 2>&1
 
       - name: Merge codingschool output into build/
         run: |
-          if [ -d codingschool/dist ] && [ "$(ls -A codingschool/dist)" ]; then
-            SRC=codingschool/dist
-          elif [ -d codingschool/build ] && [ "$(ls -A codingschool/build)" ]; then
-            SRC=codingschool/build
-          else
-            echo "ERROR: No output directory found"; exit 1
-          fi
           mkdir -p build/codingschool
-          cp -R $SRC/* build/codingschool/
+          if [ -d "codingschool/build" ] && [ "$(ls -A codingschool/build 2>/dev/null)" ]; then
+            cp -R codingschool/build/* build/codingschool/
+          elif [ -d "codingschool/dist" ] && [ "$(ls -A codingschool/dist 2>/dev/null)" ]; then
+            cp -R codingschool/dist/* build/codingschool/
+          else
+            echo "ERROR: no codingschool output found"
+            exit 1
+          fi
           ls -la build/codingschool/
 
       - name: Copy index.html as 404.html for SPA fallback
