@@ -87,12 +87,12 @@ jobs:
         run: cd codingschool && BASE_PATH=/codingschool npm run build 2>&1
 
       - name: Debug codingschool output
-        run: ls -la codingschool/build/ || echo "codingschool/build/ not found"
+        run: ls -la codingschool/dist/ || echo "codingschool/dist/ not found"
 
       - name: Merge codingschool output into build/
         run: |
           mkdir -p build/codingschool
-          cp -R codingschool/build/* build/codingschool/
+          cp -R codingschool/dist/* build/codingschool/
           ls -la build/codingschool/
 
       - name: Copy index.html as 404.html for SPA fallback
