@@ -81,13 +81,15 @@ jobs:
           ls -la build/codingstuff/
 
       - name: Install codingschool dependencies
-        run: cd codingschool && npm install 2>&1
+        run: npm install 2>&1
+        working-directory: codingschool
 
       - name: Build codingschool (Vite static for GitHub Pages)
-        run: cd codingschool && BASE_PATH=/codingschool npm run build 2>&1
+        run: BASE_PATH=/codingschool npx vite build --outDir dist 2>&1
+        working-directory: codingschool
 
       - name: Debug codingschool output
-        run: ls -la codingschool/dist/ codingschool/build/ 2>&1 || echo "neither dist/ nor build/ found"
+        run: ls -la dist/ 2>&1 || echo "dist/ not found"
 
       - name: Merge codingschool output into build/
         run: |
