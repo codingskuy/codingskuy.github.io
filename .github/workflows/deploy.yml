@@ -84,15 +84,22 @@ jobs:
         run: cd codingschool && npm install 2>&1
 
       - name: Build codingschool (Vite static for GitHub Pages)
-        run: cd codingschool && BASE_PATH=/codingschool npx vite build --outDir dist 2>&1
+        run: cd codingschool && BASE_PATH=/codingschool npm run build 2>&1
 
       - name: Debug codingschool output
-        run: ls -la codingschool/dist/ || echo "codingschool/dist/ not found"
+        run: ls -la codingschool/dist/ codingschool/build/ 2>&1 || echo "neither dist/ nor build/ found"
 
       - name: Merge codingschool output into build/
         run: |
+          if [ -d codingschool/dist ] && [ "$(ls -A codingschool/dist)" ]; then
+            SRC=codingschool/dist
+          elif [ -d codingschool/build ] && [ "$(ls -A codingschool/build)" ]; then
+            SRC=codingschool/build
+          else
+            echo "ERROR: No output directory found"; exit 1
+          fi
           mkdir -p build/codingschool
-          cp -R codingschool/dist/* build/codingschool/
+          cp -R $SRC/* build/codingschool/
           ls -la build/codingschool/
 
       - name: Copy index.html as 404.html for SPA fallback
