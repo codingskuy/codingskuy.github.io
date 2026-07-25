@@ -84,7 +84,7 @@ jobs:
         run: cd codingschool && npm install 2>&1
 
       - name: Build codingschool (Vite static for GitHub Pages)
-        run: cd codingschool && BASE_PATH=/codingschool npm run build 2>&1
+        run: cd codingschool && BASE_PATH=/codingschool npx vite build --outDir dist 2>&1
 
       - name: Debug codingschool output
         run: ls -la codingschool/dist/ || echo "codingschool/dist/ not found"
