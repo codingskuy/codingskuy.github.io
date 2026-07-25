@@ -80,6 +80,21 @@ jobs:
           cp -R codingstuff/dist/* build/codingstuff/
           ls -la build/codingstuff/
 
+      - name: Install codingschool dependencies
+        run: cd codingschool && npm install 2>&1
+
+      - name: Build codingschool (Vite static for GitHub Pages)
+        run: cd codingschool && BASE_PATH=/codingschool npm run build 2>&1
+
+      - name: Debug codingschool output
+        run: ls -la codingschool/dist/ || echo "codingschool/dist/ not found"
+
+      - name: Merge codingschool output into build/
+        run: |
+          mkdir -p build/codingschool
+          cp -R codingschool/dist/* build/codingschool/
+          ls -la build/codingschool/
+
       - name: Copy index.html as 404.html for SPA fallback
         run: cp build/index.html build/404.html
 
