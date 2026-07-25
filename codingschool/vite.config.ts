@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
 export default defineConfig({
+  root: __dirname,
   base: process.env.BASE_PATH ? `${process.env.BASE_PATH}/` : '/',
   build: {
     outDir: 'dist',
