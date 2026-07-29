@@ -17,8 +17,6 @@ import {
   X,
   Copy,
 } from 'lucide-react'
-import { useTranslation } from './i18n'
-import { LanguageSwitcher } from './LanguageSwitcher'
 
 function GithubIcon({ size = 16 }: { size?: number }) {
   return (
@@ -83,7 +81,7 @@ function useCounter(target: number, duration = 600, startOnView = true) {
 
 function useCopyToClipboard() {
   const [copied, setCopied] = useState(false)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
 
   const copy = useCallback((text: string) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -173,7 +171,7 @@ const TERMINAL_LINES = [
   { text: '$ opencode install @codingskuy/coding-school', delay: 0, type: 'command' },
   { text: '', delay: 600, type: 'blank' },
   { text: '✔ Installing plugin...', delay: 800, type: 'success' },
-  { text: '✔ Learn Agent registered', delay: 1400, type: 'success' },
+  { text: '✔ Teacher Agent registered', delay: 1400, type: 'success' },
   { text: '✔ Coach Agent registered', delay: 1900, type: 'success' },
   { text: '✔ Loading student profile...', delay: 2400, type: 'success' },
   { text: '', delay: 2900, type: 'blank' },
@@ -312,7 +310,7 @@ function TerminalWindow() {
               opacity: 0,
             }}
           >
-            {line.text || ' '}
+            {line.text || ' '}
           </div>
         ))}
         {visibleLines < TERMINAL_LINES.length && (
@@ -361,6 +359,7 @@ function CompBar({ label, value, color = '#FF8C42' }: CompetencyBar) {
   }, [animated, value])
 
   const blocks = 10
+  const filled = Math.round((value / 100) * blocks)
 
   return (
     <div ref={ref} style={{ marginBottom: 14 }}>
@@ -529,7 +528,7 @@ interface StatCardProps {
   suffix: string
 }
 
-function StatCard({ icon, label, numVal, suffix }: StatCardProps) {
+function StatCard({ icon, value, label, numVal, suffix }: StatCardProps) {
   const { ref, inView } = useInView()
   const { ref: counterRef, count } = useCounter(numVal, 800)
 
@@ -577,7 +576,6 @@ function StatCard({ icon, label, numVal, suffix }: StatCardProps) {
 // ─── Nav ───────────────────────────────────────────────────────────────────────
 
 function Nav() {
-  const { t } = useTranslation()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -587,12 +585,7 @@ function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const navLinks = [
-    { key: 'nav.features', label: t('nav.features') },
-    { key: 'nav.philosophy', label: t('nav.philosophy') },
-    { key: 'nav.docs', label: t('nav.docs') },
-    { key: 'nav.github', label: t('nav.github') },
-  ]
+  const navLinks = ['Features', 'Philosophy', 'Docs', 'GitHub']
 
   return (
     <nav
@@ -650,7 +643,7 @@ function Nav() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 32 }} className="hidden-mobile">
           {navLinks.map((link) => (
             <a
-              key={link.key}
+              key={link}
               href="#"
               className="link-underline"
               style={{
@@ -663,14 +656,13 @@ function Nav() {
               onMouseEnter={(e) => (e.currentTarget.style.color = '#F0F6FC')}
               onMouseLeave={(e) => (e.currentTarget.style.color = '#8B949E')}
             >
-              {link.label}
+              {link}
             </a>
           ))}
         </div>
 
-        {/* CTA + Language Switcher */}
+        {/* CTA */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <LanguageSwitcher />
           <button
             className="interact-press"
             style={{
@@ -694,7 +686,7 @@ function Nav() {
               e.currentTarget.style.boxShadow = 'none'
             }}
           >
-            {t('nav.install')}
+            Install Free
           </button>
           <button
             className="mobile-menu-btn"
@@ -723,7 +715,7 @@ function Nav() {
         >
           {navLinks.map((link) => (
             <a
-              key={link.key}
+              key={link}
               href="#"
               onClick={() => setMenuOpen(false)}
               style={{
@@ -738,12 +730,9 @@ function Nav() {
               onMouseEnter={(e) => (e.currentTarget.style.color = '#F0F6FC')}
               onMouseLeave={(e) => (e.currentTarget.style.color = '#8B949E')}
             >
-              {link.label}
+              {link}
             </a>
           ))}
-          <div style={{ marginTop: 16 }}>
-            <LanguageSwitcher />
-          </div>
           <button
             className="interact-press"
             style={{
@@ -761,7 +750,7 @@ function Nav() {
             }}
             onClick={() => setMenuOpen(false)}
           >
-            {t('nav.install')}
+            Install Free
           </button>
         </div>
       )}
@@ -861,7 +850,6 @@ export default function App() {
 }
 
 function AppInner() {
-  const { t } = useTranslation()
   const [toast, setToast] = useState<string | null>(null)
 
   useEffect(() => {
@@ -912,7 +900,7 @@ function AppInner() {
                 color: '#8B949E',
               }}
             >
-              {t('hero.badge')}
+              OpenCode Plugin · Free & Open Source
             </span>
           </div>
 
@@ -926,8 +914,8 @@ function AppInner() {
               letterSpacing: '-0.02em',
             }}
           >
-            {t('hero.title1')}{' '}
-            <span style={{ color: '#FF8C42' }}>{t('hero.title2')}</span>
+            Become an Engineer.{' '}
+            <span style={{ color: '#FF8C42' }}>Not an AI Copy-Paster.</span>
           </h1>
 
           <p
@@ -939,7 +927,7 @@ function AppInner() {
               maxWidth: 440,
             }}
           >
-            {t('hero.subtitle')}
+            The free OpenCode plugin that teaches, reviews, and grows with you through real software projects.
           </p>
 
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
@@ -970,7 +958,7 @@ function AppInner() {
               }}
             >
               <Download size={15} />
-              {t('hero.install')}
+              Install Free
             </button>
             <a
               href="https://github.com/codingskuy/coding-school"
@@ -1003,15 +991,15 @@ function AppInner() {
               }}
             >
               <GithubIcon size={15} />
-              {t('hero.viewGithub')}
+              View GitHub
             </a>
           </div>
 
           <div style={{ marginTop: 28, display: 'flex', gap: 20 }}>
             {[
-              { icon: <Star size={13} />, text: t('hero.stars') },
-              { icon: <Users size={13} />, text: t('hero.contributors') },
-              { icon: <Download size={13} />, text: t('hero.installs') },
+              { icon: <Star size={13} />, text: '2.1k stars' },
+              { icon: <Users size={13} />, text: '340 contributors' },
+              { icon: <Download size={13} />, text: '18k installs' },
             ].map(({ icon, text }, i) => (
               <div
                 key={i}
@@ -1043,7 +1031,7 @@ function AppInner() {
 
       {/* ── The Problem ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px 100px' }}>
-        <SectionLabel text={t('problem.label')} />
+        <SectionLabel text="The Problem" />
         <h2
           style={{
             fontSize: 'clamp(28px, 4vw, 44px)',
@@ -1055,12 +1043,12 @@ function AppInner() {
             letterSpacing: '-0.02em',
           }}
         >
-          {t('problem.title')}
+          AI changed programming.
           <br />
-          <span style={{ color: '#8B949E' }}>{t('problem.titleHighlight')}</span>
+          <span style={{ color: '#8B949E' }}>It didn't change how people learn.</span>
         </h2>
         <p style={{ color: '#8B949E', fontSize: 16, lineHeight: 1.65, marginBottom: 56, maxWidth: 480 }}>
-          {t('problem.subtitle')}
+          Developers are shipping faster than ever — but fewer understand what they're shipping.
         </p>
 
         <div
@@ -1095,10 +1083,10 @@ function AppInner() {
                 gap: 8,
               }}
             >
-              <span>✖</span> {t('problem.todaysWorkflow')}
+              <span>✖</span> Today's Workflow
             </div>
-            {[t('problem.steps.prompt'), t('problem.steps.copy'), t('problem.steps.paste'), t('problem.steps.ship'), t('problem.steps.forget')].map((step, i, arr) => (
-              <div key={i}>
+            {['Prompt', 'Copy', 'Paste', 'Ship', 'Forget'].map((step, i, arr) => (
+              <div key={step}>
                 <div
                   style={{
                     fontFamily: "'JetBrains Mono', monospace",
@@ -1112,7 +1100,7 @@ function AppInner() {
                 {i < arr.length - 1 && (
                   <div
                     style={{
-                      fontFamily: "'JetBrains Mono', monospace",
+                      fontFamily: "'JetBrains Mono', monospace',",
                       fontSize: 13,
                       color: '#30363D',
                       paddingLeft: 4,
@@ -1138,13 +1126,13 @@ function AppInner() {
                   marginBottom: 12,
                 }}
               >
-                {t('problem.result')}
+                Result
               </div>
               {[
-                t('problem.results.shallow'),
-                t('problem.results.tutorial'),
-                t('problem.results.debugging'),
-                t('problem.results.growth'),
+                'Shallow understanding',
+                'Tutorial dependency',
+                'Weak debugging skills',
+                'No engineering growth',
               ].map((item) => (
                 <div
                   key={item}
@@ -1212,10 +1200,10 @@ function AppInner() {
                 gap: 8,
               }}
             >
-              <span>✔</span> {t('problem.codingSchoolMethod')}
+              <span>✔</span> CodingSchool Method
             </div>
-            {[t('problem.steps.diagnose'), t('problem.steps.understand'), t('problem.steps.build'), t('problem.steps.review'), t('problem.steps.reflect'), t('problem.steps.grow')].map((step, i, arr) => (
-              <div key={i}>
+            {['Diagnose', 'Understand', 'Build', 'Review', 'Reflect', 'Grow'].map((step, i, arr) => (
+              <div key={step}>
                 <div
                   style={{
                     fontFamily: "'JetBrains Mono', monospace",
@@ -1238,13 +1226,13 @@ function AppInner() {
               <div
                 style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#8B949E', marginBottom: 12 }}
               >
-                {t('problem.result')}
+                Result
               </div>
               {[
-                t('problem.csResults.deep'),
-                t('problem.csResults.independent'),
-                t('problem.csResults.strongDebugging'),
-                t('problem.csResults.continuous'),
+                'Deep engineering understanding',
+                'Independent problem-solving',
+                'Strong debugging skills',
+                'Continuous growth',
               ].map((item) => (
                 <div
                   key={item}
@@ -1272,7 +1260,7 @@ function AppInner() {
 
       {/* ── Why CodingSchool ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px 100px' }}>
-        <SectionLabel text={t('why.label')} />
+        <SectionLabel text="Why CodingSchool" />
         <h2
           style={{
             fontSize: 'clamp(28px, 4vw, 44px)',
@@ -1283,10 +1271,10 @@ function AppInner() {
             letterSpacing: '-0.02em',
           }}
         >
-          {t('why.title')}
+          From AI Assistant to AI Mentor.
         </h2>
         <p style={{ color: '#8B949E', fontSize: 16, lineHeight: 1.65, marginBottom: 52, maxWidth: 520 }}>
-          {t('why.subtitle')}
+          Every interaction is designed to improve your thinking — not just complete your task.
         </p>
 
         <div
@@ -1299,21 +1287,21 @@ function AppInner() {
         >
           <FeatureCard
             icon={<Brain size={18} />}
-            title={t('why.diagnosis.title')}
-            description={t('why.diagnosis.desc')}
-            items={[t('why.diagnosis.items.0'), t('why.diagnosis.items.1'), t('why.diagnosis.items.2')]}
+            title="Diagnosis First"
+            description="Before teaching anything, CodingSchool understands where you are. No assumptions. No one-size-fits-all."
+            items={['Knowledge mapping', 'Competency baseline', 'Adaptive roadmap']}
           />
           <FeatureCard
             icon={<Code2 size={18} />}
-            title={t('why.mentor.title')}
-            description={t('why.mentor.desc')}
-            items={[t('why.mentor.items.0'), t('why.mentor.items.1'), t('why.mentor.items.2')]}
+            title="Engineering Mentor"
+            description="Not a chatbot. Not an autocomplete. A structured mentor that reviews your code, architecture, and decisions."
+            items={['Code review', 'Architecture feedback', 'Security audit']}
           />
           <FeatureCard
             icon={<Zap size={18} />}
-            title={t('why.growth.title')}
-            description={t('why.growth.desc')}
-            items={[t('why.growth.items.0'), t('why.growth.items.1'), t('why.growth.items.2')]}
+            title="Engineering Growth"
+            description="Measure what matters. Track real competency across knowledge, implementation, debugging, and engineering craft."
+            items={['Competency tracking', 'Progress reflection', 'Long-term growth']}
           />
         </div>
       </section>
@@ -1324,7 +1312,7 @@ function AppInner() {
 
       {/* ── Dual Agent ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px 100px' }}>
-        <SectionLabel text={t('dual.label')} />
+        <SectionLabel text="Dual Agent" />
         <h2
           style={{
             fontSize: 'clamp(28px, 4vw, 44px)',
@@ -1335,10 +1323,10 @@ function AppInner() {
             letterSpacing: '-0.02em',
           }}
         >
-          {t('dual.title')}
+          Two agents. One student model.
         </h2>
         <p style={{ color: '#8B949E', fontSize: 16, lineHeight: 1.65, marginBottom: 56, maxWidth: 520 }}>
-          {t('dual.subtitle')}
+          CodingSchool adapts as you grow — through every file, every commit, every project.
         </p>
 
         {/* Diagram */}
@@ -1367,7 +1355,7 @@ function AppInner() {
               marginBottom: 32,
             }}
           >
-            {t('dual.studentModel')}
+            Student Model
           </div>
 
           {/* Connector lines */}
@@ -1408,9 +1396,9 @@ function AppInner() {
                 }}
               >
                 <BookOpen size={14} />
-                {t('dual.learnAgent')}
+                Teacher Agent
               </div>
-              {[t('dual.learn.items.0'), t('dual.learn.items.1'), t('dual.learn.items.2'), t('dual.learn.items.3'), t('dual.learn.items.4'), t('dual.learn.items.5')].map((item) => (
+              {['Diagnose', 'Teach', 'Quiz', 'Scaffold', 'Reflect', 'Competency Update'].map((item) => (
                 <div
                   key={item}
                   style={{
@@ -1453,9 +1441,9 @@ function AppInner() {
                 }}
               >
                 <Shield size={14} />
-                {t('dual.coachAgent')}
+                Coach Agent
               </div>
-              {[t('dual.coach.items.0'), t('dual.coach.items.1'), t('dual.coach.items.2'), t('dual.coach.items.3'), t('dual.coach.items.4')].map(
+              {['Project Timeline', 'Code Review', 'Architecture Review', 'Security (GRC)', 'Mentoring Plan', 'Engineering Growth'].map(
                 (item) => (
                   <div
                     key={item}
@@ -1497,7 +1485,7 @@ function AppInner() {
               borderBottom: '1px solid #30363D',
             }}
           >
-            {[t('dual.table.header0'), t('dual.table.header1'), t('dual.table.header2'), t('dual.table.header3')].map((col, i) => (
+            {['', 'Traditional Course', 'AI Assistant', 'CodingSchool'].map((col, i) => (
               <div
                 key={i}
                 style={{
@@ -1513,10 +1501,10 @@ function AppInner() {
             ))}
           </div>
           {[
-            [t('dual.table.row1.label'), t('dual.table.row1.col1'), t('dual.table.row1.col2'), t('dual.table.row1.col3')],
-            [t('dual.table.row2.label'), t('dual.table.row2.col1'), t('dual.table.row2.col2'), t('dual.table.row2.col3')],
-            [t('dual.table.row3.label'), t('dual.table.row3.col1'), t('dual.table.row3.col2'), t('dual.table.row3.col3')],
-            [t('dual.table.row4.label'), t('dual.table.row4.col1'), t('dual.table.row4.col2'), t('dual.table.row4.col3')],
+            ['Content', 'Static', 'Instant answers', 'Adaptive mentoring'],
+            ['Learning', 'Watch videos', 'Generate code', 'Build understanding'],
+            ['Approach', 'One-way teaching', 'Task completion', 'Long-term growth'],
+            ['Outcome', 'Finish course', 'Finish prompt', 'Grow as engineer'],
           ].map(([label, ...cols], rowIdx) => (
             <div
               key={rowIdx}
@@ -1564,7 +1552,7 @@ function AppInner() {
 
       {/* ── Competency Engine ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px 100px' }}>
-        <SectionLabel text={t('comp.label')} />
+        <SectionLabel text="Competency Engine" />
         <div
           style={{
             display: 'grid',
@@ -1585,14 +1573,19 @@ function AppInner() {
                 letterSpacing: '-0.02em',
               }}
             >
-              {t('comp.title1')}{' '}
-              <span style={{ color: '#FF8C42' }}>{t('comp.title2')}</span>
+              Not XP. Not streaks.{' '}
+              <span style={{ color: '#FF8C42' }}>Real competency.</span>
             </h2>
             <p style={{ color: '#8B949E', fontSize: 16, lineHeight: 1.65, marginBottom: 36 }}>
-              {t('comp.subtitle')}
+              CodingSchool measures the skills that actually matter when you ship production software.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {[t('comp.items.0'), t('comp.items.1'), t('comp.items.2'), t('comp.items.3')].map((item) => (
+              {[
+                'Real engineering competencies, not gamification',
+                'Measured across every project you build',
+                'Reflects actual growth, not activity',
+                'Honest feedback on where to improve',
+              ].map((item) => (
                 <div
                   key={item}
                   style={{
@@ -1631,12 +1624,12 @@ function AppInner() {
                   marginBottom: 20,
                 }}
               >
-                // {t('comp.learning')}
+                // Learning
               </div>
-              <CompBar label={t('comp.knowledge')} value={78} color="#3FB950" />
-              <CompBar label={t('comp.implementation')} value={62} color="#3FB950" />
-              <CompBar label={t('comp.debugging')} value={85} color="#3FB950" />
-              <CompBar label={t('comp.teaching')} value={34} color="#D29922" />
+              <CompBar label="Knowledge" value={78} color="#3FB950" />
+              <CompBar label="Implementation" value={62} color="#3FB950" />
+              <CompBar label="Debugging" value={85} color="#3FB950" />
+              <CompBar label="Teaching" value={34} color="#D29922" />
             </div>
 
             {/* Engineering section */}
@@ -1657,13 +1650,13 @@ function AppInner() {
                   marginBottom: 20,
                 }}
               >
-                // {t('comp.engineering')}
+                // Engineering
               </div>
-              <CompBar label={t('comp.architecture')} value={51} color="#FF8C42" />
-              <CompBar label={t('comp.testing')} value={29} color="#F85149" />
-              <CompBar label={t('comp.git')} value={73} color="#FF8C42" />
-              <CompBar label={t('comp.security')} value={44} color="#D29922" />
-              <CompBar label={t('comp.documentation')} value={58} color="#FF8C42" />
+              <CompBar label="Architecture" value={51} color="#FF8C42" />
+              <CompBar label="Testing" value={29} color="#F85149" />
+              <CompBar label="Git" value={73} color="#FF8C42" />
+              <CompBar label="Security" value={44} color="#D29922" />
+              <CompBar label="Documentation" value={58} color="#FF8C42" />
             </div>
           </div>
         </div>
@@ -1675,7 +1668,7 @@ function AppInner() {
 
       {/* ── Learning Journey ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px 100px' }}>
-        <SectionLabel text={t('journey.label')} />
+        <SectionLabel text="Learning Journey" />
         <div
           style={{
             display: 'grid',
@@ -1696,20 +1689,20 @@ function AppInner() {
                 letterSpacing: '-0.02em',
               }}
             >
-              {t('journey.title')}
+              The journey never ends.
             </h2>
             <p style={{ color: '#8B949E', fontSize: 16, lineHeight: 1.65 }}>
-              {t('journey.subtitle')}
+              CodingSchool grows with every repository. Every commit teaches. Every review improves you.
             </p>
           </div>
 
           <div>
             {[
-              { step: '01', label: t('journey.steps.0.label'), desc: t('journey.steps.0.desc') },
-              { step: '02', label: t('journey.steps.1.label'), desc: t('journey.steps.1.desc') },
-              { step: '03', label: t('journey.steps.2.label'), desc: t('journey.steps.2.desc') },
-              { step: '04', label: t('journey.steps.3.label'), desc: t('journey.steps.3.desc') },
-              { step: '05', label: t('journey.steps.4.label'), desc: t('journey.steps.4.desc') },
+              { step: '01', label: 'Install Plugin', desc: 'npm i @codingskuy/coding-school && npx coding-school setup. Takes 10 seconds.' },
+              { step: '02', label: 'Diagnosis', desc: 'CodingSchool maps your current knowledge and builds your personalized roadmap.' },
+              { step: '03', label: 'Learn & Build', desc: 'Guided by hints, not answers. You write the code, you understand the concepts.' },
+              { step: '04', label: 'Code Review', desc: 'Coach Agent reviews your architecture, quality, and security with each commit.' },
+              { step: '05', label: 'Reflect & Grow', desc: 'Track your competency improvement across every dimension that matters.' },
             ].map((s, i, arr) => (
               <JourneyStep key={s.step} {...s} isLast={i === arr.length - 1} index={i} />
             ))}
@@ -1723,7 +1716,7 @@ function AppInner() {
 
       {/* ── Open Source ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px 100px' }}>
-        <SectionLabel text={t('oss.label')} />
+        <SectionLabel text="Open Source" />
         <div
           style={{
             display: 'grid',
@@ -1734,10 +1727,10 @@ function AppInner() {
           className="stats-grid"
         >
           {[
-            { icon: <Star size={16} />, value: '2,100+', label: t('oss.stars'), numVal: 2100, suffix: '+' },
-            { icon: <Download size={16} />, value: '18k+', label: t('oss.installs'), numVal: 18, suffix: 'k+' },
-            { icon: <Users size={16} />, value: '340+', label: t('oss.contributors'), numVal: 340, suffix: '+' },
-            { icon: <GitBranch size={16} />, value: 'MIT', label: t('oss.license'), numVal: 0, suffix: 'MIT' },
+            { icon: <Star size={16} />, value: '2,100+', label: 'GitHub Stars', numVal: 2100, suffix: '+' },
+            { icon: <Download size={16} />, value: '18k+', label: 'Installs', numVal: 18, suffix: 'k+' },
+            { icon: <Users size={16} />, value: '340+', label: 'Contributors', numVal: 340, suffix: '+' },
+            { icon: <GitBranch size={16} />, value: 'MIT', label: 'License', numVal: 0, suffix: 'MIT' },
           ].map(({ icon, value, label, numVal, suffix }, i) => (
             <StatCard key={i} icon={icon} value={value} label={label} numVal={numVal} suffix={suffix} />
           ))}
@@ -1765,10 +1758,10 @@ function AppInner() {
                 marginBottom: 8,
               }}
             >
-              {t('oss.forever')}
+              Free & Open Source Forever
             </div>
             <div style={{ color: '#8B949E', fontSize: 14, maxWidth: 420 }}>
-              {t('oss.foreverDesc')}
+              Unlimited mentoring. Full Learn Agent and Coach Agent access. No credit card. No hidden limits. MIT licensed.
             </div>
           </div>
           <div style={{ display: 'flex', gap: 12 }}>
@@ -1792,7 +1785,7 @@ function AppInner() {
               onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#30363D')}
             >
               <GithubIcon size={14} />
-              {t('oss.viewGithub')}
+              View on GitHub
             </a>
           </div>
         </div>
@@ -1817,7 +1810,7 @@ function AppInner() {
             letterSpacing: 1,
           }}
         >
-          // {t('cta.label')}
+          // Install CodingSchool
         </div>
         <h2
           style={{
@@ -1829,10 +1822,10 @@ function AppInner() {
             letterSpacing: '-0.02em',
           }}
         >
-          {t('cta.title')}
+          Grow with every commit.
         </h2>
         <p style={{ color: '#8B949E', fontSize: 18, lineHeight: 1.65, marginBottom: 44, maxWidth: 440, margin: '0 auto 44px' }}>
-          {t('cta.subtitle')}
+          Install CodingSchool today. Start thinking like an engineer, not an AI operator.
         </p>
 
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -1863,7 +1856,7 @@ function AppInner() {
             }}
           >
             <Download size={16} />
-            {t('cta.install')}
+            Install Free
           </button>
           <a
             href="https://github.com/codingskuy/coding-school"
@@ -1896,7 +1889,7 @@ function AppInner() {
             }}
           >
             <GithubIcon size={16} />
-            {t('cta.viewGithub')}
+            View GitHub
           </a>
         </div>
 
@@ -1927,13 +1920,15 @@ function AppInner() {
             e.currentTarget.style.boxShadow = 'none'
           }}
           onClick={() => {
-            navigator.clipboard.writeText('opencode install @codingskuy/coding-school')
+            navigator.clipboard.writeText('npm i @codingskuy/coding-school && npx coding-school setup')
             window.dispatchEvent(new CustomEvent('copy-success', { detail: { message: 'Copied to clipboard' } }))
           }}
         >
           <span style={{ color: '#3FB950' }}>$</span>
-          <span>opencode install @codingskuy/coding-school</span>
-          <CopyButton text="opencode install @codingskuy/coding-school" />
+          <span>npm i @codingskuy/coding-school</span>
+          <span style={{ color: '#8B949E', fontSize: 12 }}>&</span>
+          <span>$ npx coding-school setup</span>
+          <CopyButton text="npm i @codingskuy/coding-school && npx coding-school setup" />
         </div>
       </section>
 
@@ -1976,7 +1971,7 @@ function AppInner() {
               </span>
             </div>
             <p style={{ color: '#8B949E', fontSize: 14, lineHeight: 1.65, maxWidth: 260 }}>
-              {t('footer.desc')}
+              The AI Engineering Mentor for OpenCode. Built for developers who want to grow.
             </p>
             <div
               style={{
@@ -1989,7 +1984,7 @@ function AppInner() {
                 color: '#8B949E',
               }}
             >
-              <span style={{ color: '#3FB950' }}>●</span> {t('footer.status')}
+              <span style={{ color: '#3FB950' }}>●</span> Free & Open Source · MIT License
             </div>
           </div>
 
@@ -2004,9 +1999,9 @@ function AppInner() {
                 letterSpacing: 0.5,
               }}
             >
-              {t('footer.product')}
+              Product
             </div>
-            {[t('footer.product.links.0'), t('footer.product.links.1'), t('footer.product.links.2'), t('footer.product.links.3'), t('footer.product.links.4')].map((link) => (
+            {['Features', 'Teacher Agent', 'Coach Agent', 'Competency Engine', 'Changelog'].map((link) => (
               <a
                 key={link}
                 href="#"
@@ -2037,9 +2032,9 @@ function AppInner() {
                 marginBottom: 16,
               }}
             >
-              {t('footer.developers')}
+              Developers
             </div>
-            {[t('footer.developers.links.0'), t('footer.developers.links.1'), t('footer.developers.links.2'), t('footer.developers.links.3'), t('footer.developers.links.4')].map((link) => (
+            {['Documentation', 'GitHub', 'Contributing', 'Roadmap', 'Issues'].map((link) => (
               <a
                 key={link}
                 href="#"
@@ -2070,9 +2065,9 @@ function AppInner() {
                 marginBottom: 16,
               }}
             >
-              {t('footer.community')}
+              Community
             </div>
-            {[t('footer.community.links.0'), t('footer.community.links.1'), t('footer.community.links.2'), t('footer.community.links.3'), t('footer.community.links.4')].map((link) => (
+            {['Discord', 'Twitter / X', 'Blog', 'Newsletter', 'Contact'].map((link) => (
               <a
                 key={link}
                 href="#"
@@ -2107,10 +2102,10 @@ function AppInner() {
           }}
         >
           <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#8B949E' }}>
-            {t('footer.copyright')}
+            © 2026 CodingSkuy. MIT License.
           </span>
           <div style={{ display: 'flex', gap: 20 }}>
-            {[t('footer.privacy'), t('footer.terms'), t('footer.security')].map((link) => (
+            {['Privacy', 'Terms', 'Security'].map((link) => (
               <a
                 key={link}
                 href="#"
