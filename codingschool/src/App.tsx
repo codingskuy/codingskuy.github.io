@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { lazy, Suspense, useState, useEffect, useRef, useCallback } from 'react'
 import {
   Terminal,
   BookOpen,
@@ -17,6 +17,8 @@ import {
   X,
   Copy,
 } from 'lucide-react'
+
+const StatsSection = lazy(() => import('./stats'))
 
 function GithubIcon({ size = 16 }: { size?: number }) {
   return (
@@ -584,7 +586,13 @@ function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const navLinks = ['Features', 'Philosophy', 'Docs', 'GitHub']
+  const navLinks = [
+    { label: 'Features', href: '#' },
+    { label: 'Philosophy', href: '#' },
+    { label: 'Stats', href: '#stats' },
+    { label: 'Docs', href: '#' },
+    { label: 'GitHub', href: '#' },
+  ]
 
   return (
     <nav
@@ -642,8 +650,8 @@ function Nav() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 32 }} className="hidden-mobile">
           {navLinks.map((link) => (
             <a
-              key={link}
-              href="#"
+              key={link.label}
+              href={link.href}
               className="link-underline"
               style={{
                 color: '#8B949E',
@@ -655,7 +663,7 @@ function Nav() {
               onMouseEnter={(e) => (e.currentTarget.style.color = '#F0F6FC')}
               onMouseLeave={(e) => (e.currentTarget.style.color = '#8B949E')}
             >
-              {link}
+              {link.label}
             </a>
           ))}
         </div>
@@ -714,8 +722,8 @@ function Nav() {
         >
           {navLinks.map((link) => (
             <a
-              key={link}
-              href="#"
+              key={link.label}
+              href={link.href}
               onClick={() => setMenuOpen(false)}
               style={{
                 display: 'block',
@@ -729,7 +737,7 @@ function Nav() {
               onMouseEnter={(e) => (e.currentTarget.style.color = '#F0F6FC')}
               onMouseLeave={(e) => (e.currentTarget.style.color = '#8B949E')}
             >
-              {link}
+              {link.label}
             </a>
           ))}
           <button
@@ -1789,6 +1797,12 @@ function AppInner() {
           </div>
         </div>
       </section>
+
+      {/* ── npm Analytics ── */}
+      <TermDivider />
+      <Suspense fallback={null}>
+        <StatsSection />
+      </Suspense>
 
       {/* ── Final CTA ── */}
       <section

@@ -7,6 +7,7 @@ import {
   TREND_BUCKET_CUTOFFS,
   TREND_WEIGHTS,
 } from '../data/config'
+import { formatDayShort } from '../utils/date'
 import type {
   DailyDownload,
   DailyStats,
@@ -225,7 +226,7 @@ export function generateInsights(
     if (ratio >= 1.5) {
       insights.push({
         id: 'peak-vs-avg',
-        text: `${stats.highest.day} had ${ratio.toFixed(1)}x more downloads than the daily average (${stats.highest.downloads.toLocaleString()} downloads).`,
+        text: `${formatDayShort(stats.highest.day)} had ${ratio.toFixed(1)}x more downloads than the daily average (${stats.highest.downloads.toLocaleString()} downloads).`,
         tone: 'positive',
       })
     }

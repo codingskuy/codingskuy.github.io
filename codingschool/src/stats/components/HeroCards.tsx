@@ -121,11 +121,8 @@ interface HeroCardsProps {
 
 export default function HeroCards({ data, stats }: HeroCardsProps) {
   const lastDay = stats.lastDay?.day ?? ''
-  const currentMonth = lastDay.slice(0, 7)
   const thisWeek = data.slice(-7).reduce((a, d) => a + d.downloads, 0)
-  const thisMonth = data
-    .filter((d) => d.day.startsWith(currentMonth))
-    .reduce((a, d) => a + d.downloads, 0)
+  const thisMonth = data.slice(-30).reduce((a, d) => a + d.downloads, 0)
   const today = stats.lastDay?.downloads ?? 0
   const growth = currentGrowth(data)
   const growthPct = growth === null ? null : Math.abs(growth * 100)
@@ -140,7 +137,7 @@ export default function HeroCards({ data, stats }: HeroCardsProps) {
       />
       <StatCard icon={<Flame size={14} />} label="Downloads Today" value={today} />
       <StatCard icon={<TrendingUp size={14} />} label="This Week" value={thisWeek} />
-      <StatCard icon={<CalendarDays size={14} />} label="This Month" value={thisMonth} />
+      <StatCard icon={<CalendarDays size={14} />} label="This Month" value={thisMonth} hint="last 30 days" />
       <StatCard
         icon={<Clock size={14} />}
         label="Days Since Release"

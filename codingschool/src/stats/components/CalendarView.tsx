@@ -24,8 +24,8 @@ export default function CalendarView({ data, hotDays }: CalendarViewProps) {
 
   const cells = useMemo<CalendarCell[]>(() => {
     if (data.length === 0) return []
-    const last = data[data.length - 1]
-    const ref = parseDay(last.day)
+    const anchor = [...data].reverse().find((d) => d.downloads > 0) ?? data[data.length - 1]
+    const ref = parseDay(anchor.day)
     const year = ref.getUTCFullYear()
     const month = ref.getUTCMonth()
     const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate()
