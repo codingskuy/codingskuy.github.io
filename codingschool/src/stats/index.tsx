@@ -1,12 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { RefreshCw } from 'lucide-react'
-import type { HotTrendDay, Insight, Milestone, TrendScore as TrendScoreType } from './types'
+import type { HotTrendDay, Milestone } from './types'
 import {
   computeDailyStats,
   computeHotTrendDays,
   computeMilestones,
-  computeTrendScore,
-  generateInsights,
 } from './lib/analytics'
 import { useStatsData } from './lib/useStatsData'
 import { RELEASES } from './data/releases'
@@ -18,10 +16,6 @@ import HeroCards from './components/HeroCards'
 import DownloadsChart from './components/DownloadsChart'
 import HotTrendDays from './components/HotTrendDays'
 import Milestones from './components/Milestones'
-import Insights from './components/Insights'
-import Heatmap from './components/Heatmap'
-import CalendarView from './components/CalendarView'
-import TrendScore from './components/TrendScore'
 import ShareSnapshot from './components/ShareSnapshot'
 import './stats.css'
 
@@ -29,8 +23,6 @@ interface Computed {
   stats: ReturnType<typeof computeDailyStats> | null
   hotDays: HotTrendDay[]
   milestones: Milestone[]
-  trendScore: TrendScoreType
-  insights: Insight[]
 }
 
 function compute(data: ReturnType<typeof computeDailyStats>['data']): Computed {
@@ -40,8 +32,6 @@ function compute(data: ReturnType<typeof computeDailyStats>['data']): Computed {
     stats,
     hotDays: computeHotTrendDays(data, stats),
     milestones,
-    trendScore: computeTrendScore(data, stats),
-    insights: generateInsights(data, stats, milestones),
   }
 }
 
@@ -74,8 +64,6 @@ export default function StatsSection() {
       stats: null,
       hotDays: [],
       milestones: computeMilestones([]),
-      trendScore: computeTrendScore([], computeDailyStats([])),
-      insights: [],
     }),
     [data],
   )
@@ -185,27 +173,6 @@ export default function StatsSection() {
               </Reveal>
               <Reveal delay={120}>
                 <Milestones milestones={computed.milestones} />
-              </Reveal>
-            </div>
-
-            <div style={{ marginTop: 16 }}>
-              <Reveal delay={40}>
-                <Insights insights={computed.insights} />
-              </Reveal>
-            </div>
-
-            <div style={{ marginTop: 16 }}>
-              <Reveal delay={40}>
-                <TrendScore score={computed.trendScore} />
-              </Reveal>
-            </div>
-
-            <div className="stats-2col" style={{ marginTop: 16 }}>
-              <Reveal delay={40}>
-                <Heatmap data={data} />
-              </Reveal>
-              <Reveal delay={120}>
-                <CalendarView data={data} hotDays={computed.hotDays} />
               </Reveal>
             </div>
           </div>

@@ -30,7 +30,6 @@ function Nav() {
           <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 14, fontWeight: 500, color: '#F0F6FC' }}>CodingSchool</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 32 }} className="hidden-mobile">
-          <div style={{ marginBottom: 12 }}><LanguageSwitcher /></div>
           {navLinks.map((link) => (
             <a key={link.label} href={link.href} className="link-underline" style={{ color: '#8B949E', fontSize: 14, textDecoration: 'none', transition: 'color 150ms ease-out', position: 'relative' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#F0F6FC')} onMouseLeave={(e) => (e.currentTarget.style.color = '#8B949E')}>
               {link.label}
