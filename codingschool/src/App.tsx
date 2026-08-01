@@ -81,7 +81,7 @@ function useCounter(target: number, duration = 600, startOnView = true) {
 
 function useCopyToClipboard() {
   const [copied, setCopied] = useState(false)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const copy = useCallback((text: string) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -359,7 +359,6 @@ function CompBar({ label, value, color = '#FF8C42' }: CompetencyBar) {
   }, [animated, value])
 
   const blocks = 10
-  const filled = Math.round((value / 100) * blocks)
 
   return (
     <div ref={ref} style={{ marginBottom: 14 }}>
@@ -528,7 +527,7 @@ interface StatCardProps {
   suffix: string
 }
 
-function StatCard({ icon, value, label, numVal, suffix }: StatCardProps) {
+function StatCard({ icon, label, numVal, suffix }: StatCardProps) {
   const { ref, inView } = useInView()
   const { ref: counterRef, count } = useCounter(numVal, 800)
 
