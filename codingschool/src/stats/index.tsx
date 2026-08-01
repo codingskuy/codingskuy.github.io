@@ -98,7 +98,7 @@ export default function StatsSection() {
         id="stats"
         label="npm analytics"
         title="CodingSchool Package Analytics"
-        subtitle={`Live downloads for ${'@codingskuy/coding-school'} since launch on 15 Jul 2026, computed from the npm download API.`}
+        subtitle={`Live downloads for ${'@codingskuy/coding-school'} since launch on 13 Jul 2026, computed from the npm download API.`}
         action={
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <button

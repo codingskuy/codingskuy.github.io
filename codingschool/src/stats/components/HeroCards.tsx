@@ -149,7 +149,7 @@ export default function HeroCards({ data, stats }: HeroCardsProps) {
         icon={<Clock size={14} />}
         label="Days Since Release"
         value={stats.daysSinceRelease}
-        hint="since 15 Jul 2026"
+        hint={`since ${releaseLabel}`}
       />
       <StatCard
         icon={<BarChart3 size={14} />}

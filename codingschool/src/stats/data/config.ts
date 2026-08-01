@@ -1,8 +1,8 @@
 export const PACKAGE_NAME = '@codingskuy/coding-school'
 
-export const RELEASE_DATE = '2026-07-15'
+export const RELEASE_DATE = '2026-07-13'
 
-export const CACHE_KEY = 'codingschool-stats-v1'
+export const CACHE_KEY = 'codingschool-stats-v2'
 
 export const CACHE_TTL_MS = 60 * 60 * 1000
 
