@@ -1,9 +1,13 @@
 import { Download } from 'lucide-react'
 import GithubIcon from '../GithubIcon'
 import TerminalWindow from '../TerminalWindow'
+import { useTranslation } from '../../i18n'
+import { useRepoStats } from '../hooks'
 import { Star, Users } from 'lucide-react'
 
 function Hero() {
+  const { t } = useTranslation()
+  const { stars, contributors, installs } = useRepoStats()
   return (
     <section
       style={{
@@ -32,7 +36,7 @@ function Hero() {
         >
           <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#3FB950' }} />
           <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#8B949E' }}>
-            OpenCode Plugin · Free & Open Source
+            {t('hero.badge')}
           </span>
         </div>
         <h1
@@ -45,11 +49,11 @@ function Hero() {
             letterSpacing: '-0.02em',
           }}
         >
-          Become an Engineer.{' '}
-          <span style={{ color: '#FF8C42' }}>Not an AI Copy-Paster.</span>
+          {t('hero.title1')}{' '}
+          <span style={{ color: '#FF8C42' }}>{t('hero.title2')}</span>
         </h1>
         <p style={{ fontSize: 18, color: '#8B949E', lineHeight: 1.65, margin: '0 0 36px', maxWidth: 440 }}>
-          The free OpenCode plugin that teaches, reviews, and grows with you through real software projects.
+          {t('hero.subtitle')}
         </p>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           <button
@@ -71,7 +75,7 @@ function Hero() {
             }}
           >
             <Download size={15} />
-            Install Free
+            {t('hero.install')}
           </button>
           <a
             href="https://github.com/codingskuy/coding-school"
@@ -94,14 +98,14 @@ function Hero() {
             }}
           >
             <GithubIcon size={15} />
-            View GitHub
+            {t('hero.viewGithub')}
           </a>
         </div>
         <div style={{ marginTop: 28, display: 'flex', gap: 20 }}>
           {[
-            { icon: <Star size={13} />, text: '2.1k stars' },
-            { icon: <Users size={13} />, text: '340 contributors' },
-            { icon: <Download size={13} />, text: '18k installs' },
+            { icon: <Star size={13} />, text: t('hero.stars', { count: stars }) },
+            { icon: <Users size={13} />, text: t('hero.contributors', { count: contributors }) },
+            { icon: <Download size={13} />, text: t('hero.installs', { count: installs }) },
           ].map(({ icon, text }, i) => (
             <div
               key={i}

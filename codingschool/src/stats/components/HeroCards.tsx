@@ -13,6 +13,7 @@ import type { DailyDownload, DailyStats } from '../types'
 import { COLORS, FONT } from '../data/theme'
 import { RELEASE_DATE } from '../data/config'
 import { parseDay } from '../utils/date'
+import { useTranslation } from '../../i18n'
 import Panel from './Panel'
 
 interface StatCardProps {
@@ -122,6 +123,7 @@ interface HeroCardsProps {
 }
 
 export default function HeroCards({ data, stats }: HeroCardsProps) {
+  const { t } = useTranslation()
   const thisWeek = data.slice(-7).reduce((a, d) => a + d.downloads, 0)
   const thisMonth = data.slice(-30).reduce((a, d) => a + d.downloads, 0)
   const today = stats.lastDay?.downloads ?? 0
@@ -138,22 +140,22 @@ export default function HeroCards({ data, stats }: HeroCardsProps) {
     <div className="stats-hero-grid">
       <StatCard
         icon={<Download size={14} />}
-        label="Total Downloads"
+        label={t('stats.total')}
         value={stats.total}
-        hint={`since ${releaseLabel}`}
+        hint={t('stats.since', { date: releaseLabel })}
       />
-      <StatCard icon={<Flame size={14} />} label="Downloads Today" value={today} />
-      <StatCard icon={<TrendingUp size={14} />} label="This Week" value={thisWeek} />
-      <StatCard icon={<CalendarDays size={14} />} label="This Month" value={thisMonth} hint="last 30 days" />
+      <StatCard icon={<Flame size={14} />} label={t('stats.today')} value={today} />
+      <StatCard icon={<TrendingUp size={14} />} label={t('stats.week')} value={thisWeek} />
+      <StatCard icon={<CalendarDays size={14} />} label={t('stats.month')} value={thisMonth} hint={t('stats.last30')} />
       <StatCard
         icon={<Clock size={14} />}
-        label="Days Since Release"
+        label={t('stats.daysSinceRelease')}
         value={stats.daysSinceRelease}
-        hint={`since ${releaseLabel}`}
+        hint={t('stats.since', { date: releaseLabel })}
       />
       <StatCard
         icon={<BarChart3 size={14} />}
-        label="Avg Downloads / Day"
+        label={t('stats.avgDay')}
         value={stats.avgPerDay}
         precision={1}
       />
@@ -165,15 +167,15 @@ export default function HeroCards({ data, stats }: HeroCardsProps) {
             <ArrowDownRight size={14} />
           )
         }
-        label="Current Growth"
+        label={t('stats.growth')}
         value={growthPct ?? 0}
         precision={1}
-        hint={growth === null ? 'need 2 weeks of data' : '7d vs prev 7d'}
+        hint={growth === null ? t('stats.need2weeks') : t('stats.prev7')}
         accent={growth === null ? COLORS.muted : growth >= 0 ? COLORS.green : COLORS.red}
       />
       <StatCard
         icon={<TrendingUp size={14} />}
-        label="Avg Downloads / Week"
+        label={t('stats.avgWeek')}
         value={stats.avgPerWeek}
         precision={1}
       />

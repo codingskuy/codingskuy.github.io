@@ -1,8 +1,10 @@
 import { Check, Copy } from 'lucide-react'
 import { useCopyToClipboard } from './hooks'
+import { useTranslation } from '../i18n'
 
 function CopyButton({ text, className = '' }: { text: string; className?: string }) {
   const { copied, copy } = useCopyToClipboard()
+  const { t } = useTranslation()
 
   return (
     <button
@@ -20,7 +22,7 @@ function CopyButton({ text, className = '' }: { text: string; className?: string
         alignItems: 'center',
         justifyContent: 'center',
       }}
-      aria-label="Copy to clipboard"
+      aria-label={t('common.copied')}
     >
       {copied ? <Check size={13} /> : <Copy size={13} />}
     </button>

@@ -13,6 +13,7 @@ import {
 import type { DailyDownload, ReleaseEvent } from '../types'
 import { COLORS, FONT } from '../data/theme'
 import { formatDayShort } from '../utils/date'
+import { useTranslation } from '../../i18n'
 import Panel from './Panel'
 
 interface ChartPoint {
@@ -23,6 +24,7 @@ interface ChartPoint {
 }
 
 function ChartTooltip(props: Record<string, unknown>) {
+  const { t } = useTranslation()
   const { active, payload } = props as {
     active?: boolean
     payload?: { payload: ChartPoint }[]
@@ -33,7 +35,7 @@ function ChartTooltip(props: Record<string, unknown>) {
   const deltaColor =
     delta === null ? COLORS.muted : delta > 0 ? COLORS.green : delta < 0 ? COLORS.red : COLORS.muted
   const deltaText =
-    delta === null ? 'no previous day' : delta === 0 ? 'no change' : `${delta > 0 ? '+' : ''}${delta}`
+    delta === null ? t('stats.chart.noPrev') : delta === 0 ? t('stats.chart.noChange') : `${delta > 0 ? '+' : ''}${delta}`
   return (
     <div
       style={{
@@ -57,7 +59,7 @@ function ChartTooltip(props: Record<string, unknown>) {
           marginTop: 4,
         }}
       >
-        {point.downloads.toLocaleString()} <span style={{ color: COLORS.muted, fontWeight: 400 }}>downloads</span>
+        {point.downloads.toLocaleString()} <span style={{ color: COLORS.muted, fontWeight: 400 }}>{t('stats.chart.downloads')}</span>
       </div>
       <div style={{ color: deltaColor, fontFamily: FONT.mono, marginTop: 4 }}>{deltaText}</div>
     </div>
@@ -70,6 +72,7 @@ interface DownloadsChartProps {
 }
 
 export default function DownloadsChart({ data, releases }: DownloadsChartProps) {
+  const { t } = useTranslation()
   const points: ChartPoint[] = useMemo(() => {
     return data.map((d, i) => ({
       day: d.day,
@@ -99,7 +102,7 @@ export default function DownloadsChart({ data, releases }: DownloadsChartProps) 
         }}
       >
         <div style={{ fontFamily: FONT.sans, fontSize: 15, fontWeight: 600, color: COLORS.text }}>
-          Downloads per Day
+          {t('stats.chart.title')}
         </div>
         {visibleReleases.length > 0 ? (
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>

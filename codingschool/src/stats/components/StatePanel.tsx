@@ -1,4 +1,5 @@
 import { COLORS, FONT } from '../data/theme'
+import { useTranslation } from '../../i18n'
 import Panel from './Panel'
 
 interface StatePanelProps {
@@ -8,10 +9,16 @@ interface StatePanelProps {
 }
 
 export default function StatePanel({ kind, message, onRetry }: StatePanelProps) {
+  const { t } = useTranslation()
+  const titles = {
+    loading: t('stats.loading'),
+    error: t('stats.error'),
+    empty: t('stats.empty'),
+  }
   const config = {
-    loading: { title: 'Fetching downloads…', emoji: '⏳' },
-    error: { title: 'Failed to load data', emoji: '⚠️' },
-    empty: { title: 'No data yet', emoji: '📭' },
+    loading: { title: titles.loading, emoji: '⏳' },
+    error: { title: titles.error, emoji: '⚠️' },
+    empty: { title: titles.empty, emoji: '📭' },
   }[kind]
 
   return (
@@ -66,7 +73,7 @@ export default function StatePanel({ kind, message, onRetry }: StatePanelProps) 
             fontFamily: FONT.sans,
           }}
         >
-          Retry
+          {t('stats.retry')}
         </button>
       ) : null}
     </Panel>

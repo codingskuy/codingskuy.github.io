@@ -1,6 +1,7 @@
 import type { Milestone } from '../types'
 import { COLORS, FONT } from '../data/theme'
 import { formatDayShort } from '../utils/date'
+import { useTranslation } from '../../i18n'
 import Panel from './Panel'
 
 const MEDALS: Record<number, string> = {
@@ -16,6 +17,7 @@ interface MilestonesProps {
 }
 
 export default function Milestones({ milestones }: MilestonesProps) {
+  const { t } = useTranslation()
   return (
     <Panel>
       <div
@@ -27,7 +29,7 @@ export default function Milestones({ milestones }: MilestonesProps) {
           marginBottom: 16,
         }}
       >
-        Milestones
+        {t('stats.milestones.title')}
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         {milestones.map((m, i) => {
@@ -66,8 +68,8 @@ export default function Milestones({ milestones }: MilestonesProps) {
                 }}
               >
                 {reached
-                  ? `${formatDayShort(m.reachedAt as string)} · day ${m.daysToReach}`
-                  : 'In progress'}
+                  ? `${formatDayShort(m.reachedAt as string)} ${t('stats.milestones.day', { n: m.daysToReach ?? 0 })}`
+                  : t('stats.milestones.inProgress')}
               </div>
             </div>
           )

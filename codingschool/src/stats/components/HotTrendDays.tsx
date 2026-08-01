@@ -1,6 +1,7 @@
 import type { HotTrendDay } from '../types'
 import { BADGE_META, COLORS, FONT } from '../data/theme'
 import { formatDayShort } from '../utils/date'
+import { useTranslation } from '../../i18n'
 import Panel from './Panel'
 
 interface HotTrendDaysProps {
@@ -8,6 +9,7 @@ interface HotTrendDaysProps {
 }
 
 export default function HotTrendDays({ days }: HotTrendDaysProps) {
+  const { t } = useTranslation()
   return (
     <Panel>
       <div
@@ -19,11 +21,11 @@ export default function HotTrendDays({ days }: HotTrendDaysProps) {
           marginBottom: 16,
         }}
       >
-        🔥 Hot Trend Days
+        {t('stats.hot.title')}
       </div>
       {days.length === 0 ? (
         <div style={{ fontFamily: FONT.mono, fontSize: 12, color: COLORS.muted }}>
-          No hot days detected yet.
+          {t('stats.hot.empty')}
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -80,7 +82,7 @@ export default function HotTrendDays({ days }: HotTrendDaysProps) {
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  {meta.emoji} {meta.label}
+                  {meta.emoji} {t(`stats.hot.badge.${meta.badge}`)}
                 </span>
               </div>
             )

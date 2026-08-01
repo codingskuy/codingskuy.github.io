@@ -7,6 +7,7 @@ import {
   computeMilestones,
 } from './lib/analytics'
 import { useStatsData } from './lib/useStatsData'
+import { useTranslation } from '../i18n'
 import { RELEASES } from './data/releases'
 import { COLORS, FONT } from './data/theme'
 import SectionShell from './components/SectionShell'
@@ -36,6 +37,7 @@ function compute(data: ReturnType<typeof computeDailyStats>['data']): Computed {
 }
 
 export default function StatsSection() {
+  const { t } = useTranslation()
   const rootRef = useRef<HTMLDivElement>(null)
   const snapshotRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(false)
@@ -84,15 +86,15 @@ export default function StatsSection() {
     >
       <SectionShell
         id="stats"
-        label="npm analytics"
-        title="CodingSchool Package Analytics"
-        subtitle={`Live downloads for ${'@codingskuy/coding-school'} since launch on 13 Jul 2026, computed from the npm download API.`}
+        label={t('stats.label')}
+        title={t('stats.title')}
+        subtitle={t('stats.subtitle', { pkg: '@codingskuy/coding-school', date: '13 Jul 2026' })}
         action={
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <button
               onClick={handleRefetch}
-              title="Refresh data"
-              aria-label="Refresh data"
+              title={t('stats.refresh')}
+              aria-label={t('stats.refreshAria')}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -117,7 +119,7 @@ export default function StatsSection() {
               }}
             >
               <RefreshCw size={13} />
-              Refresh
+              {t('stats.refresh')}
             </button>
             <ShareSnapshot node={snapshotRef} />
           </div>
@@ -149,8 +151,8 @@ export default function StatsSection() {
                     color: COLORS.muted,
                   }}
                 >
-                  ● live · updated {lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  {lastRefresh ? ' · refreshed' : ''}
+                  {t('stats.liveUpdated', { time: lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) })}
+                  {lastRefresh ? t('stats.refreshed') : ''}
                 </span>
               ) : (
                 <span />

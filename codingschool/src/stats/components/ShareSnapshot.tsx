@@ -2,12 +2,14 @@ import { useState, type RefObject } from 'react'
 import { toPng } from 'html-to-image'
 import { Camera, Check } from 'lucide-react'
 import { COLORS, FONT } from '../data/theme'
+import { useTranslation } from '../../i18n'
 
 interface ShareSnapshotProps {
   node: RefObject<HTMLElement | null>
 }
 
 export default function ShareSnapshot({ node }: ShareSnapshotProps) {
+  const { t } = useTranslation()
   const [busy, setBusy] = useState(false)
   const [done, setDone] = useState(false)
 
@@ -55,7 +57,7 @@ export default function ShareSnapshot({ node }: ShareSnapshotProps) {
       }}
     >
       {done ? <Check size={14} /> : <Camera size={14} />}
-      {busy ? 'Generating…' : done ? 'Saved ✓' : 'Share Snapshot'}
+      {busy ? t('stats.share.busy') : done ? t('stats.share.saved') : t('stats.share')}
     </button>
   )
 }

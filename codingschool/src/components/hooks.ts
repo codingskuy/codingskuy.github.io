@@ -1,4 +1,52 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { PACKAGE_NAME, RELEASE_DATE } from '../stats/data/config'
+import { toISODate } from '../stats/utils/date'
+
+const REPO_STATS_KEY = 'codingschool-repo-stats'
+const REPO_STATS_TTL_MS = 60 * 60 * 1000
+const DEFAULT_INSTALLS = 1155
+
+export function useRepoStats() {
+  const [installs, setInstalls] = useState(DEFAULT_INSTALLS)
+
+  useEffect(() => {
+    let cancelled = false
+    try {
+      const raw = localStorage.getItem(REPO_STATS_KEY)
+      if (raw) {
+        const entry = JSON.parse(raw) as { savedAt: number; installs: number }
+        if (typeof entry.installs === 'number' && Date.now() - entry.savedAt < REPO_STATS_TTL_MS) {
+          setInstalls(entry.installs)
+        }
+      }
+    } catch {
+      // private mode / invalid cache — fall through to fetch
+    }
+    const today = toISODate(new Date())
+    fetch(`https://api.npmjs.org/downloads/point/${RELEASE_DATE}:${today}/${PACKAGE_NAME}`)
+      .then((res) => (res.ok ? (res.json() as Promise<{ downloads?: number }>) : null))
+      .then((json) => {
+        if (cancelled || !json || typeof json.downloads !== 'number') return
+        setInstalls(json.downloads)
+        try {
+          localStorage.setItem(
+            REPO_STATS_KEY,
+            JSON.stringify({ savedAt: Date.now(), installs: json.downloads }),
+          )
+        } catch {
+          // private mode / quota — skip silently
+        }
+      })
+      .catch(() => {
+        // network offline — keep cached/fallback value
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  return { stars: 3, contributors: 1, forks: 0, installs }
+}
 
 export function useInView(options?: IntersectionObserverInit) {
   const ref = useRef<HTMLDivElement>(null)

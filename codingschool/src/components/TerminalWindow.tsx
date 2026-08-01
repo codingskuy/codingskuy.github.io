@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useCopyToClipboard } from './hooks'
+import { useTranslation } from '../i18n'
 import { Check, Copy } from 'lucide-react'
 
 const TERMINAL_LINES = [
@@ -22,6 +23,7 @@ const TERMINAL_LINES = [
 ]
 
 function TerminalWindow() {
+  const { t } = useTranslation()
   const [visibleLines, setVisibleLines] = useState<number>(0)
   const [started, setStarted] = useState(false)
   const { copied, copy } = useCopyToClipboard()
@@ -111,7 +113,7 @@ function TerminalWindow() {
             onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 8px rgba(63,185,80,0.5)')}
             onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
           />
-          <span style={{ marginLeft: 8, color: '#8B949E', fontSize: 12 }}>opencode — coding-school</span>
+          <span style={{ marginLeft: 8, color: '#8B949E', fontSize: 12 }}>{t('terminal.title')}</span>
         </div>
         <button
           onClick={() => copy(terminalText)}

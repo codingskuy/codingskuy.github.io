@@ -1,10 +1,12 @@
 import SectionLabel from '../SectionLabel'
+import { useTranslation } from '../../i18n'
 import { ArrowRight } from 'lucide-react'
 
 function Problem() {
+  const { t } = useTranslation()
   return (
     <section style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px 100px' }}>
-      <SectionLabel text="The Problem" />
+      <SectionLabel text={t('problem.label')} />
       <h2
         style={{
           fontSize: 'clamp(28px, 4vw, 44px)',
@@ -16,27 +18,27 @@ function Problem() {
           letterSpacing: '-0.02em',
         }}
       >
-        AI changed programming.
+        {t('problem.title')}
         <br />
-        <span style={{ color: '#8B949E' }}>It didn't change how people learn.</span>
+        <span style={{ color: '#8B949E' }}>{t('problem.titleHighlight')}</span>
       </h2>
       <p style={{ color: '#8B949E', fontSize: 16, lineHeight: 1.65, marginBottom: 56, maxWidth: 480 }}>
-        Developers are shipping faster than ever — but fewer understand what they're shipping.
+        {t('problem.subtitle')}
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 60px 1fr', gap: 0, alignItems: 'start' }} className="problem-grid">
         <div style={{ background: '#161B22', border: '1px solid #30363D', borderRadius: 10, padding: '28px 28px 32px' }}>
           <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#F85149', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span>✖</span> Today's Workflow
+            <span>✖</span> {t('problem.todaysWorkflow')}
           </div>
-          {['Prompt', 'Copy', 'Paste', 'Ship', 'Forget'].map((step, i, arr) => (
+          {[t('problem.steps.prompt'), t('problem.steps.copy'), t('problem.steps.paste'), t('problem.steps.ship'), t('problem.steps.forget')].map((step, i, arr) => (
             <div key={step}>
               <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 15, color: '#F0F6FC', padding: '10px 0' }}>{step}</div>
-              {i < arr.length - 1 && <div style={{ fontFamily: "'JetBrains Mono', monospace',", fontSize: 13, color: '#30363D', paddingLeft: 4 }}>↓</div>}
+              {i < arr.length - 1 && <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 13, color: '#30363D', paddingLeft: 4 }}>↓</div>}
             </div>
           ))}
           <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid #30363D' }}>
-            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#8B949E', marginBottom: 12 }}>Result</div>
-            {['Shallow understanding', 'Tutorial dependency', 'Weak debugging skills', 'No engineering growth'].map((item) => (
+            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#8B949E', marginBottom: 12 }}>{t('problem.result')}</div>
+            {[t('problem.results.shallow'), t('problem.results.tutorial'), t('problem.results.debugging'), t('problem.results.growth')].map((item) => (
               <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#8B949E', fontSize: 13, marginBottom: 8, fontFamily: "'JetBrains Mono', monospace" }}>
                 <span style={{ color: '#F85149' }}>✖</span> {item}
               </div>
@@ -48,17 +50,17 @@ function Problem() {
         </div>
         <div style={{ background: '#161B22', border: '1px solid #FF8C4233', borderRadius: 10, padding: '28px 28px 32px' }}>
           <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#3FB950', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span>✔</span> CodingSchool Method
+            <span>✔</span> {t('problem.codingSchoolMethod')}
           </div>
-          {['Diagnose', 'Understand', 'Build', 'Review', 'Reflect', 'Grow'].map((step, i, arr) => (
+          {[t('problem.steps.diagnose'), t('problem.steps.understand'), t('problem.steps.build'), t('problem.steps.review'), t('problem.steps.reflect'), t('problem.steps.grow')].map((step, i, arr) => (
             <div key={step}>
               <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 15, color: i === arr.length - 1 ? '#FF8C42' : '#F0F6FC', padding: '10px 0', fontWeight: i === arr.length - 1 ? 600 : 400 }}>{step}</div>
               {i < arr.length - 1 && <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 13, color: '#30363D', paddingLeft: 4 }}>↓</div>}
             </div>
           ))}
           <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid #30363D' }}>
-            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#8B949E', marginBottom: 12 }}>Result</div>
-            {['Deep engineering understanding', 'Independent problem-solving', 'Strong debugging skills', 'Continuous growth'].map((item) => (
+            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: '#8B949E', marginBottom: 12 }}>{t('problem.result')}</div>
+            {[t('problem.csResults.deep'), t('problem.csResults.independent'), t('problem.csResults.strongDebugging'), t('problem.csResults.continuous')].map((item) => (
               <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#8B949E', fontSize: 13, marginBottom: 8, fontFamily: "'JetBrains Mono', monospace" }}>
                 <span style={{ color: '#3FB950' }}>✔</span> {item}
               </div>
