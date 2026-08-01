@@ -11,6 +11,8 @@ import {
 } from 'lucide-react'
 import type { DailyDownload, DailyStats } from '../types'
 import { COLORS, FONT } from '../data/theme'
+import { RELEASE_DATE } from '../data/config'
+import { parseDay } from '../utils/date'
 import Panel from './Panel'
 
 interface StatCardProps {
@@ -120,12 +122,17 @@ interface HeroCardsProps {
 }
 
 export default function HeroCards({ data, stats }: HeroCardsProps) {
-  const lastDay = stats.lastDay?.day ?? ''
   const thisWeek = data.slice(-7).reduce((a, d) => a + d.downloads, 0)
   const thisMonth = data.slice(-30).reduce((a, d) => a + d.downloads, 0)
   const today = stats.lastDay?.downloads ?? 0
   const growth = currentGrowth(data)
   const growthPct = growth === null ? null : Math.abs(growth * 100)
+  const releaseLabel = parseDay(RELEASE_DATE).toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  })
 
   return (
     <div className="stats-hero-grid">
@@ -133,7 +140,7 @@ export default function HeroCards({ data, stats }: HeroCardsProps) {
         icon={<Download size={14} />}
         label="Total Downloads"
         value={stats.total}
-        hint={`since ${lastDay || 'release'}`}
+        hint={`since ${releaseLabel}`}
       />
       <StatCard icon={<Flame size={14} />} label="Downloads Today" value={today} />
       <StatCard icon={<TrendingUp size={14} />} label="This Week" value={thisWeek} />
