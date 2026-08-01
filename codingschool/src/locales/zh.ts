@@ -4,7 +4,9 @@ const zh: Record<string, string> = {
   'nav.philosophy': '理念',
   'nav.docs': '文档',
   'nav.github': 'GitHub',
+  'nav.stats': '统计',
   'nav.install': '免费安装',
+  'aria.menu': '打开菜单',
 
   // Hero
   'hero.badge': 'OpenCode 插件 · 免费且开源',

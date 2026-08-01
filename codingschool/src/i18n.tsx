@@ -22,7 +22,7 @@ function getInitialLocale(): Locale {
 interface I18nContextValue {
   locale: Locale
   setLocale: (l: Locale) => void
-  t: (key: string) => string
+  t: (key: string, vars?: Record<string, string | number>) => string
 }
 
 const I18nContext = createContext<I18nContextValue>({
@@ -39,8 +39,14 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     try { localStorage.setItem(LOCALE_KEY, l) } catch {}
   }
 
-  const t = (key: string): string => {
-    return translations[locale]?.[key] ?? translations.en[key] ?? key
+  const t = (key: string, vars?: Record<string, string | number>): string => {
+    let str = translations[locale]?.[key] ?? translations.en[key] ?? key
+    if (vars) {
+      for (const [k, v] of Object.entries(vars)) {
+        str = str.replaceAll(`{${k}}`, String(v))
+      }
+    }
+    return str
   }
 
   return (

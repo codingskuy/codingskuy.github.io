@@ -4,7 +4,9 @@ const ja: Record<string, string> = {
   'nav.philosophy': 'コンセプト',
   'nav.docs': 'ドキュメント',
   'nav.github': 'GitHub',
+  'nav.stats': '統計',
   'nav.install': '無料インストール',
+  'aria.menu': 'メニューを開く',
 
   // Hero
   'hero.badge': 'OpenCode プラグイン · 無料＆オープンソース',

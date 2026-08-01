@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Terminal, X, Menu } from 'lucide-react'
+import { useTranslation } from '../i18n'
+import { LanguageSwitcher } from '../LanguageSwitcher'
 
 function Nav() {
+  const { t } = useTranslation()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -12,11 +15,11 @@ function Nav() {
   }, [])
 
   const navLinks = [
-    { label: 'Features', href: '#' },
-    { label: 'Philosophy', href: '#' },
-    { label: 'Stats', href: '#stats' },
-    { label: 'Docs', href: '#' },
-    { label: 'GitHub', href: '#' },
+    { label: t('nav.features'), href: '#' },
+    { label: t('nav.philosophy'), href: '#' },
+    { label: t('nav.stats'), href: '#stats' },
+    { label: t('nav.docs'), href: '#' },
+    { label: t('nav.github'), href: '#' },
   ]
 
   return (
@@ -27,6 +30,7 @@ function Nav() {
           <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 14, fontWeight: 500, color: '#F0F6FC' }}>CodingSchool</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 32 }} className="hidden-mobile">
+          <div style={{ marginBottom: 12 }}><LanguageSwitcher /></div>
           {navLinks.map((link) => (
             <a key={link.label} href={link.href} className="link-underline" style={{ color: '#8B949E', fontSize: 14, textDecoration: 'none', transition: 'color 150ms ease-out', position: 'relative' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#F0F6FC')} onMouseLeave={(e) => (e.currentTarget.style.color = '#8B949E')}>
               {link.label}
@@ -34,10 +38,11 @@ function Nav() {
           ))}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <LanguageSwitcher />
           <button className="interact-press" style={{ background: '#FF8C42', color: '#0D1117', border: 'none', borderRadius: 8, padding: '7px 18px', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: "'Inter', sans-serif" }} onMouseEnter={(e) => { e.currentTarget.style.filter = 'brightness(1.12)'; e.currentTarget.style.boxShadow = '0 0 16px rgba(255, 140, 66,0.3)' }} onMouseLeave={(e) => { e.currentTarget.style.filter = 'none'; e.currentTarget.style.boxShadow = 'none' }}>
-            Install Free
+            {t('nav.install')}
           </button>
-          <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+          <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label={t('aria.menu')}>
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
@@ -50,7 +55,7 @@ function Nav() {
             </a>
           ))}
           <button className="interact-press" style={{ marginTop: 16, width: '100%', background: '#FF8C42', color: '#0D1117', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: "'Inter', sans-serif" }} onClick={() => setMenuOpen(false)}>
-            Install Free
+            {t('nav.install')}
           </button>
         </div>
       )}

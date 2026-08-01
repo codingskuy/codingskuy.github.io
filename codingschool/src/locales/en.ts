@@ -4,7 +4,9 @@ const en: Record<string, string> = {
   'nav.philosophy': 'Philosophy',
   'nav.docs': 'Docs',
   'nav.github': 'GitHub',
+  'nav.stats': 'Stats',
   'nav.install': 'Install Free',
+  'aria.menu': 'Toggle menu',
 
   // Hero
   'hero.badge': 'OpenCode Plugin · Free & Open Source',
