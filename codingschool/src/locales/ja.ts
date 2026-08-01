@@ -12,7 +12,7 @@ const ja: Record<string, string> = {
   'hero.badge': 'OpenCode プラグイン · 無料＆オープンソース',
   'hero.title1': 'エンジニアになろう。',
   'hero.title2': 'AI コピー屋にならない。',
-  'hero.subtitle': '実際のソフトウェアプロジェクトを通じて、教你、レビューし、成長する無料のOpenCodeプラグイン。',
+  'hero.subtitle': '実際のソフトウェアプロジェクトを通じて、教え、レビューし、成長する無料のOpenCodeプラグイン。',
   'hero.install': '無料インストール',
   'hero.viewGithub': 'GitHubを見る',
   'hero.stars': '{count} スター',
