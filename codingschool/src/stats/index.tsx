@@ -80,8 +80,6 @@ export default function StatsSection() {
       ref={rootRef}
       style={{
         background: COLORS.bg,
-        borderTop: `1px solid ${COLORS.border}`,
-        borderBottom: `1px solid ${COLORS.border}`,
       }}
     >
       <SectionShell
@@ -99,10 +97,10 @@ export default function StatsSection() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 8,
-                background: 'transparent',
-                color: COLORS.muted,
+                background: COLORS.panel,
+                color: COLORS.text,
                 border: `1px solid ${COLORS.border}`,
-                borderRadius: 8,
+                borderRadius: 999,
                 padding: '8px 12px',
                 fontSize: 13,
                 cursor: 'pointer',
@@ -110,11 +108,9 @@ export default function StatsSection() {
                 transition: 'color 150ms ease-out, border-color 150ms ease-out',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = COLORS.text
-                e.currentTarget.style.borderColor = COLORS.muted
+                e.currentTarget.style.borderColor = COLORS.borderStrong
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = COLORS.muted
                 e.currentTarget.style.borderColor = COLORS.border
               }}
             >

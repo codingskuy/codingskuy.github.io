@@ -6,10 +6,9 @@ interface CompetencyBar {
   color?: string
 }
 
-function CompBar({ label, value, color = '#FF8C42' }: CompetencyBar) {
+function CompBar({ label, value, color = 'var(--accent)' }: CompetencyBar) {
   const ref = useRef<HTMLDivElement>(null)
   const [animated, setAnimated] = useState(false)
-  const [displayCount, setDisplayCount] = useState(0)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -20,38 +19,22 @@ function CompBar({ label, value, color = '#FF8C42' }: CompetencyBar) {
     return () => observer.disconnect()
   }, [])
 
-  useEffect(() => {
-    if (!animated) return
-    const blocks = 10
-    const filled = Math.round((value / 100) * blocks)
-    let current = 0
-    const interval = setInterval(() => {
-      current++
-      setDisplayCount(current)
-      if (current >= filled) clearInterval(interval)
-    }, 40)
-    return () => clearInterval(interval)
-  }, [animated, value])
-
-  const blocks = 10
-
   return (
-    <div ref={ref} style={{ marginBottom: 14 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-        <span style={{ color: '#8B949E', fontSize: 13, fontFamily: "'JetBrains Mono', monospace" }}>{label}</span>
-        <span style={{ color: '#8B949E', fontSize: 12, fontFamily: "'JetBrains Mono', monospace" }}>{animated ? value : 0}%</span>
+    <div ref={ref} style={{ marginBottom: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+        <span style={{ color: 'var(--text)', fontSize: 14, fontWeight: 500 }}>{label}</span>
+        <span style={{ color: 'var(--muted)', fontSize: 13, fontFamily: "'JetBrains Mono', monospace" }}>{animated ? value : 0}%</span>
       </div>
-      <div
-        style={{
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: 15,
-          letterSpacing: 2,
-          color: color,
-        }}
-      >
-        {Array.from({ length: blocks }, (_, i) =>
-          i < displayCount ? '█' : '░'
-        ).join('')}
+      <div style={{ height: 8, background: 'var(--track)', borderRadius: 999, overflow: 'hidden' }}>
+        <div
+          style={{
+            height: '100%',
+            width: animated ? `${value}%` : 0,
+            background: color,
+            borderRadius: 999,
+            transition: 'width 700ms cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+        />
       </div>
     </div>
   )

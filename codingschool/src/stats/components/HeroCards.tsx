@@ -23,6 +23,7 @@ interface StatCardProps {
   precision?: number
   hint?: string
   accent?: string
+  dark?: boolean
 }
 
 function useCountUp(target: number, duration = 900, precision = 0) {
@@ -63,17 +64,18 @@ function useCountUp(target: number, duration = 900, precision = 0) {
   return { ref, display }
 }
 
-function StatCard({ icon, label, value, precision = 0, hint, accent = COLORS.accent }: StatCardProps) {
+function StatCard({ icon, label, value, precision = 0, hint, accent = COLORS.accent, dark = false }: StatCardProps) {
   const { ref, display } = useCountUp(value, 900, precision)
+  const muted = dark ? '#8B949E' : COLORS.muted
   return (
-    <Panel style={{ padding: 18 }}>
+    <Panel style={dark ? { padding: 22, background: '#231E19', border: '1px solid #231E19' } : { padding: 22 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-        <span style={{ color: accent, display: 'flex' }}>{icon}</span>
+        <span style={{ color: dark ? '#FF8C42' : accent, display: 'flex' }}>{icon}</span>
         <span
           style={{
             fontFamily: FONT.mono,
-            fontSize: 11,
-            color: COLORS.muted,
+            fontSize: 12,
+            color: muted,
             letterSpacing: 0.5,
             textTransform: 'uppercase',
           }}
@@ -84,10 +86,10 @@ function StatCard({ icon, label, value, precision = 0, hint, accent = COLORS.acc
       <div
         ref={ref}
         style={{
-          fontFamily: FONT.sans,
-          fontSize: 28,
+          fontFamily: FONT.mono,
+          fontSize: 32,
           fontWeight: 700,
-          color: COLORS.text,
+          color: dark ? '#FF8C42' : COLORS.text,
           lineHeight: 1.1,
         }}
       >
@@ -97,8 +99,8 @@ function StatCard({ icon, label, value, precision = 0, hint, accent = COLORS.acc
         <div
           style={{
             fontFamily: FONT.mono,
-            fontSize: 11,
-            color: COLORS.muted,
+            fontSize: 12,
+            color: muted,
             marginTop: 8,
           }}
         >
@@ -143,6 +145,7 @@ export default function HeroCards({ data, stats }: HeroCardsProps) {
         label={t('stats.total')}
         value={stats.total}
         hint={t('stats.since', { date: releaseLabel })}
+        dark
       />
       <StatCard icon={<Flame size={14} />} label={t('stats.today')} value={today} />
       <StatCard icon={<TrendingUp size={14} />} label={t('stats.week')} value={thisWeek} />

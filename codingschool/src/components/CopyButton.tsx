@@ -2,21 +2,22 @@ import { Check, Copy } from 'lucide-react'
 import { useCopyToClipboard } from './hooks'
 import { useTranslation } from '../i18n'
 
-function CopyButton({ text, className = '' }: { text: string; className?: string }) {
+function CopyButton({ text, className = '', dark = false }: { text: string; className?: string; dark?: boolean }) {
   const { copied, copy } = useCopyToClipboard()
   const { t } = useTranslation()
+  const idle = dark ? { background: '#3A332B', color: '#C9D1D9' } : { background: 'rgba(107,97,85,0.08)', color: 'var(--muted)' }
+  const done = dark ? { background: 'rgba(63, 185, 80, 0.15)', color: '#3FB950' } : { background: 'rgba(26, 143, 68, 0.12)', color: 'var(--green)' }
 
   return (
     <button
       onClick={() => copy(text)}
       className={className}
       style={{
-        background: copied ? 'rgba(63,185,80,0.12)' : 'rgba(139,148,158,0.08)',
+        ...(copied ? done : idle),
         border: 'none',
-        borderRadius: 6,
-        padding: 5,
+        borderRadius: 8,
+        padding: 6,
         cursor: 'pointer',
-        color: copied ? '#3FB950' : '#8B949E',
         transition: 'background 150ms, color 150ms',
         display: 'flex',
         alignItems: 'center',

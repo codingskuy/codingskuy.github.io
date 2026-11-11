@@ -6,17 +6,13 @@ function TermDivider() {
     <div
       ref={ref}
       style={{
-        fontFamily: "'JetBrains Mono', monospace",
-        fontSize: 13,
-        color: '#30363D',
+        height: 1,
+        background: 'var(--border-strong)',
         margin: '64px 0',
-        letterSpacing: 1,
-        userSelect: 'none',
         opacity: inView ? 1 : 0,
         transition: 'opacity 400ms ease-out',
       }}
-    >
-    </div>
+    />
   )
 }
 

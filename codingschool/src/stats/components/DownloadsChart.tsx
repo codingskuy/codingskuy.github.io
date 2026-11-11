@@ -44,7 +44,7 @@ function ChartTooltip(props: Record<string, unknown>) {
         borderRadius: 8,
         padding: '10px 14px',
         fontSize: 12,
-        boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+        boxShadow: '0 8px 24px rgba(35,30,25,0.12)',
       }}
     >
       <div style={{ color: COLORS.muted, fontFamily: FONT.mono, letterSpacing: 0.5 }}>

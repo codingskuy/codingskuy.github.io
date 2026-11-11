@@ -18,58 +18,39 @@ function JourneyStep({
   return (
     <div
       ref={ref}
+      className="interact-hover"
       style={{
         display: 'flex',
-        gap: 20,
+        alignItems: 'flex-start',
+        gap: 18,
+        background: 'var(--surface)',
+        border: `1px solid ${isLast ? 'rgba(232, 101, 15, 0.35)' : 'var(--border)'}`,
+        borderRadius: 16,
+        padding: '20px 22px',
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(12px)',
         transition: `opacity 300ms ease-out ${index * 80}ms, transform 300ms ease-out ${index * 80}ms`,
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div
-          style={{
-            width: 36,
-            height: 36,
-            border: '1px solid #30363D',
-            borderRadius: '50%',
-            background: '#161B22',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-            transition: 'border-color 200ms ease-out, box-shadow 200ms ease-out',
-          }}
-        >
-          <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: '#FF8C42' }}>
-            {step}
-          </span>
-        </div>
-        {!isLast && (
-          <div
-            style={{
-              width: 1,
-              flex: 1,
-              background: inView ? '#FF8C42' : '#30363D',
-              margin: '6px 0',
-              minHeight: 40,
-              transition: 'background 400ms ease-out',
-            }}
-          />
-        )}
+      <div
+        style={{
+          width: 40,
+          height: 40,
+          borderRadius: 12,
+          background: isLast ? 'var(--accent)' : 'var(--surface-2)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}
+      >
+        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 14, fontWeight: 700, color: isLast ? '#FBF7F1' : 'var(--text)' }}>
+          {step}
+        </span>
       </div>
-      <div style={{ paddingBottom: isLast ? 0 : 32 }}>
-        <div
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 14,
-            color: '#F0F6FC',
-            marginBottom: 6,
-          }}
-        >
-          {label}
-        </div>
-        <div style={{ color: '#8B949E', fontSize: 14, lineHeight: 1.6 }}>{desc}</div>
+      <div>
+        <div style={{ fontSize: 18, fontWeight: 600, color: 'var(--text)', marginBottom: 4 }}>{label}</div>
+        <div style={{ color: 'var(--muted)', fontSize: 15, lineHeight: 1.6 }}>{desc}</div>
       </div>
     </div>
   )

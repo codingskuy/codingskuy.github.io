@@ -43,23 +43,28 @@ export default function SectionShell({
               fontFamily: FONT.mono,
               fontSize: 12,
               color: COLORS.muted,
-              letterSpacing: 1,
-              marginBottom: 12,
-              display: 'flex',
+              marginBottom: 20,
+              display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
+              background: COLORS.panel,
+              border: `1px solid ${COLORS.border}`,
+              borderRadius: 999,
+              padding: '6px 12px 6px 10px',
             }}
           >
-            <span style={{ color: COLORS.accent }}>{`{ }`}</span>
-            {label}
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: COLORS.accent }} />
+            // {label}
           </div>
           <h2
             style={{
               fontFamily: FONT.sans,
-              fontSize: 32,
+              fontSize: 'clamp(28px, 4vw, 44px)',
               fontWeight: 700,
               color: COLORS.text,
               margin: 0,
+              lineHeight: 1.15,
+              letterSpacing: '-0.02em',
             }}
           >
             {title}
@@ -68,9 +73,9 @@ export default function SectionShell({
             <p
               style={{
                 fontFamily: FONT.sans,
-                fontSize: 15,
+                fontSize: 18,
                 color: COLORS.muted,
-                margin: '10px 0 0',
+                margin: '16px 0 0',
                 maxWidth: 640,
                 lineHeight: 1.6,
               }}

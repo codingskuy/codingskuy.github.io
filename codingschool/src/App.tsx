@@ -30,7 +30,7 @@ function AppInner() {
   }, [])
 
   return (
-    <div style={{ background: '#0D1117', minHeight: '100vh', color: '#F0F6FC' }}>
+    <div style={{ background: 'var(--bg)', minHeight: '100vh', color: 'var(--text)' }}>
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}
       <Nav />
       <Hero />

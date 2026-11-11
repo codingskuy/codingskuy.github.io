@@ -7,6 +7,8 @@ const en: Record<string, string> = {
   'nav.stats': 'Stats',
   'nav.install': 'Install Free',
   'aria.menu': 'Toggle menu',
+  'aria.themeDark': 'Switch to dark mode',
+  'aria.themeLight': 'Switch to light mode',
 
   // Hero
   'hero.badge': 'OpenCode Plugin · Free & Open Source',
@@ -60,6 +62,8 @@ const en: Record<string, string> = {
   'why.diagnosis.items.0': 'Knowledge mapping',
   'why.diagnosis.items.1': 'Competency baseline',
   'why.diagnosis.items.2': 'Adaptive roadmap',
+  'why.diagnosis.done': 'done',
+  'why.diagnosis.building': 'building…',
   'why.mentor.title': 'Engineering Mentor',
   'why.mentor.desc': 'Not a chatbot. Not an autocomplete. A structured mentor that reviews your code, architecture, and decisions.',
   'why.mentor.items.0': 'Code review',
@@ -121,6 +125,7 @@ const en: Record<string, string> = {
   'comp.items.3': 'Honest feedback on where to improve',
   'comp.learning': 'Learning',
   'comp.engineering': 'Engineering',
+  'comp.avg': '% avg',
   'comp.knowledge': 'Knowledge',
   'comp.implementation': 'Implementation',
   'comp.debugging': 'Debugging',

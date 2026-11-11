@@ -71,9 +71,9 @@ export default function HotTrendDays({ days }: HotTrendDaysProps) {
                 <span
                   style={{
                     marginLeft: 'auto',
-                    background: `${meta.color}1f`,
+                    background: `color-mix(in srgb, ${meta.color} 12%, transparent)`,
                     color: meta.color,
-                    border: `1px solid ${meta.color}55`,
+                    border: `1px solid color-mix(in srgb, ${meta.color} 33%, transparent)`,
                     borderRadius: 999,
                     padding: '3px 10px',
                     fontSize: 11,

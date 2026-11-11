@@ -7,6 +7,8 @@ const zh: Record<string, string> = {
   'nav.stats': '统计',
   'nav.install': '免费安装',
   'aria.menu': '打开菜单',
+  'aria.themeDark': '切换到深色模式',
+  'aria.themeLight': '切换到浅色模式',
 
   // Hero
   'hero.badge': 'OpenCode 插件 · 免费且开源',
@@ -60,6 +62,8 @@ const zh: Record<string, string> = {
   'why.diagnosis.items.0': '知识映射',
   'why.diagnosis.items.1': '能力基线',
   'why.diagnosis.items.2': '自适应路线图',
+  'why.diagnosis.done': '完成',
+  'why.diagnosis.building': '构建中…',
   'why.mentor.title': '工程导师',
   'why.mentor.desc': '不是聊天机器人。不是自动补全。是审查你的代码、架构和决策的结构化导师。',
   'why.mentor.items.0': '代码审查',
@@ -121,6 +125,7 @@ const zh: Record<string, string> = {
   'comp.items.3': '对需要改进之处的诚实反馈',
   'comp.learning': '学习',
   'comp.engineering': '工程',
+  'comp.avg': '% 平均',
   'comp.knowledge': '知识',
   'comp.implementation': '实现',
   'comp.debugging': '调试',

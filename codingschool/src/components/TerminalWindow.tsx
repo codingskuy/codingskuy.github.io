@@ -46,7 +46,7 @@ function TerminalWindow() {
     switch (type) {
       case 'command': return '#F0F6FC'
       case 'success': return '#3FB950'
-      case 'divider': return '#30363D'
+      case 'divider': return '#3A332B'
       case 'label': return '#8B949E'
       case 'bar': return '#FF8C42'
       case 'muted': return '#8B949E'
@@ -60,9 +60,10 @@ function TerminalWindow() {
     <div
       className="terminal-glow"
       style={{
-        background: '#161B22',
-        border: '1px solid #30363D',
-        borderRadius: 10,
+        background: '#231E19',
+        border: '1px solid #3A332B',
+        borderRadius: 16,
+        boxShadow: '0 24px 56px rgba(22,25,31,0.16)',
         overflow: 'hidden',
         fontFamily: "'JetBrains Mono', monospace",
         fontSize: 13,
@@ -87,8 +88,8 @@ function TerminalWindow() {
       {/* Title bar */}
       <div
         style={{
-          background: '#1C2128',
-          borderBottom: '1px solid #30363D',
+          background: '#2C2620',
+          borderBottom: '1px solid #3A332B',
           padding: '10px 16px',
           display: 'flex',
           alignItems: 'center',
@@ -99,17 +100,17 @@ function TerminalWindow() {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <div
-            style={{ width: 12, height: 12, borderRadius: '50%', background: '#F85149', transition: 'box-shadow 200ms' }}
+            style={{ width: 12, height: 12, borderRadius: '50%', background: '#FF5F57', transition: 'box-shadow 200ms' }}
             onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 8px rgba(248,81,73,0.5)')}
             onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
           />
           <div
-            style={{ width: 12, height: 12, borderRadius: '50%', background: '#D29922', transition: 'box-shadow 200ms' }}
+            style={{ width: 12, height: 12, borderRadius: '50%', background: '#FEBC2E', transition: 'box-shadow 200ms' }}
             onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 8px rgba(210,153,34,0.5)')}
             onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
           />
           <div
-            style={{ width: 12, height: 12, borderRadius: '50%', background: '#3FB950', transition: 'box-shadow 200ms' }}
+            style={{ width: 12, height: 12, borderRadius: '50%', background: '#28C840', transition: 'box-shadow 200ms' }}
             onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 8px rgba(63,185,80,0.5)')}
             onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
           />
@@ -134,7 +135,7 @@ function TerminalWindow() {
         </button>
       </div>
       {/* Content */}
-      <div style={{ padding: '20px 24px', minHeight: 340, position: 'relative', zIndex: 2 }}>
+      <div style={{ padding: '20px 24px', minHeight: 340, position: 'relative', zIndex: 2, overflowX: 'auto' }}>
         {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
           <div
             key={i}

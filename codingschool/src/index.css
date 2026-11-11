@@ -6,6 +6,68 @@
   --font-mono: 'JetBrains Mono', monospace;
 }
 
+/* ── Theme tokens ───────────────────────────────────────────────────────── */
+
+:root {
+  color-scheme: light;
+  --bg: #F5EFE6;
+  --surface: #FBF7F1;
+  --surface-hover: #FFFFFF;
+  --surface-2: #EDE5D8;
+  --track: #EAE1D3;
+  --border: #E3D8C8;
+  --border-strong: #D6C9B6;
+  --text: #231E19;
+  --muted: #6B6155;
+  --muted-2: #8A7F72;
+  --dim: #B3A691;
+  --accent: #E8650F;
+  --accent-text: #C9550B;
+  --green: #1A8F44;
+  --red: #D1242F;
+  --yellow: #B7791F;
+  --green-tint: #E5F3EA;
+  --accent-tint: #FDEEE3;
+  --accent-tint-2: #FFF4EC;
+  --yellow-tint: #FDF3DC;
+  --red-tint: #FBE9E9;
+  --cta-from: #FFF1E6;
+  --cta-to: #FEF6E4;
+  --cta-border: #F3C9A8;
+  --nav-bg: rgba(245, 239, 230, 0.85);
+  --drawer-bg: rgba(245, 239, 230, 0.98);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #16130F;
+  --surface: #1F1A16;
+  --surface-hover: #27211C;
+  --surface-2: #2A241E;
+  --track: #2F2822;
+  --border: #342C25;
+  --border-strong: #4A4037;
+  --text: #F5EFE6;
+  --muted: #A89C8C;
+  --muted-2: #8A7F72;
+  --dim: #6B6155;
+  --accent: #F0722A;
+  --accent-text: #FF8C42;
+  --green: #3FB950;
+  --red: #F85149;
+  --yellow: #D29922;
+  --green-tint: rgba(63, 185, 80, 0.14);
+  --accent-tint: rgba(255, 140, 66, 0.16);
+  --accent-tint-2: rgba(255, 140, 66, 0.08);
+  --yellow-tint: rgba(210, 153, 34, 0.16);
+  --red-tint: rgba(248, 81, 73, 0.14);
+  --cta-from: #2A1D14;
+  --cta-to: #241D14;
+  --cta-border: #5A3820;
+  --nav-bg: rgba(22, 19, 15, 0.85);
+  --drawer-bg: rgba(22, 19, 15, 0.98);
+}
+
 /* ── Reset ─────────────────────────────────────────────────────────────── */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -13,8 +75,9 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: #0D1117;
-  color: #F0F6FC;
+  background-color: var(--bg);
+  transition: background-color 200ms ease-out, color 200ms ease-out;
+  color: var(--text);
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -26,11 +89,11 @@ body {
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: #30363D;
+  background: var(--border-strong);
   border-radius: 3px;
   transition: background 0.2s;
 }
-::-webkit-scrollbar-thumb:hover { background: #484f58; }
+::-webkit-scrollbar-thumb:hover { background: var(--dim); }
 
 /* ── Keyframes ──────────────────────────────────────────────────────────── */
 
@@ -72,9 +135,9 @@ body {
 
 /* Status dot pulse */
 @keyframes dot-pulse {
-  0%  { box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.5); }
-  70% { box-shadow: 0 0 0 5px rgba(63, 185, 80, 0); }
-  100%{ box-shadow: 0 0 0 0 rgba(63, 185, 80, 0); }
+  0%  { box-shadow: 0 0 0 0 rgba(26, 143, 68, 0.5); }
+  70% { box-shadow: 0 0 0 5px rgba(26, 143, 68, 0); }
+  100%{ box-shadow: 0 0 0 0 rgba(26, 143, 68, 0); }
 }
 
 /* Tooltip fade-in */
@@ -86,7 +149,7 @@ body {
 /* Copy flash */
 @keyframes copy-flash {
   0%, 100% { background: transparent; }
-  30%       { background: rgba(255, 140, 66,0.12); }
+  30%       { background: rgba(232, 101, 15, 0.12); }
 }
 
 /* Success check pop */
@@ -98,8 +161,8 @@ body {
 
 /* Glow pulse on card border */
 @keyframes border-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 140, 66,0.0); }
-  50%       { box-shadow: 0 0 12px 0 rgba(255, 140, 66,0.12); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 101, 15, 0.0); }
+  50%       { box-shadow: 0 0 12px 0 rgba(232, 101, 15, 0.12); }
 }
 
 /* Journey connector fill */
@@ -123,8 +186,8 @@ body {
 
 /* Glow pulse on interactive elements */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 140, 66,0.0); }
-  50%      { box-shadow: 0 0 20px 0 rgba(255, 140, 66,0.15); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 101, 15, 0.0); }
+  50%      { box-shadow: 0 0 20px 0 rgba(232, 101, 15, 0.15); }
 }
 
 /* Scale-in for elements appearing on scroll */
@@ -209,7 +272,7 @@ body {
 }
 .interact-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 24px rgba(255, 140, 66,0.1);
+  box-shadow: 0 0 24px rgba(232, 101, 15, 0.1);
 }
 
 .interact-press {
@@ -223,8 +286,8 @@ body {
   transition: box-shadow 250ms ease-out, border-color 250ms ease-out;
 }
 .glow-border:hover {
-  box-shadow: 0 0 20px rgba(255, 140, 66,0.08);
-  border-color: rgba(255, 140, 66,0.3);
+  box-shadow: 0 0 20px rgba(232, 101, 15, 0.08);
+  border-color: rgba(232, 101, 15, 0.3);
 }
 
 .link-underline {
@@ -237,7 +300,7 @@ body {
   left: 0;
   width: 100%;
   height: 1px;
-  background: #F0F6FC;
+  background: var(--text);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 200ms ease-out;
@@ -246,11 +309,39 @@ body {
   transform: scaleX(1);
 }
 
+.accent-text {
+  background: linear-gradient(90deg, #D9530A 0%, #E8650F 50%, #EE8A0C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.logo-mark {
+  background: linear-gradient(135deg, #E8650F 0%, #F59E0B 100%);
+}
+
+.btn-primary {
+  box-shadow: 0 8px 20px rgba(232, 101, 15, 0.25);
+  transition: filter 150ms ease-out, box-shadow 200ms ease-out, transform 150ms ease-out;
+}
+.btn-primary:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 10px 24px rgba(232, 101, 15, 0.32);
+}
+
+.btn-secondary {
+  transition: border-color 150ms ease-out, background 150ms ease-out, transform 150ms ease-out;
+}
+.btn-secondary:hover {
+  border-color: var(--border-strong) !important;
+  background: var(--surface-hover) !important;
+}
+
 .terminal-glow {
   transition: box-shadow 300ms ease-out;
 }
 .terminal-glow:hover {
-  box-shadow: 0 0 32px rgba(255, 140, 66,0.06);
+  box-shadow: 0 0 32px rgba(232, 101, 15, 0.06);
 }
 
 /* ── Responsive ─────────────────────────────────────────────────────────── */
@@ -260,9 +351,9 @@ body {
   display: none;
   background: none;
   border: none;
-  color: #8B949E;
+  color: var(--muted);
   cursor: pointer;
-  padding: 4;
+  padding: 4px;
 }
 
 /* Mobile drawer — hidden on desktop */
@@ -280,6 +371,10 @@ body {
 
   .mobile-drawer {
     display: block;
+  }
+
+  .hero-grid > * {
+    min-width: 0;
   }
 
   .hero-grid {
@@ -333,6 +428,10 @@ body {
   .comparison-table-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .why-bento {
+    grid-template-columns: 1fr !important;
   }
 }
 

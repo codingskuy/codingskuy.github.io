@@ -19,7 +19,7 @@ export default function ShareSnapshot({ node }: ShareSnapshotProps) {
     setBusy(true)
     try {
       const dataUrl = await toPng(el, {
-        backgroundColor: COLORS.bg,
+        backgroundColor: getComputedStyle(document.body).backgroundColor,
         pixelRatio: 2,
       })
       const link = document.createElement('a')
@@ -43,8 +43,8 @@ export default function ShareSnapshot({ node }: ShareSnapshotProps) {
         display: 'inline-flex',
         alignItems: 'center',
         gap: 8,
-        background: done ? 'rgba(63,185,80,0.15)' : COLORS.accent,
-        color: done ? COLORS.green : COLORS.bg,
+        background: done ? 'rgba(26, 143, 68, 0.15)' : COLORS.accent,
+        color: done ? COLORS.green : '#FBF7F1',
         border: done ? `1px solid ${COLORS.green}` : 'none',
         borderRadius: 8,
         padding: '8px 16px',

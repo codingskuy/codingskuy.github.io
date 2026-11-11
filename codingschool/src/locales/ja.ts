@@ -7,6 +7,8 @@ const ja: Record<string, string> = {
   'nav.stats': '統計',
   'nav.install': '無料インストール',
   'aria.menu': 'メニューを開く',
+  'aria.themeDark': 'ダークモードに切り替え',
+  'aria.themeLight': 'ライトモードに切り替え',
 
   // Hero
   'hero.badge': 'OpenCode プラグイン · 無料＆オープンソース',
@@ -60,6 +62,8 @@ const ja: Record<string, string> = {
   'why.diagnosis.items.0': 'ナッレッジマッピング',
   'why.diagnosis.items.1': 'コンピテンスベースライン',
   'why.diagnosis.items.2': 'アダプティブルードマップ',
+  'why.diagnosis.done': '完了',
+  'why.diagnosis.building': '構築中…',
   'why.mentor.title': 'エンジニアリングメンター',
   'why.mentor.desc': 'チャットボットでもオートコンプリートでもない。コード、アーキテクチャ、判断をレビューする構造化されたメンター。',
   'why.mentor.items.0': 'コードレビュー',
@@ -121,6 +125,7 @@ const ja: Record<string, string> = {
   'comp.items.3': '改善すべき点についての正直なフィードバック',
   'comp.learning': '学習',
   'comp.engineering': 'エンジニアリング',
+  'comp.avg': '% 平均',
   'comp.knowledge': '知識',
   'comp.implementation': '実装',
   'comp.debugging': 'デバッグ',

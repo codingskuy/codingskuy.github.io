@@ -1,18 +1,19 @@
 import type { HotBadge } from '../types'
 
 export const COLORS = {
-  bg: '#0D1117',
-  panel: '#161B22',
-  panelAlt: '#1C2128',
-  border: '#30363D',
-  text: '#F0F6FC',
-  muted: '#8B949E',
-  accent: '#FF8C42',
-  green: '#3FB950',
-  red: '#F85149',
-  yellow: '#D29922',
-  accentDim: 'rgba(255, 140, 66, 0.12)',
-  grid: '#21262D',
+  bg: 'var(--bg)',
+  panel: 'var(--surface)',
+  panelAlt: 'var(--surface-2)',
+  border: 'var(--border)',
+  borderStrong: 'var(--border-strong)',
+  text: 'var(--text)',
+  muted: 'var(--muted)',
+  accent: 'var(--accent)',
+  green: 'var(--green)',
+  red: 'var(--red)',
+  yellow: 'var(--yellow)',
+  accentDim: 'rgba(232, 101, 15, 0.12)',
+  grid: 'var(--track)',
 } as const
 
 export const FONT = {
