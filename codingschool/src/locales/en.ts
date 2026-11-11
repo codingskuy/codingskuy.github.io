@@ -14,7 +14,7 @@ const en: Record<string, string> = {
   'hero.badge': 'OpenCode Plugin · Free & Open Source',
   'hero.title1': 'Become an Engineer.',
   'hero.title2': 'Not an AI Copy-Paster.',
-  'hero.subtitle': 'The free OpenCode plugin that teaches, reviews, and grows with you through real software projects.',
+  'hero.subtitle': 'The free OpenCode plugin that teaches you, reviews your code, and grows with you through real software projects.',
   'hero.install': 'Install Free',
   'hero.viewGithub': 'View GitHub',
   'hero.stars': '{count} stars',
@@ -56,7 +56,7 @@ const en: Record<string, string> = {
   // Why CodingSchool
   'why.label': 'Why CodingSchool',
   'why.title': 'From AI Assistant to AI Mentor.',
-  'why.subtitle': 'Every interaction is designed to improve your thinking — not just complete your task.',
+  'why.subtitle': 'Every interaction is designed to sharpen your thinking — not just complete your task.',
   'why.diagnosis.title': 'Diagnosis First',
   'why.diagnosis.desc': 'Before teaching anything, CodingSchool understands where you are. No assumptions. No one-size-fits-all.',
   'why.diagnosis.items.0': 'Knowledge mapping',
@@ -110,9 +110,9 @@ const en: Record<string, string> = {
   'dual.table.row3.col2': 'Task completion',
   'dual.table.row3.col3': 'Long-term growth',
   'dual.table.row4.label': 'Outcome',
-  'dual.table.row4.col1': 'Finish course',
-  'dual.table.row4.col2': 'Finish prompt',
-  'dual.table.row4.col3': 'Grow as engineer',
+  'dual.table.row4.col1': 'Course completed',
+  'dual.table.row4.col2': 'Prompt answered',
+  'dual.table.row4.col3': 'Grow as an engineer',
 
   // Competency Engine
   'comp.label': 'Competency Engine',
@@ -121,7 +121,7 @@ const en: Record<string, string> = {
   'comp.subtitle': 'CodingSchool measures the skills that actually matter when you ship production software.',
   'comp.items.0': 'Real engineering competencies, not gamification',
   'comp.items.1': 'Measured across every project you build',
-  'comp.items.2': 'Reflects actual growth, not activity',
+  'comp.items.2': 'Reflects real growth, not just activity',
   'comp.items.3': 'Honest feedback on where to improve',
   'comp.learning': 'Learning',
   'comp.engineering': 'Engineering',
@@ -139,9 +139,9 @@ const en: Record<string, string> = {
   // Learning Journey
   'journey.label': 'Learning Journey',
   'journey.title': 'The journey never ends.',
-  'journey.subtitle': 'CodingSchool grows with every repository. Every commit teaches. Every review improves you.',
+  'journey.subtitle': 'CodingSchool grows with every repository. Every commit teaches. Every review makes you better.',
   'journey.steps.0.label': 'Install Plugin',
-  'journey.steps.0.desc': 'One command inside OpenCode. Nothing leaves your workflow.',
+  'journey.steps.0.desc': 'One command inside OpenCode. You never leave your workflow.',
   'journey.steps.1.label': 'Diagnosis',
   'journey.steps.1.desc': 'CodingSchool maps your current knowledge and builds your personalized roadmap.',
   'journey.steps.2.label': 'Learn & Build',
@@ -149,7 +149,7 @@ const en: Record<string, string> = {
   'journey.steps.3.label': 'Code Review',
   'journey.steps.3.desc': 'Coach Agent reviews your architecture, quality, and security with each commit.',
   'journey.steps.4.label': 'Reflect & Grow',
-  'journey.steps.4.desc': 'Track your competency improvement across every dimension that matters.',
+  'journey.steps.4.desc': 'Track how your competency improves across every dimension that matters.',
 
   // Open Source
   'oss.label': 'Open Source',
@@ -158,7 +158,7 @@ const en: Record<string, string> = {
   'oss.contributors': 'Contributors',
   'oss.license': 'License',
   'oss.forever': 'Free & Open Source Forever',
-  'oss.foreverDesc': 'Unlimited mentoring. Full Learn Agent and Coach Agent access. No credit card. No hidden limits. MIT licensed.',
+  'oss.foreverDesc': 'Unlimited mentoring. Full access to Learn Agent and Coach Agent. No credit card. No hidden limits. MIT licensed.',
   'oss.viewGithub': 'View on GitHub',
 
   // CTA
@@ -198,7 +198,7 @@ const en: Record<string, string> = {
   // Stats
   'stats.label': 'npm analytics',
   'stats.title': 'CodingSchool Package Analytics',
-  'stats.subtitle': 'Live downloads for {pkg} since launch on {date}, computed from the npm download API.',
+  'stats.subtitle': 'Live download counts for {pkg} since launch on {date}, pulled from the npm downloads API.',
   'stats.refresh': 'Refresh',
   'stats.refreshAria': 'Refresh data',
   'stats.liveUpdated': '● live · updated {time}',
