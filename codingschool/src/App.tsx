@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, useEffect } from 'react'
+import { lazy, Suspense, useState, useEffect, useRef } from 'react'
 import Nav from './components/Nav'
 import Toast from './components/Toast'
 import Hero from './components/sections/Hero'
@@ -14,6 +14,39 @@ import Cta from './components/sections/Cta'
 import Footer from './components/sections/Footer'
 
 const StatsSection = lazy(() => import('./stats'))
+
+// Defers the stats chunk (recharts) until the section is near the viewport or linked to
+function DeferredStats() {
+  const ref = useRef<HTMLDivElement>(null)
+  const [show, setShow] = useState(() => location.hash === '#stats')
+
+  useEffect(() => {
+    if (show) return
+    const el = ref.current
+    if (!el || !('IntersectionObserver' in window)) {
+      setShow(true)
+      return
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setShow(true) },
+      { rootMargin: '600px 0px' },
+    )
+    observer.observe(el)
+    const onHash = () => { if (location.hash === '#stats') setShow(true) }
+    window.addEventListener('hashchange', onHash)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('hashchange', onHash)
+    }
+  }, [show])
+
+  if (!show) return <div ref={ref} id="stats" style={{ minHeight: 900 }} />
+  return (
+    <Suspense fallback={<div style={{ minHeight: 900 }} />}>
+      <StatsSection />
+    </Suspense>
+  )
+}
 
 export default function App() {
   return <AppInner />
@@ -43,9 +76,7 @@ function AppInner() {
       <Competency />
       <Journey />
       <OpenSource />
-      <Suspense fallback={null}>
-        <StatsSection />
-      </Suspense>
+      <DeferredStats />
       <Cta />
       <Footer />
       <style>{`

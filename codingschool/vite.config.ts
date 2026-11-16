@@ -7,6 +7,15 @@ export default defineConfig({
   base: process.env.BASE_PATH ? `${process.env.BASE_PATH}/` : '/',
   build: {
     outDir: 'dist',
+    target: 'es2022',
+    rollupOptions: {
+      output: {
+        // React rarely changes between deploys, so keep it in its own long-cached chunk
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-dom/client', 'scheduler'],
+        },
+      },
+    },
   },
   plugins: [
     react(),

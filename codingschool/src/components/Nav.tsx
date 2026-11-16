@@ -17,7 +17,7 @@ function Nav() {
 
   const navLinks = [
     { label: t('nav.features'), href: '#platforms' },
-    { label: t('nav.philosophy'), href: '#' },
+    { label: t('nav.philosophy'), href: '#claim-gate' },
     { label: t('nav.docs'), href: '#' },
     { label: t('nav.github'), href: '#' },
     { label: t('nav.stats'), href: '#stats' },

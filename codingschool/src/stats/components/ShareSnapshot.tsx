@@ -1,5 +1,4 @@
 import { useState, type RefObject } from 'react'
-import { toPng } from 'html-to-image'
 import { Camera, Check } from 'lucide-react'
 import { COLORS, FONT } from '../data/theme'
 import { useTranslation } from '../../i18n'
@@ -18,6 +17,8 @@ export default function ShareSnapshot({ node }: ShareSnapshotProps) {
     if (!el || busy) return
     setBusy(true)
     try {
+      // Loaded on demand: only needed when someone exports a snapshot
+      const { toPng } = await import('html-to-image')
       const dataUrl = await toPng(el, {
         backgroundColor: getComputedStyle(document.body).backgroundColor,
         pixelRatio: 2,

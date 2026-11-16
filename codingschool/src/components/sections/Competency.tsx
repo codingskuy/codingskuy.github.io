@@ -38,11 +38,14 @@ function Competency() {
     { label: t('comp.teaching'), value: 34, color: 'var(--yellow)' },
   ]
   const engineering: Bar[] = [
-    { label: t('comp.architecture'), value: 51, color: 'var(--accent)' },
-    { label: t('comp.testing'), value: 29, color: 'var(--red)' },
-    { label: t('comp.git'), value: 73, color: 'var(--accent)' },
-    { label: t('comp.security'), value: 44, color: 'var(--yellow)' },
+    { label: t('comp.codeQuality'), value: 82, color: 'var(--accent)' },
+    { label: t('comp.architecture'), value: 63, color: 'var(--accent)' },
+    { label: t('comp.gitProcess'), value: 42, color: 'var(--yellow)' },
+    { label: t('comp.testing'), value: 21, color: 'var(--red)' },
     { label: t('comp.documentation'), value: 58, color: 'var(--accent)' },
+    { label: t('comp.collaboration'), value: 88, color: 'var(--accent)' },
+    { label: t('comp.grc'), value: 35, color: 'var(--yellow)' },
+    { label: t('comp.risk'), value: 65, color: 'var(--accent)' },
   ]
   return (
     <section className="section" style={{ maxWidth: 1208, margin: '0 auto', padding: '120px 24px 0' }}>

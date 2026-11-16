@@ -84,7 +84,7 @@ function Problem() {
         >
           <Tag mark="✔" text={t('problem.codingSchoolMethod')} color="var(--green)" />
           <Flow
-            steps={[t('problem.steps.diagnose'), t('problem.steps.understand'), t('problem.steps.build'), t('problem.steps.review'), t('problem.steps.reflect'), t('problem.steps.grow')]}
+            steps={[t('problem.steps.diagnose'), t('problem.steps.teach'), t('problem.steps.build'), t('problem.steps.claim'), t('problem.steps.review'), t('problem.steps.grow')]}
             last="good"
           />
           <Results

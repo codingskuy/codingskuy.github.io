@@ -20,7 +20,7 @@ const TERMINAL_LINES = [
   { text: 'Code Quality     █████░░░░░  51%', delay: 4300, type: 'bar' },
   { text: '', delay: 4600, type: 'blank' },
   { text: '✔ Ready to learn.', delay: 4900, type: 'success' },
-  { text: '  Mentor is watching your code.', delay: 5300, type: 'muted' },
+  { text: '  Next: claude --agent codingschool:teacher', delay: 5300, type: 'muted' },
 ]
 
 function TerminalWindow() {

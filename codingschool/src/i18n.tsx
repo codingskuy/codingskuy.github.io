@@ -1,20 +1,30 @@
-import { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import en from './locales/en'
-import id from './locales/id'
-import ja from './locales/ja'
-import zh from './locales/zh'
 
 export type Locale = 'en' | 'id' | 'ja' | 'zh'
 
-const translations: Record<Locale, Record<string, string>> = { en, id, ja, zh }
+type Dict = Record<string, string>
+
+// Only English ships in the main bundle; other locales are split into their own chunks
+const loaders: Record<Exclude<Locale, 'en'>, () => Promise<{ default: Dict }>> = {
+  id: () => import('./locales/id'),
+  ja: () => import('./locales/ja'),
+  zh: () => import('./locales/zh'),
+}
+
+const translations: Partial<Record<Locale, Dict>> = { en }
 
 const LOCALE_KEY = 'codingschool-locale'
 const DEFAULT_LOCALE: Locale = 'en'
 
+function isLocale(v: string): v is Locale {
+  return v === 'en' || v in loaders
+}
+
 function getInitialLocale(): Locale {
   try {
     const saved = localStorage.getItem(LOCALE_KEY)
-    if (saved && saved in translations) return saved as Locale
+    if (saved && isLocale(saved)) return saved
   } catch {}
   return DEFAULT_LOCALE
 }
@@ -33,6 +43,21 @@ const I18nContext = createContext<I18nContextValue>({
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(getInitialLocale)
+  // Bumped when a locale chunk finishes loading so consumers re-render
+  const [, setLoaded] = useState(0)
+
+  useEffect(() => {
+    document.documentElement.lang = locale
+    if (translations[locale] || locale === 'en') return
+    let cancelled = false
+    loaders[locale]().then((mod) => {
+      translations[locale] = mod.default
+      if (!cancelled) setLoaded((n) => n + 1)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [locale])
 
   const setLocale = (l: Locale) => {
     setLocaleState(l)
@@ -40,7 +65,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   }
 
   const t = (key: string, vars?: Record<string, string | number>): string => {
-    let str = translations[locale]?.[key] ?? translations.en[key] ?? key
+    let str = translations[locale]?.[key] ?? en[key] ?? key
     if (vars) {
       for (const [k, v] of Object.entries(vars)) {
         str = str.replaceAll(`{${k}}`, String(v))
