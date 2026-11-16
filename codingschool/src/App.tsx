@@ -1,7 +1,6 @@
 import { lazy, Suspense, useState, useEffect } from 'react'
 import Nav from './components/Nav'
 import Toast from './components/Toast'
-import TermDivider from './components/TermDivider'
 import Hero from './components/sections/Hero'
 import Problem from './components/sections/Problem'
 import Why from './components/sections/Why'
@@ -34,31 +33,12 @@ function AppInner() {
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}
       <Nav />
       <Hero />
-      <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px' }}>
-        <TermDivider />
-      </div>
       <Problem />
-      <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px' }}>
-        <TermDivider />
-      </div>
       <Why />
-      <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px' }}>
-        <TermDivider />
-      </div>
       <DualAgent />
-      <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px' }}>
-        <TermDivider />
-      </div>
       <Competency />
-      <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px' }}>
-        <TermDivider />
-      </div>
       <Journey />
-      <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px' }}>
-        <TermDivider />
-      </div>
       <OpenSource />
-      <TermDivider />
       <Suspense fallback={null}>
         <StatsSection />
       </Suspense>

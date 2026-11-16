@@ -82,6 +82,8 @@ const id: Record<string, string> = {
   'dual.studentModel': 'Profil Siswa',
   'dual.learnAgent': 'Learn Agent',
   'dual.coachAgent': 'Coach Agent',
+  'dual.learnTag': 'mengajar',
+  'dual.coachTag': 'review',
   'dual.learn.items.0': 'Diagnosis',
   'dual.learn.items.1': 'Pengajaran',
   'dual.learn.items.2': 'Kuis',
@@ -125,7 +127,8 @@ const id: Record<string, string> = {
   'comp.items.3': 'Feedback jujur tentang bagian yang perlu kamu perbaiki',
   'comp.learning': 'Pembelajaran',
   'comp.engineering': 'Engineering',
-  'comp.avg': '% rata-rata',
+  'comp.score': 'Skor kompetensi',
+  'comp.scoreSub': 'dari {count} dimensi · / 100',
   'comp.knowledge': 'Pengetahuan',
   'comp.implementation': 'Implementasi',
   'comp.debugging': 'Debugging',
@@ -160,6 +163,7 @@ const id: Record<string, string> = {
   'oss.forever': 'Gratis & Open Source Selamanya',
   'oss.foreverDesc': 'Mentoring tanpa batas. Akses penuh ke Learn Agent dan Coach Agent. Tanpa kartu kredit. Tanpa batasan tersembunyi. Berlisensi MIT.',
   'oss.viewGithub': 'Lihat di GitHub',
+  'oss.mitLicensed': 'Lisensi MIT',
 
   // CTA
   'cta.label': 'Instal CodingSchool',

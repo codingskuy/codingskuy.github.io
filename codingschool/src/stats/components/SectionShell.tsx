@@ -22,69 +22,73 @@ export default function SectionShell({
     <section
       id={id}
       style={{
-        padding: '96px 24px',
-        maxWidth: 1160,
+        padding: '120px 24px 0',
+        maxWidth: 1208,
         margin: '0 auto',
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
-          gap: 24,
-          flexWrap: 'wrap',
-          marginBottom: 40,
-        }}
-      >
-        <div>
+      <div style={{ marginBottom: 32 }}>
+        <div
+          className="eyebrow-pill"
+          style={{
+            fontFamily: FONT.mono,
+            fontSize: 12,
+            color: COLORS.muted,
+            marginBottom: 20,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            background: COLORS.panel,
+            border: `1px solid ${COLORS.border}`,
+            borderRadius: 999,
+            padding: '6px 14px 6px 12px',
+          }}
+        >
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: COLORS.accent }} />
+          <span className="eyebrow-text">// {label}</span>
+        </div>
+        <h2
+          style={{
+            fontFamily: FONT.sans,
+            fontSize: 'clamp(28px, 4vw, 44px)',
+            fontWeight: 700,
+            color: COLORS.text,
+            margin: 0,
+            lineHeight: 1.09,
+            letterSpacing: '-0.02em',
+          }}
+        >
+          {title}
+        </h2>
+        {subtitle || action ? (
           <div
             style={{
-              fontFamily: FONT.mono,
-              fontSize: 12,
-              color: COLORS.muted,
-              marginBottom: 20,
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              background: COLORS.panel,
-              border: `1px solid ${COLORS.border}`,
-              borderRadius: 999,
-              padding: '6px 12px 6px 10px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-end',
+              gap: 24,
+              flexWrap: 'wrap',
+              marginTop: 20,
             }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: COLORS.accent }} />
-            // {label}
+            {subtitle ? (
+              <p
+                style={{
+                  fontFamily: FONT.sans,
+                  fontSize: 18,
+                  color: COLORS.muted,
+                  margin: 0,
+                  flex: '1 1 480px',
+                  maxWidth: 884,
+                  lineHeight: 1.6,
+                }}
+              >
+                {subtitle}
+              </p>
+            ) : null}
+            {action ? <div>{action}</div> : null}
           </div>
-          <h2
-            style={{
-              fontFamily: FONT.sans,
-              fontSize: 'clamp(28px, 4vw, 44px)',
-              fontWeight: 700,
-              color: COLORS.text,
-              margin: 0,
-              lineHeight: 1.15,
-              letterSpacing: '-0.02em',
-            }}
-          >
-            {title}
-          </h2>
-          {subtitle ? (
-            <p
-              style={{
-                fontFamily: FONT.sans,
-                fontSize: 18,
-                color: COLORS.muted,
-                margin: '16px 0 0',
-                maxWidth: 640,
-                lineHeight: 1.6,
-              }}
-            >
-              {subtitle}
-            </p>
-          ) : null}
-        </div>
-        {action ? <div>{action}</div> : null}
+        ) : null}
       </div>
       {children}
     </section>

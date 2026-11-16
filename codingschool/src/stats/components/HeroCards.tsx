@@ -1,14 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import {
-  ArrowDownRight,
-  ArrowUpRight,
-  BarChart3,
-  CalendarDays,
-  Clock,
-  Download,
-  Flame,
-  TrendingUp,
-} from 'lucide-react'
 import type { DailyDownload, DailyStats } from '../types'
 import { COLORS, FONT } from '../data/theme'
 import { RELEASE_DATE } from '../data/config'
@@ -17,12 +7,11 @@ import { useTranslation } from '../../i18n'
 import Panel from './Panel'
 
 interface StatCardProps {
-  icon: React.ReactNode
   label: string
   value: number
   precision?: number
   hint?: string
-  accent?: string
+  hintColor?: string
   dark?: boolean
 }
 
@@ -64,33 +53,37 @@ function useCountUp(target: number, duration = 900, precision = 0) {
   return { ref, display }
 }
 
-function StatCard({ icon, label, value, precision = 0, hint, accent = COLORS.accent, dark = false }: StatCardProps) {
+function StatCard({ label, value, precision = 0, hint, hintColor, dark = false }: StatCardProps) {
   const { ref, display } = useCountUp(value, 900, precision)
   const muted = dark ? '#8B949E' : COLORS.muted
   return (
-    <Panel style={dark ? { padding: 22, background: '#231E19', border: '1px solid #231E19' } : { padding: 22 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-        <span style={{ color: dark ? '#FF8C42' : accent, display: 'flex' }}>{icon}</span>
-        <span
-          style={{
-            fontFamily: FONT.mono,
-            fontSize: 12,
-            color: muted,
-            letterSpacing: 0.5,
-            textTransform: 'uppercase',
-          }}
-        >
-          {label}
-        </span>
+    <Panel
+      style={{
+        padding: 28,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        ...(dark ? { background: 'var(--total-bg)', border: '1px solid var(--total-border)' } : {}),
+      }}
+    >
+      <div
+        style={{
+          fontFamily: FONT.mono,
+          fontSize: 12,
+          color: muted,
+        }}
+      >
+        {label}
       </div>
       <div
         ref={ref}
         style={{
           fontFamily: FONT.mono,
-          fontSize: 32,
+          fontSize: 40,
           fontWeight: 700,
+          letterSpacing: '-0.03em',
           color: dark ? '#FF8C42' : COLORS.text,
-          lineHeight: 1.1,
+          lineHeight: 1.3,
         }}
       >
         {display}
@@ -98,10 +91,10 @@ function StatCard({ icon, label, value, precision = 0, hint, accent = COLORS.acc
       {hint ? (
         <div
           style={{
-            fontFamily: FONT.mono,
-            fontSize: 12,
-            color: muted,
-            marginTop: 8,
+            fontFamily: FONT.sans,
+            fontSize: 13,
+            fontWeight: 500,
+            color: hintColor ?? muted,
           }}
         >
           {hint}
@@ -141,43 +134,32 @@ export default function HeroCards({ data, stats }: HeroCardsProps) {
   return (
     <div className="stats-hero-grid">
       <StatCard
-        icon={<Download size={14} />}
         label={t('stats.total')}
         value={stats.total}
         hint={t('stats.since', { date: releaseLabel })}
         dark
       />
-      <StatCard icon={<Flame size={14} />} label={t('stats.today')} value={today} />
-      <StatCard icon={<TrendingUp size={14} />} label={t('stats.week')} value={thisWeek} />
-      <StatCard icon={<CalendarDays size={14} />} label={t('stats.month')} value={thisMonth} hint={t('stats.last30')} />
+      <StatCard label={t('stats.today')} value={today} />
+      <StatCard label={t('stats.week')} value={thisWeek} />
+      <StatCard label={t('stats.month')} value={thisMonth} hint={t('stats.last30')} />
       <StatCard
-        icon={<Clock size={14} />}
         label={t('stats.daysSinceRelease')}
         value={stats.daysSinceRelease}
         hint={t('stats.since', { date: releaseLabel })}
       />
       <StatCard
-        icon={<BarChart3 size={14} />}
         label={t('stats.avgDay')}
         value={stats.avgPerDay}
         precision={1}
       />
       <StatCard
-        icon={
-          growth === null || growth >= 0 ? (
-            <ArrowUpRight size={14} />
-          ) : (
-            <ArrowDownRight size={14} />
-          )
-        }
         label={t('stats.growth')}
         value={growthPct ?? 0}
         precision={1}
-        hint={growth === null ? t('stats.need2weeks') : t('stats.prev7')}
-        accent={growth === null ? COLORS.muted : growth >= 0 ? COLORS.green : COLORS.red}
+        hint={growth === null ? t('stats.need2weeks') : `${growth >= 0 ? '▲' : '▼'} ${t('stats.prev7')}`}
+        hintColor={growth === null ? undefined : growth >= 0 ? COLORS.green : COLORS.red}
       />
       <StatCard
-        icon={<TrendingUp size={14} />}
         label={t('stats.avgWeek')}
         value={stats.avgPerWeek}
         precision={1}

@@ -13,6 +13,7 @@ function SectionLabel({ text, dot = 'var(--accent)' }: { text: string; dot?: str
       }}
     >
       <span
+        className="eyebrow-pill"
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -27,7 +28,7 @@ function SectionLabel({ text, dot = 'var(--accent)' }: { text: string; dot?: str
         }}
       >
         <span style={{ width: 6, height: 6, borderRadius: '50%', background: dot, flexShrink: 0 }} />
-        // {text}
+        <span className="eyebrow-text">// {text}</span>
       </span>
     </div>
   )

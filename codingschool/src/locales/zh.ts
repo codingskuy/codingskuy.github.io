@@ -82,6 +82,8 @@ const zh: Record<string, string> = {
   'dual.studentModel': '学习者模型',
   'dual.learnAgent': 'Learn 智能体',
   'dual.coachAgent': 'Coach 智能体',
+  'dual.learnTag': '教学',
+  'dual.coachTag': '评审',
   'dual.learn.items.0': '诊断',
   'dual.learn.items.1': '教学',
   'dual.learn.items.2': '测验',
@@ -125,7 +127,8 @@ const zh: Record<string, string> = {
   'comp.items.3': '坦诚指出你需要改进的地方',
   'comp.learning': '学习',
   'comp.engineering': '工程',
-  'comp.avg': '% 平均',
+  'comp.score': '能力评分',
+  'comp.scoreSub': '基于 {count} 个维度 · / 100',
   'comp.knowledge': '知识',
   'comp.implementation': '实现',
   'comp.debugging': '调试',
@@ -160,6 +163,7 @@ const zh: Record<string, string> = {
   'oss.forever': '永久免费开源',
   'oss.foreverDesc': '无限次辅导。完整使用 Learn 智能体和 Coach 智能体。无需信用卡，没有隐藏限制。采用 MIT 许可证。',
   'oss.viewGithub': '在 GitHub 查看',
+  'oss.mitLicensed': 'MIT 许可',
 
   // CTA
   'cta.label': '安装 CodingSchool',

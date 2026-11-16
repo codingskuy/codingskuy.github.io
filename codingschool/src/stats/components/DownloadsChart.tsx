@@ -1,16 +1,16 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import {
-  Area,
-  AreaChart,
+  Bar,
+  BarChart,
   Brush,
-  CartesianGrid,
+  Cell,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts'
-import type { DailyDownload, ReleaseEvent } from '../types'
+import type { DailyDownload, HotTrendDay, ReleaseEvent } from '../types'
 import { COLORS, FONT } from '../data/theme'
 import { formatDayShort } from '../utils/date'
 import { useTranslation } from '../../i18n'
@@ -69,9 +69,12 @@ function ChartTooltip(props: Record<string, unknown>) {
 interface DownloadsChartProps {
   data: DailyDownload[]
   releases: ReleaseEvent[]
+  hotDays?: HotTrendDay[]
 }
 
-export default function DownloadsChart({ data, releases }: DownloadsChartProps) {
+const WINDOW = 30
+
+export default function DownloadsChart({ data, releases, hotDays = [] }: DownloadsChartProps) {
   const { t } = useTranslation()
   const points: ChartPoint[] = useMemo(() => {
     return data.map((d, i) => ({
@@ -82,6 +85,28 @@ export default function DownloadsChart({ data, releases }: DownloadsChartProps) 
     }))
   }, [data])
 
+  const hotSet = useMemo(() => new Set(hotDays.map((d) => d.day)), [hotDays])
+
+  const defaultStart = Math.max(0, points.length - WINDOW)
+  const defaultEnd = Math.max(0, points.length - 1)
+  const [range, setRange] = useState<{ start: number; end: number } | null>(null)
+  const start = range?.start ?? defaultStart
+  const end = range?.end ?? defaultEnd
+  const isDefaultWindow = start === defaultStart && end === defaultEnd
+
+  // ~5 evenly spaced axis labels across the visible window, always ending on the last day.
+  const ticks = useMemo(() => {
+    const span = end - start
+    if (span <= 0) return points[start] ? [points[start].day] : []
+    const step = Math.max(1, Math.ceil(span / 4))
+    const out: string[] = []
+    for (let i = start; i < end; i += step) {
+      if (end - i >= step / 2) out.push(points[i].day)
+    }
+    out.push(points[end].day)
+    return out
+  }, [points, start, end])
+
   const visibleReleases = useMemo(() => {
     if (points.length === 0) return []
     const first = points[0].day
@@ -89,67 +114,69 @@ export default function DownloadsChart({ data, releases }: DownloadsChartProps) 
     return releases.filter((r) => r.date >= first && r.date <= last)
   }, [releases, points])
 
+  const lastDay = points.length > 0 ? points[points.length - 1].day : null
+
   return (
-    <Panel>
+    <Panel style={{ padding: 32 }}>
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: 16,
+          marginBottom: 24,
           gap: 12,
           flexWrap: 'wrap',
         }}
       >
-        <div style={{ fontFamily: FONT.sans, fontSize: 15, fontWeight: 600, color: COLORS.text }}>
+        <div style={{ fontFamily: FONT.sans, fontSize: 18, fontWeight: 600, color: COLORS.text }}>
           {t('stats.chart.title')}
         </div>
-        {visibleReleases.length > 0 ? (
-          <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-            {visibleReleases.map((r) => (
-              <span key={r.date} style={{ fontFamily: FONT.mono, fontSize: 11, color: COLORS.muted }}>
-                <span style={{ color: COLORS.accent }}>│</span> {r.title}
-              </span>
-            ))}
-          </div>
-        ) : null}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ width: 10, height: 10, borderRadius: 3, background: COLORS.accent }} />
+          <span style={{ fontFamily: FONT.mono, fontSize: 12, color: COLORS.muted }}>
+            {isDefaultWindow ? `${t('stats.chart.downloads')} · ${t('stats.last30')}` : t('stats.chart.downloads')}
+          </span>
+        </div>
       </div>
-      <div style={{ width: '100%', height: 300 }}>
+      <div style={{ width: '100%', height: 280 }}>
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={points} margin={{ top: 12, right: 12, left: 0, bottom: 0 }}>
-            <defs>
-              <linearGradient id="statsAreaFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={COLORS.accent} stopOpacity={0.45} />
-                <stop offset="100%" stopColor={COLORS.accent} stopOpacity={0.02} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid stroke={COLORS.grid} strokeDasharray="3 3" vertical={false} />
+          <BarChart data={points} margin={{ top: 0, right: 0, left: 0, bottom: 0 }} barCategoryGap="22%">
             <XAxis
-              dataKey="label"
-              tick={{ fill: COLORS.muted, fontSize: 11, fontFamily: FONT.mono }}
+              dataKey="day"
+              ticks={ticks}
+              interval={0}
+              tick={(props: { x?: number | string; y?: number | string; payload?: { value?: unknown } }) => {
+                const x = Number(props.x ?? 0)
+                const y = Number(props.y ?? 0)
+                const value = String(props.payload?.value ?? '')
+                const anchor = value === ticks[0] ? 'start' : value === ticks[ticks.length - 1] ? 'end' : 'middle'
+                // Bars are up to 28px wide; nudge the edge labels to the bar's outer edge.
+                const dx = anchor === 'start' ? -14 : anchor === 'end' ? 14 : 0
+                return (
+                  <text x={x + dx} y={y} dy={12} textAnchor={anchor} fill={COLORS.muted} fontSize={11} fontFamily={FONT.mono}>
+                    {value ? formatDayShort(value) : ''}
+                  </text>
+                )
+              }}
               axisLine={{ stroke: COLORS.border }}
               tickLine={false}
-              minTickGap={24}
+              tickMargin={12}
+              height={48}
             />
-            <YAxis
-              tick={{ fill: COLORS.muted, fontSize: 11, fontFamily: FONT.mono }}
-              axisLine={false}
-              tickLine={false}
-              width={40}
-            />
-            <Tooltip content={<ChartTooltip />} cursor={{ stroke: COLORS.muted, strokeDasharray: '3 3' }} />
-            <Area
-              type="monotone"
-              dataKey="downloads"
-              stroke={COLORS.accent}
-              strokeWidth={2}
-              fill="url(#statsAreaFill)"
-              animationDuration={700}
-            />
+            <YAxis hide />
+            <Tooltip content={<ChartTooltip />} cursor={{ fill: COLORS.accentDim }} />
+            <Bar dataKey="downloads" radius={[6, 6, 0, 0]} maxBarSize={28} animationDuration={700}>
+              {points.map((p) => (
+                <Cell
+                  key={p.day}
+                  fill={p.day === lastDay ? COLORS.accent : hotSet.has(p.day) ? COLORS.barHot : COLORS.bar}
+                />
+              ))}
+            </Bar>
             {visibleReleases.map((r) => (
               <ReferenceLine
                 key={r.date}
-                x={formatDayShort(r.date)}
+                x={r.date}
                 stroke={COLORS.accent}
                 strokeDasharray="4 4"
                 strokeOpacity={0.5}
@@ -162,15 +189,23 @@ export default function DownloadsChart({ data, releases }: DownloadsChartProps) 
                 }}
               />
             ))}
-            <Brush
-              dataKey="label"
-              height={28}
-              travellerWidth={8}
-              stroke={COLORS.border}
-              fill={COLORS.panel}
-              tickFormatter={() => ''}
-            />
-          </AreaChart>
+            {points.length > WINDOW ? (
+              <Brush
+                dataKey="day"
+                height={24}
+                travellerWidth={8}
+                stroke={COLORS.border}
+                fill={COLORS.panel}
+                startIndex={start}
+                endIndex={end}
+                onChange={(r: { startIndex?: number; endIndex?: number }) => {
+                  if (r.startIndex === undefined || r.endIndex === undefined) return
+                  setRange({ start: r.startIndex, end: r.endIndex })
+                }}
+                tickFormatter={() => ''}
+              />
+            ) : null}
+          </BarChart>
         </ResponsiveContainer>
       </div>
     </Panel>

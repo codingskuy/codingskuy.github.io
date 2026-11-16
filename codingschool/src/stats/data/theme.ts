@@ -14,6 +14,8 @@ export const COLORS = {
   yellow: 'var(--yellow)',
   accentDim: 'rgba(232, 101, 15, 0.12)',
   grid: 'var(--track)',
+  bar: 'var(--bar)',
+  barHot: 'var(--bar-hot)',
 } as const
 
 export const FONT = {

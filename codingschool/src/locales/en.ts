@@ -82,6 +82,8 @@ const en: Record<string, string> = {
   'dual.studentModel': 'Student Model',
   'dual.learnAgent': 'Learn Agent',
   'dual.coachAgent': 'Coach Agent',
+  'dual.learnTag': 'teach',
+  'dual.coachTag': 'review',
   'dual.learn.items.0': 'Diagnose',
   'dual.learn.items.1': 'Teach',
   'dual.learn.items.2': 'Quiz',
@@ -125,7 +127,8 @@ const en: Record<string, string> = {
   'comp.items.3': 'Honest feedback on where to improve',
   'comp.learning': 'Learning',
   'comp.engineering': 'Engineering',
-  'comp.avg': '% avg',
+  'comp.score': 'Competency score',
+  'comp.scoreSub': 'across {count} dimensions · / 100',
   'comp.knowledge': 'Knowledge',
   'comp.implementation': 'Implementation',
   'comp.debugging': 'Debugging',
@@ -160,6 +163,7 @@ const en: Record<string, string> = {
   'oss.forever': 'Free & Open Source Forever',
   'oss.foreverDesc': 'Unlimited mentoring. Full access to Learn Agent and Coach Agent. No credit card. No hidden limits. MIT licensed.',
   'oss.viewGithub': 'View on GitHub',
+  'oss.mitLicensed': 'MIT licensed',
 
   // CTA
   'cta.label': 'Install CodingSchool',

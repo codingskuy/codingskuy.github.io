@@ -82,6 +82,8 @@ const ja: Record<string, string> = {
   'dual.studentModel': '学習者モデル',
   'dual.learnAgent': 'Learn エージェント',
   'dual.coachAgent': 'Coach エージェント',
+  'dual.learnTag': 'teach',
+  'dual.coachTag': 'review',
   'dual.learn.items.0': '診断',
   'dual.learn.items.1': '指導',
   'dual.learn.items.2': 'クイズ',
@@ -125,7 +127,8 @@ const ja: Record<string, string> = {
   'comp.items.3': '改善点への率直なフィードバック',
   'comp.learning': '学習',
   'comp.engineering': 'エンジニアリング',
-  'comp.avg': '% 平均',
+  'comp.score': 'コンピテンシースコア',
+  'comp.scoreSub': '{count} 項目の評価 · / 100',
   'comp.knowledge': '知識',
   'comp.implementation': '実装',
   'comp.debugging': 'デバッグ',
@@ -160,6 +163,7 @@ const ja: Record<string, string> = {
   'oss.forever': 'ずっと無料＆オープンソース',
   'oss.foreverDesc': 'メンタリングは無制限。Learn エージェントとCoach エージェントのすべての機能を利用可能。クレジットカード不要、隠れた制限もありません。MITライセンス。',
   'oss.viewGithub': 'GitHubで見る',
+  'oss.mitLicensed': 'MIT ライセンス',
 
   // CTA
   'cta.label': 'CodingSchoolをインストール',

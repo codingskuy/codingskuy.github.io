@@ -20,8 +20,8 @@ function CompBar({ label, value, color = 'var(--accent)' }: CompetencyBar) {
   }, [])
 
   return (
-    <div ref={ref} style={{ marginBottom: 16 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+    <div ref={ref} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, lineHeight: 1.2 }}>
         <span style={{ color: 'var(--text)', fontSize: 14, fontWeight: 500 }}>{label}</span>
         <span style={{ color: 'var(--muted)', fontSize: 13, fontFamily: "'JetBrains Mono', monospace" }}>{animated ? value : 0}%</span>
       </div>

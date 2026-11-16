@@ -79,7 +79,7 @@ export default function StatsSection() {
     <section
       ref={rootRef}
       style={{
-        background: COLORS.bg,
+        background: 'transparent',
       }}
     >
       <SectionShell
@@ -88,7 +88,19 @@ export default function StatsSection() {
         title={t('stats.title')}
         subtitle={t('stats.subtitle', { pkg: '@codingskuy/coding-school', date: '13 Jul 2026' })}
         action={
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+            {lastUpdated ? (
+              <span
+                style={{
+                  fontFamily: FONT.mono,
+                  fontSize: 12,
+                  color: COLORS.green,
+                }}
+              >
+                {t('stats.liveUpdated', { time: lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) })}
+                {lastRefresh ? t('stats.refreshed') : ''}
+              </span>
+            ) : null}
             <button
               onClick={handleRefetch}
               title={t('stats.refresh')}
@@ -101,8 +113,9 @@ export default function StatsSection() {
                 color: COLORS.text,
                 border: `1px solid ${COLORS.border}`,
                 borderRadius: 999,
-                padding: '8px 12px',
-                fontSize: 13,
+                padding: '8px 16px 8px 14px',
+                fontSize: 14,
+                fontWeight: 500,
                 cursor: 'pointer',
                 fontFamily: FONT.sans,
                 transition: 'color 150ms ease-out, border-color 150ms ease-out',
@@ -129,39 +142,13 @@ export default function StatsSection() {
           <StatePanel kind="empty" />
         ) : (
           <div ref={snapshotRef}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                gap: 12,
-                flexWrap: 'wrap',
-                marginBottom: 20,
-              }}
-            >
-              {lastUpdated ? (
-                <span
-                  style={{
-                    fontFamily: FONT.mono,
-                    fontSize: 11,
-                    color: COLORS.muted,
-                  }}
-                >
-                  {t('stats.liveUpdated', { time: lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) })}
-                  {lastRefresh ? t('stats.refreshed') : ''}
-                </span>
-              ) : (
-                <span />
-              )}
-            </div>
-
             <Reveal>
               <HeroCards data={data} stats={computed.stats} />
             </Reveal>
 
-            <div style={{ marginTop: 16 }}>
+            <div style={{ marginTop: 32 }}>
               <Reveal delay={80}>
-                <DownloadsChart data={data} releases={RELEASES} />
+                <DownloadsChart data={data} releases={RELEASES} hotDays={computed.hotDays} />
               </Reveal>
             </div>
 
