@@ -574,6 +574,13 @@ body {
     grid-template-columns: 1fr !important;
     gap: 24px;
   }
+  .platform-grid,
+  .gate-steps,
+  .gate-verdicts,
+  .platform-hl {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
   .dual-connector {
     width: 2px;
     height: 32px !important;
@@ -612,6 +619,12 @@ body {
 
   .cta-cmd-wrap {
     flex-direction: column !important;
+  }
+
+  .gate-steps,
+  .gate-verdicts,
+  .platform-hl {
+    grid-template-columns: 1fr !important;
   }
 
 }

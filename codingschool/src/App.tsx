@@ -3,8 +3,10 @@ import Nav from './components/Nav'
 import Toast from './components/Toast'
 import Hero from './components/sections/Hero'
 import Problem from './components/sections/Problem'
+import Platforms from './components/sections/Platforms'
 import Why from './components/sections/Why'
 import DualAgent from './components/sections/DualAgent'
+import ClaimGate from './components/sections/ClaimGate'
 import Competency from './components/sections/Competency'
 import Journey from './components/sections/Journey'
 import OpenSource from './components/sections/OpenSource'
@@ -33,9 +35,11 @@ function AppInner() {
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}
       <Nav />
       <Hero />
+      <Platforms />
       <Problem />
       <Why />
       <DualAgent />
+      <ClaimGate />
       <Competency />
       <Journey />
       <OpenSource />

@@ -16,7 +16,7 @@ function Nav() {
   }, [])
 
   const navLinks = [
-    { label: t('nav.features'), href: '#' },
+    { label: t('nav.features'), href: '#platforms' },
     { label: t('nav.philosophy'), href: '#' },
     { label: t('nav.docs'), href: '#' },
     { label: t('nav.github'), href: '#' },

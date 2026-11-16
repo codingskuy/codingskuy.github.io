@@ -4,12 +4,13 @@ import { useTranslation } from '../i18n'
 import { Check, Copy } from 'lucide-react'
 
 const TERMINAL_LINES = [
-  { text: '$ opencode install @codingskuy/coding-school', delay: 0, type: 'command' },
+  { text: '$ coding-school setup --platform claude-code', delay: 0, type: 'command' },
   { text: '', delay: 600, type: 'blank' },
-  { text: '✔ Installing plugin...', delay: 800, type: 'success' },
-  { text: '✔ Teacher Agent registered', delay: 1400, type: 'success' },
-  { text: '✔ Coach Agent registered', delay: 1900, type: 'success' },
-  { text: '✔ Loading student profile...', delay: 2400, type: 'success' },
+  { text: '✔ Platform: Claude Code (plugin)', delay: 800, type: 'success' },
+  { text: '✔ Teacher persona registered', delay: 1200, type: 'success' },
+  { text: '✔ Coach persona registered', delay: 1600, type: 'success' },
+  { text: '✔ MCP server · 27 cs_* tools', delay: 2000, type: 'success' },
+  { text: '✔ Claim-gate hook enabled', delay: 2400, type: 'success' },
   { text: '', delay: 2900, type: 'blank' },
   { text: 'Competency Assessment', delay: 3200, type: 'label' },
   { text: '', delay: 3300, type: 'blank' },
