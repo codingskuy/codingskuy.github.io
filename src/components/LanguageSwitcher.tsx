@@ -49,6 +49,8 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
     if (!seen) {
       setShowIntro(true);
       localStorage.setItem(ONBOARDING_KEY, "1");
+      const timer = window.setTimeout(() => setShowIntro(false), 6000);
+      return () => window.clearTimeout(timer);
     }
   }, []);
 
@@ -74,6 +76,9 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
           setOpen((prev) => !prev);
           setShowIntro(false);
         }}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={text.label}
         whileTap={{ scale: 0.96 }}
         className={`relative h-9 rounded-lg border border-slate-200 dark:border-white/[0.08] bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] px-3 text-xs text-slate-700 dark:text-slate-300 inline-flex items-center gap-2 transition-all ${
           showIntro ? "ring-2 ring-blue-400/80 dark:ring-blue-400/60 shadow-lg shadow-blue-500/20" : ""

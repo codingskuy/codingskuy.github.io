@@ -1,22 +1,23 @@
 import { motion } from "motion/react";
-import { Github, Youtube, Linkedin, Twitter, Code2, Heart } from "lucide-react";
+import { Github, Youtube, Linkedin, Code2, Heart } from "lucide-react";
 import { CodingSkuyMascot } from "./CodingSkuyMascot";
-import logoBg from "@/assets/simple_landsacape_logo.jpeg";
+import logoBg from "@/assets/footer-watermark.webp";
 import { useT } from "@/hooks/useT";
+import { useUi } from "./uiStrings";
 
 interface FooterProps {
   darkMode: boolean;
 }
 
 const socials = [
-  { icon: Github, href: "#", label: "GitHub", color: "#e8f0ff" },
-  { icon: Youtube, href: "#", label: "YouTube", color: "#FF0000" },
-  { icon: Linkedin, href: "#", label: "LinkedIn", color: "#0077B5" },
-  { icon: Twitter, href: "#", label: "Twitter", color: "#1DA1F2" },
+  { icon: Github, href: "https://github.com/codingskuy", label: "GitHub", color: "#3d8bff" },
+  { icon: Youtube, href: "https://youtube.com/@codingskuy", label: "YouTube", color: "#FF0000" },
+  { icon: Linkedin, href: "https://www.linkedin.com/groups/17187002/", label: "LinkedIn", color: "#0077B5" },
 ];
 
 export function Footer({ darkMode }: FooterProps) {
   const t = useT();
+  const ui = useUi();
   const borderColor = darkMode ? "rgba(61,139,255,0.12)" : "rgba(0,85,255,0.08)";
   const textMuted = darkMode ? "#4a5f8a" : "#94a3b8";
   const textMain = darkMode ? "#e8f0ff" : "#0d1117";
@@ -29,15 +30,15 @@ export function Footer({ darkMode }: FooterProps) {
       { label: t.footer.community_, href: "#community" },
     ],
     [t.footer.codingskuy]: [
-      { label: t.footer.articles, href: "#media" },
-      { label: t.footer.tutorials, href: "#media" },
+      { label: t.footer.articles, href: "/articles/" },
+      { label: t.footer.tutorials, href: "#content" },
       { label: t.footer.learningPaths, href: "#learning" },
       { label: t.footer.community_, href: "#community" },
     ],
     [t.footer.research]: [
       { label: t.footer.aiLab_, href: "#ailab" },
       { label: t.footer.openSource, href: "#opensource" },
-      { label: t.footer.githubProjects, href: "#" },
+      { label: t.footer.githubProjects, href: "https://github.com/codingskuy" },
       { label: t.footer.newsletter_, href: "#newsletter" },
     ],
   };
@@ -54,7 +55,7 @@ export function Footer({ darkMode }: FooterProps) {
     >
       {/* Logo watermark — blind filter */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <img
+        <img loading="lazy" decoding="async"
           src={logoBg}
           alt=""
           className="w-96 h-96 object-contain"
@@ -98,6 +99,8 @@ export function Footer({ darkMode }: FooterProps) {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:scale-110"
                   style={{
@@ -153,9 +156,8 @@ export function Footer({ darkMode }: FooterProps) {
           </motion.div>
 
           <div className="flex gap-4 text-xs" style={{ color: textMuted }}>
-            <a href="#" className="hover:text-[#3d8bff] transition-colors">{t.footer.privacy}</a>
-            <a href="#" className="hover:text-[#3d8bff] transition-colors">{t.footer.terms}</a>
-            <a href="#" className="hover:text-[#3d8bff] transition-colors">{t.footer.sitemap}</a>
+            <a href="#top" className="hover:text-[#3d8bff] transition-colors">{ui.nav.backToTop} ↑</a>
+            <a href="/sitemap.xml" className="hover:text-[#3d8bff] transition-colors">{t.footer.sitemap}</a>
           </div>
         </div>
       </div>

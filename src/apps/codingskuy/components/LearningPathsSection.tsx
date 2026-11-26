@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowRight, CheckCircle2, Circle } from "lucide-react";
 import { useT } from "@/hooks/useT";
+import { useUi } from "./uiStrings";
 
 interface LearningPathsSectionProps {
   darkMode: boolean;
@@ -8,16 +9,16 @@ interface LearningPathsSectionProps {
 
 const DEV = typeof window !== "undefined" && window.location.hostname === "localhost";
 const CODINGSTUFF_BASE = DEV ? "http://localhost:4321/codingstuff" : "/codingstuff";
-const ARTICLES_BASE = DEV ? "http://localhost:4322/articles" : "https://roiskhoiron.github.io/articles";
+const ARTICLES_BASE = DEV ? "http://localhost:4322/articles" : "/articles";
 
 const getArticleLink = (id: string) => {
   const map: Record<string, string> = {
-    flutter: `${ARTICLES_BASE}/docs/tutorials/flutter/`,
-    android: `${ARTICLES_BASE}/docs/tutorials/android/`,
-    backend: `${ARTICLES_BASE}/docs/tutorials/backend/`,
-    python: `${ARTICLES_BASE}/docs/tutorials/python/`,
-    ai: `${ARTICLES_BASE}/docs/tutorials/ai/`,
-    career: `${ARTICLES_BASE}/docs/articles/career/`,
+    flutter: `${ARTICLES_BASE}/handbook/flutter-engineering/`,
+    android: `${ARTICLES_BASE}/foundation/roadmap/roadmap-mobile-engineer/`,
+    backend: `${ARTICLES_BASE}/handbook/backend/`,
+    python: `${ARTICLES_BASE}/python/developer/`,
+    ai: `${ARTICLES_BASE}/handbook/ai-engineering/`,
+    career: `${ARTICLES_BASE}/career/path/mobile-engineer/`,
   };
   return map[id] || `${ARTICLES_BASE}/`;
 };
@@ -93,6 +94,7 @@ const paths = [
 
 export function LearningPathsSection({ darkMode = false }: LearningPathsSectionProps) {
   const t = useT();
+  const ui = useUi();
   const cardBg = darkMode ? "#0d1629" : "#ffffff";
   const borderColor = darkMode ? "rgba(61,139,255,0.15)" : "rgba(0,85,255,0.1)";
   const textMuted = darkMode ? "#7c8db5" : "#64748b";
@@ -215,7 +217,7 @@ export function LearningPathsSection({ darkMode = false }: LearningPathsSectionP
                    boxShadow: path.progress > 0 ? `0 4px 12px ${path.color}30` : "none",
                  }}
                >
-                 {path.progress > 0 ? "Lanjutkan Belajar" : "Mulai Sekarang"}
+                 {path.progress > 0 ? ui.learning.continue : ui.learning.start}
                  <ArrowRight size={15} />
                </a>
             </motion.div>

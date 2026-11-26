@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowRight, Star, Zap, Github, Youtube, Linkedin } from "lucide-react";
 import { DoodleBolt, DoodleBracket, DoodleCode, DoodleSpark, DoodleRocket } from "./CodingSkuyMascot";
-import mascotSvg from "@/assets/hero-skuy.jpeg";
+import mascotSvg from "@/assets/hero-skuy.webp";
 import { useT } from "@/hooks/useT";
 import { ScrollingTags } from "./ScrollingTags";
 
@@ -128,7 +128,7 @@ export function HeroSection({ darkMode }: HeroSectionProps) {
             {/* CTA */}
             <div className="flex flex-wrap gap-3">
               <a
-                href="#content"
+                href="#start"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-semibold text-sm bg-gradient-to-r from-[#0055ff] to-[#00d4ff] text-white shadow-xl shadow-[#0055ff]/25 hover:shadow-[#0055ff]/40 hover:scale-105 transition-all duration-200"
               >
                 {t.hero.ctaStart} <ArrowRight size={16} />
@@ -234,7 +234,11 @@ export function HeroSection({ darkMode }: HeroSectionProps) {
                   <img
                     src={mascotSvg}
                     alt="CodingSkuy Mascot"
-                    className="w-full h-full object-contain" 
+                    width={800}
+                    height={800}
+                    fetchPriority="high"
+                    decoding="async"
+                    className="w-full h-full object-contain"
                   />
                 </motion.div>
               </div>

@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import logo from "@/assets/ic_logo_codingskuy.png";
+import logo from "@/assets/logo-96.webp";
 import { useT } from "@/hooks/useT";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useUi } from "./uiStrings";
 
 interface NavbarProps {
   darkMode: boolean;
@@ -14,6 +15,9 @@ export function Navbar({ darkMode, toggleDark }: NavbarProps) {
   const t = useT();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeId, setActiveId] = useState("");
+  const progressRef = useRef<HTMLDivElement>(null);
+  const ui = useUi();
 
   const navLinks = [
     { label: t.nav.about, href: "#about" },
@@ -27,9 +31,41 @@ export function Navbar({ darkMode, toggleDark }: NavbarProps) {
   ];
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const ids = ["about", "activity", "learning", "philosophy", "portfolio", "media", "ailab", "community"];
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setScrolled(y > 40);
+
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
+      }
+
+      // The active section is the last one whose top has passed the upper third of the screen.
+      const line = window.innerHeight / 3;
+      let current = "";
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      }
+      setActiveId(current);
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   const scrollToSection = (href: string) => {
@@ -40,7 +76,10 @@ export function Navbar({ darkMode, toggleDark }: NavbarProps) {
       return;
     }
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      window.history.replaceState(null, "", `#${id}`);
+    }
   };
 
   return (
@@ -58,7 +97,7 @@ export function Navbar({ darkMode, toggleDark }: NavbarProps) {
           {/* Logo */}
           <a href="#top" onClick={(e) => { e.preventDefault(); scrollToSection("#top"); }} className="flex items-center gap-2.5 group">
             <div className="w-9 h-9 rounded-xl overflow-hidden shadow-lg shadow-[#0055ff]/30 group-hover:shadow-[#0055ff]/50 transition-shadow">
-              <img src={logo} alt="CodingSkuy" className="w-full h-full object-cover" />
+              <img src={logo} alt="CodingSkuy" width={36} height={36} className="w-full h-full object-cover" />
             </div>
               <div className="flex flex-col -gap-0.5">
                 <span className="text-sm font-bold leading-tight" style={{ color: "#3d8bff" }}>
@@ -71,7 +110,7 @@ export function Navbar({ darkMode, toggleDark }: NavbarProps) {
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -80,8 +119,11 @@ export function Navbar({ darkMode, toggleDark }: NavbarProps) {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`px-3 py-1.5 rounded-lg text-sm transition-all duration-200 hover:bg-[#3d8bff]/10 hover:text-[#3d8bff] ${
-                  darkMode ? "text-[#7c8db5]" : "text-[#64748b]"
+                aria-current={activeId === link.href.slice(1) ? "location" : undefined}
+                className={`px-2.5 xl:px-3 py-1.5 rounded-lg text-sm transition-all duration-200 hover:bg-[#3d8bff]/10 hover:text-[#3d8bff] ${
+                  activeId === link.href.slice(1)
+                    ? "bg-[#3d8bff]/10 text-[#3d8bff] font-semibold"
+                    : darkMode ? "text-[#7c8db5]" : "text-[#64748b]"
                 }`}
               >
                 {link.label}
@@ -91,41 +133,50 @@ export function Navbar({ darkMode, toggleDark }: NavbarProps) {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
-            <LanguageSwitcher className="hidden md:block" />
+            <LanguageSwitcher className="hidden lg:block" />
 
             <button
               onClick={toggleDark}
               className={`p-2 rounded-lg transition-all hover:scale-110 ${
                 darkMode ? "hover:bg-[#131e38] text-[#ffd700]" : "hover:bg-[#f1f5f9] text-[#0055ff]"
               }`}
-              aria-label="Toggle dark mode"
+              aria-label={ui.nav.toggleTheme}
             >
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
             <a
-              href="#contact"
+              href="#community"
               onClick={(e) => {
                 e.preventDefault();
-                scrollToSection("#contact");
+                scrollToSection("#community");
               }}
               className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#0055ff] to-[#00d4ff] text-white shadow-lg shadow-[#0055ff]/25 hover:shadow-[#0055ff]/40 hover:scale-105 transition-all duration-200"
             >
               {t.nav.hireMe}
             </a>
 
-            <LanguageSwitcher className="md:hidden" />
+            <LanguageSwitcher className="lg:hidden" />
 
             <button
-              className={`md:hidden p-2 rounded-lg ${darkMode ? "text-[#e8f0ff]" : "text-[#0d1117]"}`}
+              className={`lg:hidden p-2 rounded-lg ${darkMode ? "text-[#e8f0ff]" : "text-[#0d1117]"}`}
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Menu"
+              aria-label={ui.nav.menu}
+              aria-expanded={mobileOpen}
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
       </div>
+
+      {/* Reading progress */}
+      <div
+        ref={progressRef}
+        aria-hidden
+        className="absolute bottom-0 left-0 h-0.5 w-full origin-left bg-gradient-to-r from-[#0055ff] via-[#00d4ff] to-[#8b5cf6]"
+        style={{ transform: "scaleX(0)" }}
+      />
 
       {/* Mobile menu */}
       <AnimatePresence>
@@ -134,7 +185,7 @@ export function Navbar({ darkMode, toggleDark }: NavbarProps) {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className={`md:hidden border-t ${
+            className={`lg:hidden border-t ${
               darkMode ? "bg-[#060b18]/95 border-[#131e38]" : "bg-white/95 border-[#e2e8f0]"
             } backdrop-blur-xl`}
           >
@@ -147,18 +198,21 @@ export function Navbar({ darkMode, toggleDark }: NavbarProps) {
                     e.preventDefault();
                     scrollToSection(link.href);
                   }}
+                  aria-current={activeId === link.href.slice(1) ? "location" : undefined}
                   className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all hover:bg-[#3d8bff]/10 hover:text-[#3d8bff] ${
-                    darkMode ? "text-[#7c8db5]" : "text-[#64748b]"
+                    activeId === link.href.slice(1)
+                      ? "bg-[#3d8bff]/10 text-[#3d8bff]"
+                      : darkMode ? "text-[#7c8db5]" : "text-[#64748b]"
                   }`}
                 >
                   {link.label}
                 </a>
               ))}
               <a
-                href="#contact"
+                href="#community"
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollToSection("#contact");
+                  scrollToSection("#community");
                 }}
                 className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#0055ff] to-[#00d4ff] text-white text-center"
               >

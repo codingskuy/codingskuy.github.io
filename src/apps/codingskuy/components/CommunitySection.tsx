@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Users, ArrowRight } from "lucide-react";
-import mascotSvg from "@/assets/vectorized-mascot.svg";
+import mascotSvg from "@/assets/mascot.webp";
 import { useT } from "@/hooks/useT";
 
 
@@ -34,7 +34,7 @@ const platforms = [
     color: "#333",
     icon: "🐙",
     cta: "Follow",
-    url: "#",
+    url: "https://github.com/codingskuy",
   },
   {
     name: "YouTube",
@@ -43,7 +43,7 @@ const platforms = [
     color: "#FF0000",
     icon: "▶️",
     cta: "Subscribe",
-    url: "#",
+    url: "https://youtube.com/@codingskuy",
   },
   {
     name: "Newsletter",
@@ -52,7 +52,7 @@ const platforms = [
     color: "#ff6b35",
     icon: "📧",
     cta: "Subscribe",
-    url: "#community",
+    url: "#newsletter",
   },
 ];
 
@@ -126,7 +126,7 @@ export function CommunitySection({ darkMode }: CommunitySectionProps) {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
                 {/* <CodingSkuyMascot variant="celebrate" size={200} /> */}
-                <img
+                <img loading="lazy" decoding="async"
                                   src={mascotSvg} 
                                   alt="CodingSkuy Mascot"
                                   className="w-40 h-40 sm:w-80 sm:h-80 object-contain"

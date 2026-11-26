@@ -1,11 +1,14 @@
 
 import { createRoot } from "react-dom/client";
-import { useEffect, useState } from "react";
-import { ChefGenieLandingPage } from "@/apps/chefgenie/pages";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { CodingSkuyLandingPage } from "@/apps/codingskuy/pages";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import "@/index.css";
+
+const ChefGenieLandingPage = lazy(() =>
+  import("@/apps/chefgenie/pages").then((m) => ({ default: m.ChefGenieLandingPage })),
+);
 
 const normalizePath = (path: string) => {
   const cleaned = path.replace(/\/+$/, "");
@@ -41,7 +44,9 @@ function Root() {
     return (
       <LanguageProvider>
         <ThemeProvider>
-          <ChefGenieLandingPage />
+          <Suspense fallback={null}>
+            <ChefGenieLandingPage />
+          </Suspense>
         </ThemeProvider>
       </LanguageProvider>
     );

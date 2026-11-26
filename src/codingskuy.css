@@ -1,1 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+/* Anchor navigation: glide to the target and stop below the fixed navbar. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* globals.css shrinks every h1/h2 on phones, which left the hero title
+   smaller than its own subtitle. Restore the hierarchy for this landing. */
+@media (max-width: 640px) {
+  .cs-landing h1 {
+    font-size: 2.75rem !important;
+  }
+  .cs-landing h2 {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+}

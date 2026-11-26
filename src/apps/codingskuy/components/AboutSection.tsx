@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { MapPin, Mail, Smartphone, Server, Brain, PenTool, Users, Code } from "lucide-react";
 import { useT } from "@/hooks/useT";
-import mascotSvg from "@/assets/13-journey-transformation.jpeg";
+import mascotSvg from "@/assets/about-journey.webp";
 
 interface AboutSectionProps {
   darkMode: boolean;
@@ -58,7 +58,7 @@ export function AboutSection({ darkMode }: AboutSectionProps) {
             >
               {/* Photo */}
               <div className="aspect-[4/3] relative overflow-hidden">
-                <img
+                <img loading="lazy" decoding="async"
                   src={mascotSvg}
                   alt="CodingSkuy Community"
                   className="w-full h-full object-cover"

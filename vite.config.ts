@@ -83,6 +83,16 @@
     build: {
       target: 'esnext',
       outDir: 'build',
+      rollupOptions: {
+        output: {
+          // Libraries change far less often than app code; separate chunks keep
+          // them cached across the frequent redeploys.
+          manualChunks: {
+            react: ['react', 'react-dom'],
+            motion: ['motion'],
+          },
+        },
+      },
     },
     server: {
       port: 3000,

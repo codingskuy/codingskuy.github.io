@@ -4,10 +4,11 @@ import { motion } from "motion/react";
 import { BookOpen, Video, Layers, ArrowRight, Clock, Youtube, Sparkles, Users, PlayCircle, TrendingUp, Search } from "lucide-react";
 import { CodingSkuyMascot } from "./CodingSkuyMascot";
 import { IframeDialog } from "@/components/IframeDialog";
-import imgCharacter1 from "@/assets/hqdefault.png";
-import imgCharacter2 from "@/assets/hqdefault2.png";
-import imgCharacter3 from "@/assets/hqdefault3.png";
+import imgCharacter1 from "@/assets/hqdefault.webp";
+import imgCharacter2 from "@/assets/hqdefault2.webp";
+import imgCharacter3 from "@/assets/hqdefault3.webp";
 import { useT } from "@/hooks/useT";
+import { useUi } from "./uiStrings";
 
 interface MediaHubSectionProps {
   darkMode: boolean;
@@ -178,6 +179,7 @@ const featured = [
 
 export function MediaHubSection({ darkMode }: MediaHubSectionProps) {
   const t = useT();
+  const ui = useUi();
   const cardBg = darkMode ? "#0d1629" : "#ffffff";
   const borderColor = darkMode ? "rgba(61,139,255,0.15)" : "rgba(0,85,255,0.1)";
   const textMuted = darkMode ? "#7c8db5" : "#64748b";
@@ -387,14 +389,16 @@ export function MediaHubSection({ darkMode }: MediaHubSectionProps) {
             </div>
           </div>
           <a
-            href="#"
+            href={`https://www.youtube.com/@${YT_CHANNEL_HANDLE}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-semibold border transition-all hover:scale-105"
             style={{
               borderColor: darkMode ? "rgba(139,92,246,0.3)" : "rgba(139,92,246,0.2)",
               color: "#8b5cf6",
             }}
           >
-            All Content <ArrowRight size={15} />
+            {ui.media.allContent} <ArrowRight size={15} />
           </a>
         </motion.div>
 
@@ -422,7 +426,7 @@ export function MediaHubSection({ darkMode }: MediaHubSectionProps) {
                 })
               }
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src={featuredVideo.thumbnail}
                 alt={text.coverAlt}
                 className="w-full aspect-[16/9] object-cover group-hover:scale-105 transition-transform duration-500"
@@ -491,7 +495,7 @@ export function MediaHubSection({ darkMode }: MediaHubSectionProps) {
                   >
                     <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:border-white/40 transition-colors h-full">
                       <div className="relative overflow-hidden rounded-xl">
-                        <img
+                        <img loading="lazy" decoding="async"
                           src={video.thumbnail}
                           alt={`${text.characterAlt} ${index + 1}`}
                           className="w-full h-auto min-h-[180px] object-cover"

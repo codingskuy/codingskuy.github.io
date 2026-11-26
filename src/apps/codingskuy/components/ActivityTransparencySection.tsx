@@ -619,9 +619,7 @@ export function ActivityTransparencySection({ darkMode }: { darkMode: boolean })
         if (!GITHUB_READ_TOKEN) {
           if (mounted) {
             setData(
-              snapshot
-                ? { ...snapshot, warnings: [text.missingTokenWarning] }
-                : FALLBACK_DATA,
+              snapshot ?? FALLBACK_DATA,
             );
           }
           return;
@@ -647,7 +645,7 @@ export function ActivityTransparencySection({ darkMode }: { darkMode: boolean })
     return () => {
       mounted = false;
     };
-  }, [text.liveFetchFailed, text.missingTokenWarning]);
+  }, [text.liveFetchFailed]);
 
   const stageEntries = useMemo(() => {
     const map = new Map<StatusKey, ActivityEntry[]>();
