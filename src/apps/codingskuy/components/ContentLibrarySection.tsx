@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Search, Clock, BookOpen, Video, Layers, Code2, Brain, ArrowRight } from "lucide-react";
 import { CodingSkuyMascot } from "./CodingSkuyMascot";
 import { useT } from "@/hooks/useT";
+import { useUi } from "./uiStrings";
 
 interface ContentLibrarySectionProps {
   darkMode: boolean;
@@ -32,6 +33,8 @@ export function ContentLibrarySection({ darkMode }: ContentLibrarySectionProps) 
   const t = useT();
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
+  const [expanded, setExpanded] = useState(false);
+  const ui = useUi();
 
   const filtered = useMemo(() => {
     let items = allContent;
@@ -49,6 +52,11 @@ export function ContentLibrarySection({ darkMode }: ContentLibrarySectionProps) 
 
     return items;
   }, [search, activeFilter]);
+
+  // Six cards is one screenful on desktop; the rest stays one tap away so the
+  // section does not turn into a 15-card scroll on phones.
+  const INITIAL_COUNT = 6;
+  const visible = expanded ? filtered : filtered.slice(0, INITIAL_COUNT);
 
   const cardBg = darkMode ? "#0d1629" : "#ffffff";
   const borderColor = darkMode ? "rgba(61,139,255,0.15)" : "rgba(0,85,255,0.1)";
@@ -99,7 +107,8 @@ export function ContentLibrarySection({ darkMode }: ContentLibrarySectionProps) 
             />
             <input
               type="text"
-              placeholder="Cari artikel, tutorial, atau topik..."
+              placeholder={ui.content.searchPlaceholder}
+              aria-label={ui.content.searchPlaceholder}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-11 pr-4 py-3.5 rounded-2xl text-sm outline-none transition-all"
@@ -153,7 +162,7 @@ export function ContentLibrarySection({ darkMode }: ContentLibrarySectionProps) 
                 </button>
               </motion.div>
             ) : (
-              filtered.map((item, i) => (
+              visible.map((item, i) => (
                 <motion.div
                   key={item.id}
                   layout
@@ -208,24 +217,30 @@ export function ContentLibrarySection({ darkMode }: ContentLibrarySectionProps) 
           </AnimatePresence>
         </motion.div>
 
-        {/* Pagination placeholder */}
         {filtered.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mt-10"
-          >
-            <button
-              className="px-8 py-3 rounded-2xl font-semibold text-sm border transition-all hover:scale-105"
-              style={{
-                borderColor: darkMode ? "rgba(0,212,255,0.3)" : "rgba(0,212,255,0.2)",
-                color: "#00d4ff",
-              }}
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
+            {filtered.length > INITIAL_COUNT && (
+              <button
+                type="button"
+                onClick={() => setExpanded((prev) => !prev)}
+                aria-expanded={expanded}
+                className="px-8 py-3 rounded-2xl font-semibold text-sm border transition-all hover:scale-105"
+                style={{
+                  borderColor: darkMode ? "rgba(0,212,255,0.3)" : "rgba(0,212,255,0.2)",
+                  color: "#00d4ff",
+                }}
+              >
+                {expanded ? ui.content.showLess : `${ui.content.showMore} (${filtered.length - INITIAL_COUNT})`}
+              </button>
+            )}
+            <a
+              href="/articles/"
+              className="px-8 py-3 rounded-2xl font-semibold text-sm text-white transition-all hover:scale-105"
+              style={{ background: "linear-gradient(135deg, #0055ff, #00d4ff)" }}
             >
-              Lihat Semua Konten →
-            </button>
-          </motion.div>
+              {ui.content.browseAll} →
+            </a>
+          </div>
         )}
       </div>
     </section>

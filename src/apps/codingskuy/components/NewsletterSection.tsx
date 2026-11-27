@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Send, CheckCircle2 } from "lucide-react";
-import mascotSvg from "@/assets/vectorized-mascot.svg";
+import mascotSvg from "@/assets/mascot.webp";
 import { useT } from "@/hooks/useT";
+import { useUi } from "./uiStrings";
 
 interface NewsletterSectionProps {
   darkMode: boolean;
@@ -13,6 +14,7 @@ export function NewsletterSection({ darkMode }: NewsletterSectionProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const ui = useUi();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +54,7 @@ export function NewsletterSection({ darkMode }: NewsletterSectionProps) {
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 
               >
-                <img
+                <img loading="lazy" decoding="async"
                   src={mascotSvg} 
                   alt="CodingSkuy Mascot"
                   className="w-28 h-28 sm:w-36 sm:h-36 object-contain"
@@ -102,7 +104,9 @@ export function NewsletterSection({ darkMode }: NewsletterSectionProps) {
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
                   <input
                     type="text"
-                    placeholder="Nama kamu"
+                    placeholder={ui.newsletter.namePlaceholder}
+                    aria-label={ui.newsletter.namePlaceholder}
+                    autoComplete="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
@@ -116,6 +120,8 @@ export function NewsletterSection({ darkMode }: NewsletterSectionProps) {
                   <input
                     type="email"
                     placeholder={t.newsletter.placeholder}
+                    aria-label={t.newsletter.placeholder}
+                    autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -140,7 +146,7 @@ export function NewsletterSection({ darkMode }: NewsletterSectionProps) {
               )}
 
               <p className="text-xs mt-3" style={{ color: textMuted }}>
-                No spam. Unsubscribe kapan saja. Privacy 100% terjaga.
+                {ui.newsletter.note}
               </p>
             </div>
           </div>

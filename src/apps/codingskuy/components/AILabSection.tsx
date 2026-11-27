@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import { Terminal, Cpu, Bot, Workflow, FlaskConical, ExternalLink } from "lucide-react";
+import { Terminal, Cpu, Bot, Workflow, FlaskConical } from "lucide-react";
 import { useT } from "@/hooks/useT";
 
 interface AILabSectionProps {
@@ -218,10 +218,7 @@ export function AILabSection({ darkMode }: AILabSectionProps) {
                     <span className="text-xs font-medium" style={{ color: active.statusColor }}>● {active.status}</span>
                   </div>
                 </div>
-                <a href="#" className="p-2 rounded-xl transition-all hover:scale-110" style={{ color: textMuted }}>
-                  <ExternalLink size={16} />
-                </a>
-              </div>
+</div>
               <p className="text-sm leading-relaxed mb-4" style={{ color: textMuted }}>{active.desc}</p>
               <div className="flex flex-wrap gap-1.5">
                 {active.tech.map((t) => (

@@ -1,77 +1,91 @@
-import { useState, useEffect } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { MotionConfig } from "motion/react";
 import { Navbar } from "./components/Navbar";
-import { ActivityTransparencySection } from "./components/ActivityTransparencySection";
-import { PhilosophySection } from "./components/PhilosophySection";
-import { ScrollSmoother } from "@/components/ScrollSmoother";
-import logo from "@/assets/ic_logo_codingskuy.png";
 import { HeroSection } from "./components/HeroSection";
-import { ShowcaseSection } from "./components/ShowcaseSection";
-import { AboutSection } from "./components/AboutSection";
-import { MetricsSection } from "./components/MetricsSection";
-import { PortfolioSection } from "./components/PortfolioSection";
-import { MediaHubSection } from "./components/MediaHubSection";
-import { LearningPathsSection } from "./components/LearningPathsSection";
-import { AILabSection } from "./components/AILabSection";
-import { OpenSourceSection } from "./components/OpenSourceSection";
-import { ContentLibrarySection } from "./components/ContentLibrarySection";
-import { CommunitySection } from "./components/CommunitySection";
-import { NewsletterSection } from "./components/NewsletterSection";
-import { ContactSection } from "./components/ContactSection";
-import { Footer } from "./components/Footer";
+import { JourneySection } from "./components/JourneySection";
+import { useUi } from "./components/uiStrings";
+
+const BelowFold = lazy(() => import("./components/BelowFold"));
+
+const THEME_KEY = "cs-theme";
+
+function getInitialDarkMode() {
+  try {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === "dark") return true;
+    if (saved === "light") return false;
+  } catch {
+    // Storage can be unavailable (private mode); fall through to the system setting.
+  }
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
+// Sections below the fold mount after the first paint, so a link like
+// /#community has nothing to land on until they exist.
+function useDeferredHashScroll(ready: boolean) {
+  useEffect(() => {
+    if (!ready) return;
+    const id = window.location.hash.slice(1);
+    if (!id || id.startsWith("/")) return;
+    document.getElementById(id)?.scrollIntoView();
+  }, [ready]);
+}
+
+function Mounted({ onMount }: { onMount: () => void }) {
+  useEffect(onMount, [onMount]);
+  return null;
+}
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const ui = useUi();
+  const [darkMode, setDarkMode] = useState(getInitialDarkMode);
+  const [belowFoldReady, setBelowFoldReady] = useState(false);
 
   useEffect(() => {
-    let link = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
-    if (!link) {
-      link = document.createElement("link");
-      link.rel = "icon";
-      document.head.appendChild(link);
-    }
-    link.href = logo;
-  }, []);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    document.documentElement.classList.toggle("dark", darkMode);
+    document.documentElement.style.colorScheme = darkMode ? "dark" : "light";
   }, [darkMode]);
 
-  const toggleDark = () => setDarkMode((prev) => !prev);
+  useDeferredHashScroll(belowFoldReady);
+  const markBelowFoldReady = useCallback(() => setBelowFoldReady(true), []);
+
+  const toggleDark = () =>
+    setDarkMode((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem(THEME_KEY, next ? "dark" : "light");
+      } catch {
+        // Ignore: the choice still applies for this visit.
+      }
+      return next;
+    });
 
   return (
-    <div
-      className="min-h-screen"
-      style={{
-        background: darkMode ? "#060b18" : "#f0f4ff",
-        fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif",
-      }}
-    >
-      <ScrollSmoother />
-      <Navbar darkMode={darkMode} toggleDark={toggleDark} />
+    <MotionConfig reducedMotion="user">
+      <div
+        className="cs-landing min-h-screen"
+        style={{
+          background: darkMode ? "#060b18" : "#f0f4ff",
+          fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
+        }}
+      >
+        <a
+          href="#start"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-xl focus:bg-[#0055ff] focus:text-white focus:text-sm focus:font-semibold"
+        >
+          {ui.nav.skip}
+        </a>
+        <Navbar darkMode={darkMode} toggleDark={toggleDark} />
 
-      <main>
-        <HeroSection darkMode={darkMode} />
-        <AboutSection darkMode={darkMode} />
-        <ShowcaseSection darkMode={darkMode} />
-        <MetricsSection darkMode={darkMode} />
-        <ActivityTransparencySection darkMode={darkMode}/>
-        <LearningPathsSection darkMode={darkMode} />
-        <PhilosophySection darkMode={darkMode}/>
-        <PortfolioSection darkMode={darkMode} />
-        <MediaHubSection darkMode={darkMode} />
-        <ContentLibrarySection darkMode={darkMode} />
-        <AILabSection darkMode={darkMode} />
-        <CommunitySection darkMode={darkMode} />
-        <OpenSourceSection darkMode={darkMode} />
-        <NewsletterSection darkMode={darkMode} />
-        {/* <ContactSection darkMode={darkMode} /> */}
-      </main>
-
-      <Footer darkMode={darkMode} />
-    </div>
+        <main>
+          <HeroSection darkMode={darkMode} />
+          <JourneySection darkMode={darkMode} />
+          <Suspense fallback={<div className="min-h-screen" aria-hidden />}>
+            <BelowFold darkMode={darkMode} />
+            <Mounted onMount={markBelowFoldReady} />
+          </Suspense>
+        </main>
+      </div>
+    </MotionConfig>
   );
 }

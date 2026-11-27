@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Play, Film } from "lucide-react";
-import showcaseVideo from "@/assets/codingskuy_banner_background_video.mp4";
+import showcaseVideo from "@/assets/showcase.mp4";
+import showcasePoster from "@/assets/showcase-poster.webp";
 import { useT } from "@/hooks/useT";
 import { useRef, useEffect } from "react";
 
@@ -17,6 +18,9 @@ export function ShowcaseSection({ darkMode }: ShowcaseSectionProps) {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    // The file is only fetched once playback starts, so visitors who never
+    // reach this section (or prefer reduced motion) download just the poster.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -88,8 +92,10 @@ export function ShowcaseSection({ darkMode }: ShowcaseSectionProps) {
             ref={videoRef}
             loop
             playsInline
+            muted
             controls
-            preload="auto"
+            preload="none"
+            poster={showcasePoster}
             className="w-full aspect-video object-cover"
           >
             <source src={showcaseVideo} type="video/mp4" />

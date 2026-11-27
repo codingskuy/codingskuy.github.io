@@ -12,28 +12,47 @@ const STORAGE_KEY = "rk-language";
 
 const seoByLanguage: Record<Language, { title: string; description: string; ogLocale: string }> = {
   id: {
-    title: "Rois Khoiron | Mobile Product Engineer & AI-Driven Builder",
+    title: "CodingSkuy! | Belajar Teknologi Harusnya Menyenangkan",
     description:
-      "Portfolio resmi Rois Khoiron: Mobile Product Engineer yang membangun produk AI-native, menulis insight engineering, dan berbagi pengalaman membangun software nyata.",
+      "CodingSkuy — jurnal belajar dan repositori engineering terbuka. Tutorial, proyek nyata, dan panduan karir untuk developer Indonesia.",
     ogLocale: "id_ID",
   },
   en: {
-    title: "Rois Khoiron | Mobile Product Engineer & AI-Driven Builder",
+    title: "CodingSkuy! | Learning Technology Should Be Fun",
     description:
-      "Official portfolio of Rois Khoiron: Mobile Product Engineer building AI-native products and sharing practical engineering insights.",
+      "CodingSkuy — an open learning journal and engineering repository. Tutorials, real projects, and career guides for Indonesian developers.",
     ogLocale: "en_US",
   },
   zh: {
-    title: "Rois Khoiron | 移动产品工程师与 AI 驱动构建者",
-    description: "Rois Khoiron 官方作品集：展示 AI 原生产品、工程实践与技术写作沉淀。",
+    title: "CodingSkuy! | 学习技术应该很有趣",
+    description: "CodingSkuy——开放的学习日志与工程知识库：教程、真实项目与开发者职业指南。",
     ogLocale: "zh_CN",
   },
   ja: {
-    title: "Rois Khoiron | モバイルプロダクトエンジニア & AI駆動ビルダー",
-    description: "Rois Khoiron の公式ポートフォリオ。AIネイティブ開発、実践的な技術知見、執筆活動を紹介。",
+    title: "CodingSkuy! | テクノロジー学習は楽しくあるべき",
+    description: "CodingSkuy — オープンな学習ジャーナルとエンジニアリングリポジトリ。チュートリアル、実プロジェクト、キャリアガイド。",
     ogLocale: "ja_JP",
   },
 };
+
+const isLanguage = (value: string | null | undefined): value is Language =>
+  value === "id" || value === "en" || value === "zh" || value === "ja";
+
+// A saved choice wins; otherwise follow the browser so Indonesian visitors
+// land on Indonesian copy instead of having to find the switcher first.
+function getInitialLanguage(): Language {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (isLanguage(saved)) return saved;
+  } catch {
+    // Storage unavailable; fall back to the browser language.
+  }
+  for (const tag of navigator.languages ?? [navigator.language]) {
+    const base = tag.toLowerCase().split("-")[0];
+    if (isLanguage(base)) return base;
+  }
+  return "en";
+}
 
 export const LANGUAGE_OPTIONS: LanguageOption[] = [
   { code: "id", label: "Indonesian", nativeLabel: "Indonesia" },
@@ -51,17 +70,14 @@ type LanguageContextValue = {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("en");
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === "id" || saved === "en" || saved === "zh" || saved === "ja") {
-      setLanguageState(saved);
+    try {
+      localStorage.setItem(STORAGE_KEY, language);
+    } catch {
+      // Ignore: the choice still applies for this visit.
     }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, language);
     document.documentElement.lang = language;
 
     const seo = seoByLanguage[language];

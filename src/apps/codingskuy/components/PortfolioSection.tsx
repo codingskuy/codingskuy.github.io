@@ -163,7 +163,7 @@ export function PortfolioSection({ darkMode }: PortfolioSectionProps) {
               >
                 {/* Image */}
                 <div className="relative aspect-[16/9] overflow-hidden">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
