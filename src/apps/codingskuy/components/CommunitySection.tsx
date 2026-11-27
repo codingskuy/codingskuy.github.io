@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Users, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import mascotSvg from "@/assets/mascot.webp";
 import { useT } from "@/hooks/useT";
 
@@ -10,27 +10,8 @@ interface CommunitySectionProps {
 
 const platforms = [
   {
-    name: "Discord",
-    desc: "Live discussions, code reviews, dan study groups",
-    members: "3.2K",
-    color: "#5865F2",
-    icon: "💬",
-    cta: "Join Server",
-    url: "#",
-  },
-  {
-    name: "Telegram",
-    desc: "Daily tips, article links, dan job opportunities",
-    members: "5.1K",
-    color: "#229ED9",
-    icon: "✈️",
-    cta: "Join Channel",
-    url: "#",
-  },
-  {
     name: "GitHub",
     desc: "Open source contributions dan code collaboration",
-    members: "847",
     color: "#333",
     icon: "🐙",
     cta: "Follow",
@@ -39,20 +20,18 @@ const platforms = [
   {
     name: "YouTube",
     desc: "Weekly tutorials, build-alongs, dan tech talks",
-    members: "25K",
     color: "#FF0000",
     icon: "▶️",
     cta: "Subscribe",
     url: "https://youtube.com/@codingskuy",
   },
   {
-    name: "Newsletter",
-    desc: "Weekly insights: engineering, AI, career",
-    members: "4.8K",
-    color: "#ff6b35",
-    icon: "📧",
-    cta: "Subscribe",
-    url: "#newsletter",
+    name: "LinkedIn",
+    desc: "Diskusi karir, networking, dan update komunitas",
+    color: "#0077B5",
+    icon: "💼",
+    cta: "Join Group",
+    url: "https://www.linkedin.com/groups/17187002/",
   },
 ];
 
@@ -98,17 +77,6 @@ export function CommunitySection({ darkMode }: CommunitySectionProps) {
           <p className="text-base max-w-xl mx-auto mb-8" style={{ color: textMuted }}>
             {t.community.desc}
           </p>
-          {/* Total count */}
-          <div
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl font-semibold text-sm"
-            style={{
-              background: darkMode ? "rgba(61,139,255,0.1)" : "rgba(0,85,255,0.06)",
-              border: "1px solid rgba(61,139,255,0.2)",
-              color: "#3d8bff",
-            }}
-          >
-            <Users size={16} /> 38,000+ Total Members Across Platforms
-          </div>
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8 items-center">
@@ -136,11 +104,13 @@ export function CommunitySection({ darkMode }: CommunitySectionProps) {
           </motion.div>
 
           {/* Platform cards */}
-          <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4">
+          <div className="lg:col-span-2 grid sm:grid-cols-3 gap-4">
             {platforms.map((platform, i) => (
               <motion.a
                 key={platform.name}
                 href={platform.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -158,9 +128,6 @@ export function CommunitySection({ darkMode }: CommunitySectionProps) {
                     <span className="text-2xl">{platform.icon}</span>
                     <div>
                       <p className="font-bold text-sm" style={{ color: textMain }}>{platform.name}</p>
-                      <p className="text-xs font-semibold" style={{ color: platform.color }}>
-                        {platform.members} members
-                      </p>
                     </div>
                   </div>
                   <ArrowRight size={15} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: textMuted }} />

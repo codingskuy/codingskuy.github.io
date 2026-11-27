@@ -39,7 +39,6 @@ export function Footer({ darkMode }: FooterProps) {
       { label: t.footer.aiLab_, href: "#ailab" },
       { label: t.footer.openSource, href: "#opensource" },
       { label: t.footer.githubProjects, href: "https://github.com/codingskuy" },
-      { label: t.footer.newsletter_, href: "#newsletter" },
     ],
   };
 

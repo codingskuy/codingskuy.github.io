@@ -160,10 +160,7 @@ export function OpenSourceSection({ darkMode }: OpenSourceSectionProps) {
                     <span className="text-xs" style={{ color: textMuted }}>{repo.category}</span>
                   </div>
                 </div>
-                <a href="#" className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg transition-all" style={{ color: textMuted }}>
-                  <ExternalLink size={14} />
-                </a>
-              </div>
+</div>
 
               {/* Description */}
               <p className="text-sm leading-relaxed mb-4" style={{ color: textMuted }}>{repo.desc}</p>

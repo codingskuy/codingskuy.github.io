@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 
 concurrency:
@@ -40,7 +40,6 @@ jobs:
 
       - name: Build Vite project (React SPA)
         env:
-          VITE_GITHUB_READ_TOKEN: ${{ secrets.VITE_GITHUB_READ_TOKEN }}
           VITE_YOUTUBE_API_KEY: ${{ secrets.VITE_YOUTUBE_API_TOKEN }}
           VITE_YOUTUBE_CHANNEL_HANDLE: ${{ secrets.VITE_YOUTUBE_CHANNEL_HANDLE }}
         run: npm run build

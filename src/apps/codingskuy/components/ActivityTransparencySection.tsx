@@ -170,11 +170,6 @@ const STAGE_META: Record<StatusKey, {
   },
 };
 
-const GITHUB_GRAPHQL_ENDPOINT = "https://api.github.com/graphql";
-const GITHUB_OWNER = "Coding-Skuy";
-const GITHUB_DISCUSSION_REPO = ".github";
-const GITHUB_PROJECT_NUMBER = 9;
-const GITHUB_READ_TOKEN = import.meta.env.VITE_GITHUB_READ_TOKEN as string | undefined;
 
 const copy: Record<Language, {
   funnel: Record<StatusKey, string>;
@@ -194,8 +189,6 @@ const copy: Record<Language, {
   comments: string;
   openCollab: string;
   collabDescription: string;
-  missingTokenWarning: string;
-  liveFetchFailed: string;
   detailEmpty: string;
   openInTab: string;
   dialogPrompt: string;
@@ -227,8 +220,6 @@ const copy: Record<Language, {
     comments: "komentar",
     openCollab: "Belajar Bareng",
     collabDescription: "Proses belajar publik ini dirancang agar siapa pun bisa memberi masukan, bertanya, atau berdiskusi di setiap tahap.",
-    missingTokenWarning: "VITE_GITHUB_READ_TOKEN tidak ditemukan, menggunakan snapshot build.",
-    liveFetchFailed: "Live fetch gagal",
     detailEmpty: "Belum ada detail konten.",
     openInTab: "Buka Tab",
     dialogPrompt: "Punya ide, pertanyaan, atau sudut pandang berbeda? Yuk diskusi di GitHub.",
@@ -260,8 +251,6 @@ const copy: Record<Language, {
     comments: "comments",
     openCollab: "Learn Together",
     collabDescription: "This public learning process is designed for anyone to give feedback, ask questions, or discuss at every stage.",
-    missingTokenWarning: "VITE_GITHUB_READ_TOKEN is missing, using snapshot build.",
-    liveFetchFailed: "Live fetch failed",
     detailEmpty: "Detail content is not available.",
     openInTab: "Open Tab",
     dialogPrompt: "Have ideas, questions, or another perspective? Let's discuss on GitHub.",
@@ -292,8 +281,6 @@ const copy: Record<Language, {
     comments: "条评论",
     openCollab: "一起学习",
     collabDescription: "这个公开学习过程让任何人都可以在每个阶段给予反馈、提问或讨论。",
-    missingTokenWarning: "未找到 VITE_GITHUB_READ_TOKEN，已使用快照数据。",
-    liveFetchFailed: "实时拉取失败",
     detailEmpty: "暂无可显示的详情内容。",
     openInTab: "新标签打开",
     dialogPrompt: "如果你有想法、问题或不同视角，欢迎到 GitHub 继续讨论。",
@@ -324,8 +311,6 @@ const copy: Record<Language, {
     comments: "コメント",
     openCollab: "一緒に学ぶ",
     collabDescription: "この公開学習プロセスは、誰でも各段階でフィードバック、質問、議論ができるように設計されています。",
-    missingTokenWarning: "VITE_GITHUB_READ_TOKEN が見つからないため、スナップショットを使用します。",
-    liveFetchFailed: "ライブ取得に失敗しました",
     detailEmpty: "表示できる詳細コンテンツがありません。",
     openInTab: "新しいタブで開く",
     dialogPrompt: "アイデア、質問、または別の視点があれば、GitHub で議論に参加してください。",
@@ -333,229 +318,11 @@ const copy: Record<Language, {
   },
 };
 
-function toStatusKey(value: string) {
-  const raw = (value || "").trim().toLowerCase();
-  if (!raw) return "unknown";
-  if (raw.includes("backlog") || raw.includes("todo") || raw.includes("to do")) return "todo";
-  if (raw.includes("progress") || raw.includes("doing") || raw.includes("active")) return "in_progress";
-  if (raw.includes("review") || raw.includes("feedback")) return "review_feedback";
-  if (raw.includes("valid") || raw.includes("qa") || raw.includes("test")) return "ready_validation";
-  if (raw.includes("handover") || raw === "done" || raw.includes("complete") || raw.includes("release")) {
-    return "ready_handover";
-  }
-  return "unknown";
-}
-
-function buildFunnel(items: ActivityEntry[], language: Language): FunnelStage[] {
-  const labels = copy[language].funnel;
-  const counts: Record<StatusKey, number> = {
-    todo: 0,
-    in_progress: 0,
-    review_feedback: 0,
-    ready_validation: 0,
-    ready_handover: 0,
-    unknown: 0,
-  };
-
-  for (const item of items) counts[item.statusKey] += 1;
-
-  return [
-    { key: "todo", label: labels.todo, count: counts.todo },
-    { key: "in_progress", label: labels.in_progress, count: counts.in_progress },
-    { key: "review_feedback", label: labels.review_feedback, count: counts.review_feedback },
-    { key: "ready_validation", label: labels.ready_validation, count: counts.ready_validation },
-    { key: "ready_handover", label: labels.ready_handover, count: counts.ready_handover },
-    { key: "unknown", label: labels.unknown, count: counts.unknown },
-  ];
-}
-
-async function fetchGithubGraphql<T>(token: string, query: string, variables: Record<string, unknown>) {
-  const response = await fetch(GITHUB_GRAPHQL_ENDPOINT, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-      "User-Agent": "rk-activity-ui",
-    },
-    body: JSON.stringify({ query, variables }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`GitHub API ${response.status}`);
-  }
-
-  const json = (await response.json()) as { data?: T; errors?: { message: string }[] };
-  if (json.errors?.length) {
-    throw new Error(json.errors.map((error) => error.message).join(" | "));
-  }
-  if (!json.data) throw new Error("GitHub API returned empty data");
-  return json.data;
-}
-
-function normalizeLiveProjectItem(item: any): ActivityEntry {
-  const statusField = item.fieldValues?.nodes?.find(
-    (node: any) => node?.__typename === "ProjectV2ItemFieldSingleSelectValue" && node?.field?.name?.toLowerCase() === "status",
-  );
-  const status = statusField?.name || "Unknown";
-  const content = item.content || {};
-  const title = content.title || item.fieldValues?.nodes?.find((n: any) => typeof n?.text === "string")?.text || "Untitled";
-
-  return {
-    id: item.id,
-    source: "project",
-    sourceType: content.__typename || "DraftIssue",
-    title,
-    url: content.url || `https://github.com/users/${GITHUB_OWNER}/projects/${GITHUB_PROJECT_NUMBER}`,
-    number: content.number || null,
-    state: content.state || "OPEN",
-    status,
-    statusKey: toStatusKey(status),
-    updatedAt: content.updatedAt || item.updatedAt || new Date().toISOString(),
-    repository: content.repository?.nameWithOwner || null,
-    labels: content.labels?.nodes?.map((label: any) => label.name) || [],
-    body: content.body || "",
-  };
-}
-
-function normalizeLiveDiscussion(node: any): ActivityEntry {
-  return {
-    id: node.id,
-    source: "discussion",
-    sourceType: "Discussion",
-    title: node.title,
-    url: node.url,
-    number: node.number || null,
-    state: node.closed ? "CLOSED" : "OPEN",
-    status: node.category?.name || "Discussion",
-    statusKey: "review_feedback",
-    updatedAt: node.updatedAt,
-    repository: `${GITHUB_OWNER}/${GITHUB_DISCUSSION_REPO}`,
-    labels: node.labels?.nodes?.map((label: any) => label.name) || [],
-    comments: node.comments?.totalCount || 0,
-    body: node.body || "",
-  };
-}
-
 async function loadSnapshotData(): Promise<ActivityPayload> {
   const cacheBust = Math.floor(Date.now() / 60_000);
   const response = await fetch(`/data/activity.json?v=${cacheBust}`, { cache: "no-store" });
   if (!response.ok) throw new Error("Failed to load snapshot data");
   return (await response.json()) as ActivityPayload;
-}
-
-async function loadLiveGithubData(token: string): Promise<ActivityPayload> {
-  const projectQuery = `
-    query ProjectData($owner: String!, $projectNumber: Int!) {
-      user(login: $owner) {
-        projectV2(number: $projectNumber) {
-          title
-          url
-          items(first: 100) {
-            nodes {
-              id
-              updatedAt
-              fieldValues(first: 20) {
-                nodes {
-                  __typename
-                  ... on ProjectV2ItemFieldSingleSelectValue {
-                    name
-                    field { ... on ProjectV2FieldCommon { name } }
-                  }
-                  ... on ProjectV2ItemFieldTextValue {
-                    text
-                    field { ... on ProjectV2FieldCommon { name } }
-                  }
-                }
-              }
-              content {
-                __typename
-                ... on Issue {
-                  number
-                  title
-                  url
-                  body
-                  state
-                  updatedAt
-                  repository { nameWithOwner }
-                  labels(first: 10) { nodes { name } }
-                }
-                ... on PullRequest {
-                  number
-                  title
-                  url
-                  body
-                  state
-                  updatedAt
-                  repository { nameWithOwner }
-                  labels(first: 10) { nodes { name } }
-                }
-                ... on DraftIssue {
-                  title
-                  body
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  const projectData = await fetchGithubGraphql<any>(token, projectQuery, {
-    owner: GITHUB_OWNER,
-    projectNumber: GITHUB_PROJECT_NUMBER,
-  });
-
-  const projectNode = projectData?.user?.projectV2;
-  if (!projectNode) throw new Error(`Project ${GITHUB_PROJECT_NUMBER} not found`);
-
-  const projectItems = (projectNode.items?.nodes || []).map(normalizeLiveProjectItem);
-
-  let discussions: ActivityEntry[] = [];
-  try {
-    const discussionsQuery = `
-      query DiscussionData($owner: String!, $repo: String!) {
-        repository(owner: $owner, name: $repo) {
-          discussions(first: 20, orderBy: { field: UPDATED_AT, direction: DESC }) {
-            nodes {
-              id
-              number
-              title
-              url
-              body
-              updatedAt
-              closed
-              category { name }
-              labels(first: 10) { nodes { name } }
-              comments { totalCount }
-            }
-          }
-        }
-      }
-    `;
-    const discussionData = await fetchGithubGraphql<any>(token, discussionsQuery, {
-      owner: GITHUB_OWNER,
-      repo: GITHUB_DISCUSSION_REPO,
-    });
-    discussions = (discussionData?.repository?.discussions?.nodes || []).map(normalizeLiveDiscussion);
-  } catch {
-    discussions = [];
-  }
-
-  return {
-    generatedAt: new Date().toISOString(),
-    owner: GITHUB_OWNER,
-    discussionRepo: `${GITHUB_OWNER}/${GITHUB_DISCUSSION_REPO}`,
-    project: {
-      number: GITHUB_PROJECT_NUMBER,
-      title: projectNode.title || "Activity Board",
-      url: projectNode.url || `https://github.com/users/${GITHUB_OWNER}/projects/${GITHUB_PROJECT_NUMBER}`,
-    },
-    funnel: buildFunnel(projectItems, "en"),
-    projectItems,
-    discussions,
-    warnings: [],
-  };
 }
 
 function formatDate(dateString: string, language: Language) {
@@ -607,35 +374,14 @@ export function ActivityTransparencySection({ darkMode }: { darkMode: boolean })
   useEffect(() => {
     let mounted = true;
 
+    // Data comes from /data/activity.json, which the deploy workflow refreshes
+    // with a server-side token. The browser never needs GitHub credentials.
     const loadData = async () => {
-      let snapshot: ActivityPayload | null = null;
       try {
-        snapshot = await loadSnapshotData();
+        const snapshot = await loadSnapshotData();
+        if (mounted) setData(snapshot);
       } catch {
-        snapshot = null;
-      }
-
-      try {
-        if (!GITHUB_READ_TOKEN) {
-          if (mounted) {
-            setData(
-              snapshot ?? FALLBACK_DATA,
-            );
-          }
-          return;
-        }
-
-        const live = await loadLiveGithubData(GITHUB_READ_TOKEN);
-        if (mounted) setData(live);
-      } catch (error) {
-        if (mounted) {
-          const message = error instanceof Error ? error.message : "Unknown error";
-          if (snapshot) {
-            setData({ ...snapshot, warnings: [`${text.liveFetchFailed}: ${message}`] });
-          } else {
-            setData({ ...FALLBACK_DATA, warnings: [`${text.liveFetchFailed}: ${message}`] });
-          }
-        }
+        if (mounted) setData(FALLBACK_DATA);
       } finally {
         if (mounted) setLoading(false);
       }
@@ -645,7 +391,7 @@ export function ActivityTransparencySection({ darkMode }: { darkMode: boolean })
     return () => {
       mounted = false;
     };
-  }, [text.liveFetchFailed]);
+  }, []);
 
   const stageEntries = useMemo(() => {
     const map = new Map<StatusKey, ActivityEntry[]>();
